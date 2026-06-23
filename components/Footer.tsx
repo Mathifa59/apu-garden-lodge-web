@@ -2,13 +2,14 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Logo } from "./Logo";
 
-const ROUTES = ["/", "/servicios", "/novedad", "/nosotros", "/contacto"] as const;
+const ROUTES = ["/", "/servicios", "/novedad", "/nosotros", "/reservas", "/contacto"] as const;
 
 const ROUTE_KEYS: Record<(typeof ROUTES)[number], string> = {
   "/": "home",
   "/servicios": "services",
   "/novedad": "whatsNew",
   "/nosotros": "about",
+  "/reservas": "booking",
   "/contacto": "contact",
 };
 

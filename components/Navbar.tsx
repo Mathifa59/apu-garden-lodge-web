@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Logo } from "./Logo";
 
-const ROUTES = ["/", "/servicios", "/novedad", "/nosotros", "/contacto"] as const;
+const ROUTES = ["/", "/servicios", "/novedad", "/nosotros", "/reservas", "/contacto"] as const;
 
 export function Navbar() {
   const t = useTranslations("nav");
@@ -78,7 +78,7 @@ export function Navbar() {
             {otherLocale.toUpperCase()}
           </Link>
           <Link
-            href="/#reservar"
+            href="/reservas"
             className="rounded-full bg-sage px-5 py-2.5 font-ui text-sm font-semibold text-cream transition-all hover:bg-sage-deep hover:shadow-lg active:scale-95"
           >
             {t("reserve")}
@@ -142,7 +142,7 @@ export function Navbar() {
               </li>
               <li className="pt-2">
                 <Link
-                  href="/#reservar"
+                  href="/reservas"
                   className="block rounded-full bg-sage px-4 py-3 text-center font-ui text-sm font-semibold text-cream"
                 >
                   {t("reserve")}
@@ -162,6 +162,7 @@ function routeKey(href: (typeof ROUTES)[number]) {
     "/servicios": "services",
     "/novedad": "whatsNew",
     "/nosotros": "about",
+    "/reservas": "booking",
     "/contacto": "contact",
   } satisfies Record<(typeof ROUTES)[number], string>;
   return map[href];

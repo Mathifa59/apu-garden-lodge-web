@@ -48,7 +48,7 @@ export default async function NovedadPage({ params }: { params: Promise<{ locale
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-base text-star/80 sm:text-lg">{t("subtitle")}</p>
             <Link
-              href="/#reservar"
+              href="/reservas"
               className="mt-9 inline-block rounded-full bg-celestial px-8 py-3.5 font-ui text-sm font-semibold text-night shadow-lg shadow-night/50 transition-all hover:brightness-110 active:scale-95"
             >
               {t("cta")}

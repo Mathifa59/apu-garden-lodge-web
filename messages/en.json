@@ -21,6 +21,10 @@
     "contacto": {
       "title": "Contact",
       "description": "Write to us or check room availability at Apu Garden Lodge, Sacred Valley, Cusco."
+    },
+    "reservas": {
+      "title": "Booking",
+      "description": "Check real room availability and send your booking request at Apu Garden Lodge, Sacred Valley, Cusco."
     }
   },
   "nav": {
@@ -28,6 +32,7 @@
     "services": "Services",
     "whatsNew": "What's New",
     "about": "About",
+    "booking": "Booking",
     "contact": "Contact",
     "reserve": "Book now",
     "language": "Language",
@@ -168,5 +173,10 @@
     "mapTitle": "Approximate location — Sacred Valley, Cusco",
     "mapCaption": "Approximate location — we'll send you the exact address once your booking is confirmed.",
     "availabilityTitle": "Check availability"
+  },
+  "reservas": {
+    "eyebrow": "Booking",
+    "title": "Book your stay",
+    "subtitle": "Check real availability and send your request — we'll confirm by email or WhatsApp within minutes."
   }
 }

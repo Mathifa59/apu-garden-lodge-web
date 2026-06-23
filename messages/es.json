@@ -21,6 +21,10 @@
     "contacto": {
       "title": "Contacto",
       "description": "Escríbenos o consulta disponibilidad de cuartos en Apu Garden Lodge, Valle Sagrado, Cusco."
+    },
+    "reservas": {
+      "title": "Reservas",
+      "description": "Consulta disponibilidad real de cuartos y envía tu solicitud de reserva en Apu Garden Lodge, Valle Sagrado, Cusco."
     }
   },
   "nav": {
@@ -28,6 +32,7 @@
     "services": "Servicios",
     "whatsNew": "Novedad",
     "about": "Nosotros",
+    "booking": "Reservas",
     "contact": "Contacto",
     "reserve": "Reservar",
     "language": "Idioma",
@@ -168,5 +173,10 @@
     "mapTitle": "Ubicación aproximada — Valle Sagrado, Cusco",
     "mapCaption": "Ubicación aproximada — te enviamos la dirección exacta al confirmar tu reserva.",
     "availabilityTitle": "Consulta disponibilidad"
+  },
+  "reservas": {
+    "eyebrow": "Reservas",
+    "title": "Reserva tu estadía",
+    "subtitle": "Consulta disponibilidad real y envía tu solicitud — te confirmamos por correo o WhatsApp en minutos."
   }
 }
