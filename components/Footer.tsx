@@ -1,0 +1,59 @@
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
+import { Logo } from "./Logo";
+
+const ROUTES = ["/", "/servicios", "/novedad", "/nosotros", "/contacto"] as const;
+
+const ROUTE_KEYS: Record<(typeof ROUTES)[number], string> = {
+  "/": "home",
+  "/servicios": "services",
+  "/novedad": "whatsNew",
+  "/nosotros": "about",
+  "/contacto": "contact",
+};
+
+export function Footer() {
+  const t = useTranslations("nav");
+  const tf = useTranslations("footer");
+
+  return (
+    <footer className="bg-ink px-5 py-14 text-cream sm:px-8">
+      <div className="mx-auto grid max-w-6xl gap-10 sm:grid-cols-3">
+        <div>
+          <Logo light />
+          <p className="mt-4 max-w-xs text-sm text-cream/70">{tf("tagline")}</p>
+        </div>
+
+        <div>
+          <p className="font-ui text-xs font-semibold uppercase tracking-[0.25em] text-cream/50">
+            {tf("explore")}
+          </p>
+          <ul className="mt-4 space-y-2">
+            {ROUTES.map((href) => (
+              <li key={href}>
+                <Link href={href} className="text-sm text-cream/80 transition-colors hover:text-honey">
+                  {t(ROUTE_KEYS[href])}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <p className="font-ui text-xs font-semibold uppercase tracking-[0.25em] text-cream/50">
+            {tf("contact")}
+          </p>
+          <ul className="mt-4 space-y-2 text-sm text-cream/80">
+            <li>reservas@apugardenlodge.com</li>
+            <li>+51 984 000 000</li>
+            <li>{tf("address")}</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="mx-auto mt-12 max-w-6xl border-t border-cream/10 pt-6 text-xs text-cream/40">
+        © {new Date().getFullYear()} Apu Garden Lodge. {tf("rights")}
+      </div>
+    </footer>
+  );
+}

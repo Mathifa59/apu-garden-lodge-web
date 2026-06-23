@@ -1,0 +1,172 @@
+{
+  "metadata": {
+    "title": "Apu Garden Lodge — Descanso, naturaleza y experiencia",
+    "description": "Hotel boutique en el Valle Sagrado. Cuartos acogedores, jardines exuberantes y un telescopio astronómico para ver el cielo como nunca antes.",
+    "home": {
+      "title": "Apu Garden Lodge — Descanso, naturaleza y experiencia",
+      "description": "Hotel boutique en el Valle Sagrado, Cusco. Cuartos acogedores, jardines exuberantes y un telescopio astronómico para ver el cielo como nunca antes."
+    },
+    "servicios": {
+      "title": "Servicios",
+      "description": "Cuartos, desayuno botánico, jardines, observación astronómica, traslados y spa natural — todo lo que incluye tu estadía en Apu Garden Lodge."
+    },
+    "novedad": {
+      "title": "Novedad — Observación astronómica",
+      "description": "Apu Garden Lodge incorporó un telescopio astronómico para que veas el cielo del Valle Sagrado como nunca antes."
+    },
+    "nosotros": {
+      "title": "Nosotros",
+      "description": "La historia detrás de Apu Garden Lodge, un refugio entre montañas en el Valle Sagrado, Cusco."
+    },
+    "contacto": {
+      "title": "Contacto",
+      "description": "Escríbenos o consulta disponibilidad de cuartos en Apu Garden Lodge, Valle Sagrado, Cusco."
+    }
+  },
+  "nav": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "whatsNew": "Novedad",
+    "about": "Nosotros",
+    "contact": "Contacto",
+    "reserve": "Reservar",
+    "language": "Idioma",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
+  },
+  "footer": {
+    "tagline": "Descanso, naturaleza y experiencia entre montañas — tu refugio para desconectar y mirar el cielo como nunca antes.",
+    "explore": "Explorar",
+    "contact": "Contacto",
+    "address": "Valle Sagrado, Cusco, Perú",
+    "rights": "Todos los derechos reservados."
+  },
+  "rooms": {
+    "single": {
+      "label": "Individual",
+      "description": "Para viajeros que buscan su propio refugio tranquilo."
+    },
+    "double": {
+      "label": "Doble",
+      "description": "Pensada para parejas, con vista a los jardines."
+    },
+    "suite": {
+      "label": "Suite",
+      "description": "Nuestro espacio más amplio, con terraza privada."
+    }
+  },
+  "booking": {
+    "title": "Consulta tu estadía",
+    "subtitle": "Revisa disponibilidad real y envía tu solicitud en un minuto.",
+    "arrival": "Llegada",
+    "departure": "Salida",
+    "guests": "Huéspedes",
+    "fewerGuests": "Menos huéspedes",
+    "moreGuests": "Más huéspedes",
+    "searching": "Buscando…",
+    "search": "Consultar",
+    "pickDates": "Elige las fechas de llegada y salida.",
+    "checkoutAfterCheckin": "La fecha de salida debe ser posterior a la de llegada.",
+    "genericError": "No pudimos procesar tu solicitud, intenta de nuevo en un momento.",
+    "available": "Disponible",
+    "unavailable": "Sin cupo",
+    "requestBooking": "Solicitar reserva",
+    "sent": "¡Solicitud enviada!",
+    "sentDetail": "Te escribiremos a {email} para confirmar tu reserva en {roomType}.",
+    "close": "Cerrar",
+    "yourDetails": "Tus datos",
+    "fullName": "Nombre completo",
+    "email": "Correo electrónico",
+    "phone": "Teléfono (opcional)",
+    "notes": "¿Algo que debamos saber? (opcional)",
+    "sending": "Enviando…",
+    "send": "Enviar solicitud"
+  },
+  "home": {
+    "badge": "Valle Sagrado · Cusco",
+    "tagline": "Descanso · Naturaleza · Experiencia",
+    "heroText": "Un refugio entre montañas donde el tiempo se acomoda a tu propio ritmo — jardines exuberantes, cuartos acogedores y cielos que se ven distinto desde aquí.",
+    "heroCta": "Reservar mi estadía",
+    "heroImageAlt": "Montañas verdes del Valle Sagrado al amanecer, vistas desde Apu Garden Lodge",
+    "welcomeEyebrow": "Bienvenido",
+    "welcomeTitle": "Tu refugio en la montaña",
+    "welcomeText": "Cada rincón de Apu Garden Lodge está pensado para que desaceleres: jardines que invitan a caminar despacio, cuartos cálidos con vista a la naturaleza, y un equipo que cuida cada detalle de tu estadía para que solo tengas que descansar.",
+    "welcomeCta": "Conoce nuestra historia →",
+    "welcomeImageAlt": "Cuarto acogedor de Apu Garden Lodge con papel tapiz botánico",
+    "bookEyebrow": "Reserva directa",
+    "bookTitle": "¿Cuándo nos visitas?",
+    "exploreEyebrow": "Explora",
+    "exploreTitle": "Más de Apu Garden",
+    "cardServiciosTitle": "Servicios",
+    "cardServiciosDesc": "Todo lo que tu estadía incluye.",
+    "cardNovedadTitle": "Novedad",
+    "cardNovedadDesc": "Un telescopio para ver el cielo distinto.",
+    "cardNosotrosTitle": "Nosotros",
+    "cardNosotrosDesc": "La historia detrás del lodge."
+  },
+  "servicios": {
+    "eyebrow": "Servicios",
+    "title": "Todo lo que incluye tu estadía",
+    "subtitle": "Desde el cuarto en el que despiertas hasta el cielo que ves de noche — cada servicio está pensado para que tu única tarea sea descansar.",
+    "roomsHeading": "Cuartos",
+    "amenitiesHeading": "Experiencias incluidas",
+    "amenities": {
+      "breakfast": { "title": "Desayuno botánico", "desc": "Productos locales, servido entre los jardines o en tu cuarto." },
+      "garden": { "title": "Jardines y senderos", "desc": "Caminos entre flora nativa para perderte sin prisa." },
+      "stars": { "title": "Observación astronómica", "desc": "Nuestro telescopio, abierto cada noche despejada." },
+      "wifi": { "title": "Wifi en todo el lodge", "desc": "Para quien quiere desconectar solo a medias." },
+      "transport": { "title": "Traslados", "desc": "Coordinamos tu llegada desde Cusco o el valle." },
+      "spa": { "title": "Spa natural", "desc": "Tratamientos con plantas e infusiones de la zona." }
+    },
+    "natureEyebrow": "Naturaleza",
+    "gardenHeading": "Jardines para perderse",
+    "gardenText": "Senderos entre flora nativa, rincones con sombra y bancos de piedra — el jardín de Apu Garden Lodge es tan parte de tu estadía como el cuarto mismo.",
+    "discoverNew": "Descubre nuestra novedad",
+    "gardenImageAlt": "Sendero de jardín exuberante en Apu Garden Lodge"
+  },
+  "novedad": {
+    "eyebrow": "Novedad",
+    "title": "Mira el cielo como nunca antes",
+    "subtitle": "Apu Garden Lodge incorporó un telescopio astronómico para que nuestros huéspedes observen el cielo del Valle Sagrado — uno de los más despejados y oscuros del país — con un nivel de detalle que no olvidarás.",
+    "cta": "Reserva tu noche de estrellas",
+    "heroImageAlt": "Observatorio bajo la Vía Láctea, cielo estrellado",
+    "experienceEyebrow": "La experiencia",
+    "experienceTitle": "Un cielo que se siente cerca",
+    "experienceText1": "Sin contaminación lumínica y a la altura del valle, el cielo de Apu Garden Lodge se abre distinto. Nuestro equipo te guía noche a noche para encontrar planetas, cúmulos y la Vía Láctea a través del telescopio del lodge — una experiencia incluida para quienes se quedan con nosotros.",
+    "experienceText2": "Disponible cada noche despejada. Solo abrígate, el resto lo tenemos listo.",
+    "secondaryImageAlt": "Cielo estrellado con la Vía Láctea sobre la silueta de montañas",
+    "quote": "“Nunca había visto tantas estrellas a la vez.”",
+    "quoteAuthor": "— Un huésped de Apu Garden Lodge"
+  },
+  "nosotros": {
+    "eyebrow": "Nosotros",
+    "title": "La historia detrás del lodge",
+    "originEyebrow": "Nuestro origen",
+    "originTitle": "Un refugio entre montañas",
+    "originText1": "Apu Garden Lodge nació de una idea simple: construir un lugar donde la naturaleza del Valle Sagrado fuera la protagonista, no solo el fondo. “Apu” — espíritu de montaña en quechua — guía cada rincón del lodge, desde los jardines hasta las noches que pasamos mirando el cielo.",
+    "originText2": "Hoy seguimos creciendo con esa misma idea: menos ruido, más naturaleza, y experiencias que de verdad se quedan contigo.",
+    "cabinImageAlt": "Cabaña de montaña entre bosques, origen de Apu Garden Lodge",
+    "valuesHeading": "Lo que nos guía",
+    "values": {
+      "nature": { "title": "Naturaleza primero", "desc": "Cada decisión del lodge protege el entorno que nos rodea." },
+      "rest": { "title": "Descanso real", "desc": "Espacios pensados para que el tiempo se sienta más lento." },
+      "honest": { "title": "Experiencia honesta", "desc": "Sin lujos artificiales — calidez, detalle y atención genuina." }
+    },
+    "locationEyebrow": "Dónde estamos",
+    "locationTitle": "En el corazón del Valle Sagrado",
+    "locationText": "A pocos minutos de los pueblos del valle y rodeados de montañas — lo suficientemente cerca para explorar, lo suficientemente lejos para desconectar de verdad.",
+    "locationCta": "Cómo llegar"
+  },
+  "contacto": {
+    "eyebrow": "Contacto",
+    "title": "Hablemos de tu próxima estadía",
+    "subtitle": "Escríbenos directamente o consulta disponibilidad aquí mismo — lo que te quede más cómodo.",
+    "emailLabel": "Correo",
+    "phoneLabel": "Teléfono / WhatsApp",
+    "locationLabel": "Ubicación",
+    "locationValue": "Valle Sagrado, Cusco, Perú",
+    "mapTitle": "Ubicación aproximada — Valle Sagrado, Cusco",
+    "mapCaption": "Ubicación aproximada — te enviamos la dirección exacta al confirmar tu reserva.",
+    "availabilityTitle": "Consulta disponibilidad"
+  }
+}

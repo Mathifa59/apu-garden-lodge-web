@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  /* Apu Garden Lodge — crema botánica + salvia + terracota */
+  --color-cream: #f7f1e4;
+  --color-cream-soft: #fbf7ee;
+  --color-cream-deep: #ece3cd;
+  --color-ink: #2b2a22;
+  --color-ink-soft: #54513f;
+
+  --color-sage: #5c6b47;
+  --color-sage-deep: #3f4a30;
+  --color-sage-pale: #dde3c8;
+
+  --color-terracotta: #b5562e;
+  --color-terracotta-bright: #d3713f;
+
+  --color-honey: #d4a24c;
+
+  /* Paleta exclusiva de la página Novedad (cielo nocturno) */
+  --color-night: #0b0f1f;
+  --color-night-deep: #050711;
+  --color-star: #f4f1e8;
+  --color-celestial: #e8c977;
+
+  --font-display: "Cormorant", serif;
+  --font-ui: "Outfit", sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+  }
+
+  ::selection {
+    background: var(--color-sage);
+    color: var(--color-cream);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  /* ponytail: textura de grano sutil vía SVG inline, sin librería de noise */
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+.animate-twinkle {
+  animation: twinkle 3.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

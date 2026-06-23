@@ -1,0 +1,172 @@
+{
+  "metadata": {
+    "title": "Apu Garden Lodge — Rest, Nature & Experience",
+    "description": "A boutique lodge in the Sacred Valley. Cozy rooms, lush gardens, and an astronomical telescope to see the sky like never before.",
+    "home": {
+      "title": "Apu Garden Lodge — Rest, Nature & Experience",
+      "description": "A boutique lodge in the Sacred Valley, Cusco. Cozy rooms, lush gardens, and an astronomical telescope to see the sky like never before."
+    },
+    "servicios": {
+      "title": "Services",
+      "description": "Rooms, botanical breakfast, gardens, stargazing, transfers and a natural spa — everything included in your stay at Apu Garden Lodge."
+    },
+    "novedad": {
+      "title": "New — Stargazing",
+      "description": "Apu Garden Lodge added an astronomical telescope so you can see the Sacred Valley sky like never before."
+    },
+    "nosotros": {
+      "title": "About Us",
+      "description": "The story behind Apu Garden Lodge, a mountain refuge in the Sacred Valley, Cusco."
+    },
+    "contacto": {
+      "title": "Contact",
+      "description": "Write to us or check room availability at Apu Garden Lodge, Sacred Valley, Cusco."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "whatsNew": "What's New",
+    "about": "About",
+    "contact": "Contact",
+    "reserve": "Book now",
+    "language": "Language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "footer": {
+    "tagline": "Rest, nature and experience among the mountains — your refuge to disconnect and look at the sky like never before.",
+    "explore": "Explore",
+    "contact": "Contact",
+    "address": "Sacred Valley, Cusco, Peru",
+    "rights": "All rights reserved."
+  },
+  "rooms": {
+    "single": {
+      "label": "Single",
+      "description": "For travelers seeking their own quiet retreat."
+    },
+    "double": {
+      "label": "Double",
+      "description": "Designed for couples, with garden views."
+    },
+    "suite": {
+      "label": "Suite",
+      "description": "Our most spacious room, with a private terrace."
+    }
+  },
+  "booking": {
+    "title": "Check your stay",
+    "subtitle": "See real availability and send your request in a minute.",
+    "arrival": "Arrival",
+    "departure": "Departure",
+    "guests": "Guests",
+    "fewerGuests": "Fewer guests",
+    "moreGuests": "More guests",
+    "searching": "Searching…",
+    "search": "Check",
+    "pickDates": "Pick your arrival and departure dates.",
+    "checkoutAfterCheckin": "Departure date must be after the arrival date.",
+    "genericError": "We couldn't process your request, please try again in a moment.",
+    "available": "Available",
+    "unavailable": "Not available",
+    "requestBooking": "Request booking",
+    "sent": "Request sent!",
+    "sentDetail": "We'll email {email} to confirm your {roomType} room booking.",
+    "close": "Close",
+    "yourDetails": "Your details",
+    "fullName": "Full name",
+    "email": "Email address",
+    "phone": "Phone (optional)",
+    "notes": "Anything we should know? (optional)",
+    "sending": "Sending…",
+    "send": "Send request"
+  },
+  "home": {
+    "badge": "Sacred Valley · Cusco",
+    "tagline": "Rest · Nature · Experience",
+    "heroText": "A refuge among the mountains where time moves at your own pace — lush gardens, cozy rooms, and skies that look different from up here.",
+    "heroCta": "Book my stay",
+    "heroImageAlt": "Green mountains of the Sacred Valley at sunrise, seen from Apu Garden Lodge",
+    "welcomeEyebrow": "Welcome",
+    "welcomeTitle": "Your refuge in the mountains",
+    "welcomeText": "Every corner of Apu Garden Lodge is designed to slow you down: gardens that invite a quiet walk, warm rooms with views of nature, and a team that takes care of every detail so all you have to do is rest.",
+    "welcomeCta": "Discover our story →",
+    "welcomeImageAlt": "Cozy room at Apu Garden Lodge with botanical wallpaper",
+    "bookEyebrow": "Direct booking",
+    "bookTitle": "When will you visit us?",
+    "exploreEyebrow": "Explore",
+    "exploreTitle": "More of Apu Garden",
+    "cardServiciosTitle": "Services",
+    "cardServiciosDesc": "Everything your stay includes.",
+    "cardNovedadTitle": "What's New",
+    "cardNovedadDesc": "A telescope to see the sky differently.",
+    "cardNosotrosTitle": "About Us",
+    "cardNosotrosDesc": "The story behind the lodge."
+  },
+  "servicios": {
+    "eyebrow": "Services",
+    "title": "Everything your stay includes",
+    "subtitle": "From the room where you wake up to the sky you see at night — every service is designed so your only task is to rest.",
+    "roomsHeading": "Rooms",
+    "amenitiesHeading": "Included experiences",
+    "amenities": {
+      "breakfast": { "title": "Botanical breakfast", "desc": "Local produce, served among the gardens or in your room." },
+      "garden": { "title": "Gardens and trails", "desc": "Paths through native flora to wander without rushing." },
+      "stars": { "title": "Stargazing", "desc": "Our telescope, open every clear night." },
+      "wifi": { "title": "Wifi across the lodge", "desc": "For those who only want to disconnect halfway." },
+      "transport": { "title": "Transfers", "desc": "We coordinate your arrival from Cusco or the valley." },
+      "spa": { "title": "Natural spa", "desc": "Treatments with local plants and infusions." }
+    },
+    "natureEyebrow": "Nature",
+    "gardenHeading": "Gardens to get lost in",
+    "gardenText": "Trails through native flora, shaded corners and stone benches — the garden at Apu Garden Lodge is as much a part of your stay as the room itself.",
+    "discoverNew": "Discover our newest experience",
+    "gardenImageAlt": "Lush garden path at Apu Garden Lodge"
+  },
+  "novedad": {
+    "eyebrow": "What's New",
+    "title": "See the sky like never before",
+    "subtitle": "Apu Garden Lodge added an astronomical telescope so our guests can observe the sky of the Sacred Valley — one of the clearest and darkest in the country — with a level of detail you won't forget.",
+    "cta": "Book your night under the stars",
+    "heroImageAlt": "Observatory under the Milky Way, starry sky",
+    "experienceEyebrow": "The experience",
+    "experienceTitle": "A sky that feels within reach",
+    "experienceText1": "Free of light pollution and high up in the valley, the sky over Apu Garden Lodge opens up differently. Our team guides you every night to find planets, star clusters and the Milky Way through the lodge's telescope — an experience included for everyone staying with us.",
+    "experienceText2": "Available every clear night. Just bundle up — we'll take care of the rest.",
+    "secondaryImageAlt": "Starry sky with the Milky Way over a mountain silhouette",
+    "quote": "“I had never seen so many stars at once.”",
+    "quoteAuthor": "— A guest at Apu Garden Lodge"
+  },
+  "nosotros": {
+    "eyebrow": "About Us",
+    "title": "The story behind the lodge",
+    "originEyebrow": "Our origin",
+    "originTitle": "A refuge among the mountains",
+    "originText1": "Apu Garden Lodge was born from a simple idea: build a place where the nature of the Sacred Valley would be the protagonist, not just the backdrop. “Apu” — mountain spirit in Quechua — guides every corner of the lodge, from the gardens to the nights we spend looking at the sky.",
+    "originText2": "Today we keep growing with that same idea: less noise, more nature, and experiences that truly stay with you.",
+    "cabinImageAlt": "Mountain cabin among the forest, the origin of Apu Garden Lodge",
+    "valuesHeading": "What guides us",
+    "values": {
+      "nature": { "title": "Nature first", "desc": "Every decision at the lodge protects the environment around us." },
+      "rest": { "title": "Real rest", "desc": "Spaces designed to make time feel slower." },
+      "honest": { "title": "Honest experience", "desc": "No artificial luxury — just warmth, detail and genuine care." }
+    },
+    "locationEyebrow": "Where we are",
+    "locationTitle": "In the heart of the Sacred Valley",
+    "locationText": "A few minutes from the valley's towns and surrounded by mountains — close enough to explore, far enough to truly disconnect.",
+    "locationCta": "How to get here"
+  },
+  "contacto": {
+    "eyebrow": "Contact",
+    "title": "Let's talk about your next stay",
+    "subtitle": "Write to us directly or check availability right here — whatever feels easiest.",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone / WhatsApp",
+    "locationLabel": "Location",
+    "locationValue": "Sacred Valley, Cusco, Peru",
+    "mapTitle": "Approximate location — Sacred Valley, Cusco",
+    "mapCaption": "Approximate location — we'll send you the exact address once your booking is confirmed.",
+    "availabilityTitle": "Check availability"
+  }
+}
