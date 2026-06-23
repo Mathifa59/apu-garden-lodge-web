@@ -81,20 +81,20 @@ export function BookingWidget() {
           />
         </Field>
         <Field label={t("guests")}>
-          <div className="flex items-center gap-3 rounded-xl border border-sage-pale bg-cream px-3 py-2.5">
+          <div className="flex items-center justify-between rounded-xl border border-sage-pale bg-cream px-1">
             <button
               type="button"
               onClick={() => setGuests((g) => Math.max(1, g - 1))}
-              className="text-sage-deep transition hover:text-terracotta"
+              className="flex h-10 w-10 items-center justify-center rounded-lg text-lg text-sage-deep transition hover:bg-sage-pale hover:text-terracotta"
               aria-label={t("fewerGuests")}
             >
               −
             </button>
-            <span className="w-4 text-center text-sm">{guests}</span>
+            <span className="text-center text-sm">{guests}</span>
             <button
               type="button"
               onClick={() => setGuests((g) => Math.min(8, g + 1))}
-              className="text-sage-deep transition hover:text-terracotta"
+              className="flex h-10 w-10 items-center justify-center rounded-lg text-lg text-sage-deep transition hover:bg-sage-pale hover:text-terracotta"
               aria-label={t("moreGuests")}
             >
               +

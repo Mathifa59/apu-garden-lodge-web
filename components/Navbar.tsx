@@ -79,7 +79,7 @@ export function Navbar() {
           </Link>
           <Link
             href="/reservas"
-            className="rounded-full bg-sage px-5 py-2.5 font-ui text-sm font-semibold text-cream transition-all hover:bg-sage-deep hover:shadow-lg active:scale-95"
+            className="rounded-full bg-terracotta px-5 py-2.5 font-ui text-sm font-semibold text-cream transition-all hover:bg-terracotta-bright hover:shadow-lg active:scale-95"
           >
             {t("reserve")}
           </Link>
@@ -143,7 +143,7 @@ export function Navbar() {
               <li className="pt-2">
                 <Link
                   href="/reservas"
-                  className="block rounded-full bg-sage px-4 py-3 text-center font-ui text-sm font-semibold text-cream"
+                  className="block rounded-full bg-terracotta px-4 py-3 text-center font-ui text-sm font-semibold text-cream"
                 >
                   {t("reserve")}
                 </Link>
