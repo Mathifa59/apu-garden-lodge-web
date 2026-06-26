@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "title": "Apu Garden Lodge — Descanso, naturaleza y experiencia",
-    "description": "Hotel boutique en el Valle Sagrado. Cuartos acogedores, jardines exuberantes y un telescopio astronómico para ver el cielo como nunca antes.",
+    "title": "Apu Garden Lodge — Hotel boutique en Urubamba, Valle Sagrado",
+    "description": "Hotel boutique en Urubamba, Valle Sagrado, Cusco. Cuartos acogedores, jardines exuberantes y un telescopio astronómico para ver el cielo como nunca antes.",
     "home": {
-      "title": "Apu Garden Lodge — Descanso, naturaleza y experiencia",
-      "description": "Hotel boutique en el Valle Sagrado, Cusco. Cuartos acogedores, jardines exuberantes y un telescopio astronómico para ver el cielo como nunca antes."
+      "title": "Apu Garden Lodge — Hotel boutique en Urubamba, Valle Sagrado",
+      "description": "Hotel boutique en Urubamba, Valle Sagrado, Cusco. Cuartos acogedores, jardines exuberantes y un telescopio astronómico para ver el cielo como nunca antes."
     },
     "servicios": {
       "title": "Servicios",
@@ -20,7 +20,7 @@
     },
     "contacto": {
       "title": "Contacto",
-      "description": "Escríbenos o consulta disponibilidad de cuartos en Apu Garden Lodge, Valle Sagrado, Cusco."
+      "description": "Escríbenos o consulta disponibilidad de cuartos en Apu Garden Lodge, Urubamba, Valle Sagrado, Cusco."
     },
     "reservas": {
       "title": "Reservas",
@@ -43,7 +43,7 @@
     "tagline": "Descanso, naturaleza y experiencia entre montañas — tu refugio para desconectar y mirar el cielo como nunca antes.",
     "explore": "Explorar",
     "contact": "Contacto",
-    "address": "Valle Sagrado, Cusco, Perú",
+    "address": "Cidruchayoc, lote 178, sector Yanaconas, Urubamba, Cusco",
     "rights": "Todos los derechos reservados."
   },
   "rooms": {
@@ -244,11 +244,11 @@
     "eyebrow": "Contacto",
     "title": "Hablemos de tu próxima estadía",
     "subtitle": "Escríbenos directamente o consulta disponibilidad aquí mismo — lo que te quede más cómodo.",
-    "emailLabel": "Correo",
     "phoneLabel": "Teléfono / WhatsApp",
     "locationLabel": "Ubicación",
-    "locationValue": "Valle Sagrado, Cusco, Perú",
-    "mapTitle": "Ubicación aproximada — Valle Sagrado, Cusco",
+    "locationValue": "Cidruchayoc, lote 178, sector Yanaconas, Urubamba, Cusco, Perú",
+    "socialLabel": "Síguenos",
+    "mapTitle": "Ubicación aproximada — Urubamba, Valle Sagrado",
     "mapCaption": "Ubicación aproximada — te enviamos la dirección exacta al confirmar tu reserva.",
     "availabilityTitle": "Consulta disponibilidad"
   },

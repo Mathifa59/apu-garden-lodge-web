@@ -4,10 +4,12 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { BookingWidget } from "@/components/BookingWidget";
 import { Reveal } from "@/components/Reveal";
+import { RevealCard } from "@/components/RevealCard";
+import { RevealMask } from "@/components/RevealMask";
 import { WaveDivider } from "@/components/WaveDivider";
 import { IMAGES } from "@/lib/images";
 import { roomPhotos } from "@/lib/roomPhotos";
-import { buildLanguageAlternates } from "@/lib/seo";
+import { buildCanonical, buildLanguageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -19,7 +21,7 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("description"),
-    alternates: { languages: buildLanguageAlternates("/") },
+    alternates: { canonical: buildCanonical(locale, "/"), languages: buildLanguageAlternates("/") },
   };
 }
 
@@ -80,9 +82,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="grid items-center gap-10 sm:grid-cols-2 sm:gap-16">
-          <Reveal>
+      <section className="relative overflow-hidden bg-fade-clay px-5 py-20 sm:px-8 sm:py-28">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 sm:grid-cols-2 sm:gap-16">
+          <RevealCard>
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem]">
               <Image
                 src={roomPhotos("deluxe_extragrande")[0]}
@@ -92,8 +94,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 className="object-cover"
               />
             </div>
-          </Reveal>
-          <Reveal delay={0.1}>
+          </RevealCard>
+          <RevealMask delay={0.1}>
             <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
               {t("welcomeEyebrow")}
             </p>
@@ -105,53 +107,55 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             >
               {t("welcomeCta")}
             </Link>
-          </Reveal>
+          </RevealMask>
         </div>
       </section>
 
-      <section className="bg-sage-pale/40 px-5 py-20 sm:px-8 sm:py-28">
-        <div className="mx-auto max-w-5xl">
-          <Reveal className="text-center">
+      <section className="relative overflow-hidden bg-sage-pale/40 bg-fade-honey px-5 py-20 sm:px-8 sm:py-28">
+        <div className="relative mx-auto max-w-5xl">
+          <RevealMask className="text-center">
             <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-sage-deep">
               {t("bookEyebrow")}
             </p>
             <h2 className="mt-3 font-display text-4xl italic text-ink sm:text-5xl">{t("bookTitle")}</h2>
-          </Reveal>
+          </RevealMask>
           <Reveal delay={0.1} className="mt-10">
             <BookingWidget />
           </Reveal>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-        <Reveal className="text-center">
-          <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
-            {t("exploreEyebrow")}
-          </p>
-          <h2 className="mt-3 font-display text-4xl italic text-ink sm:text-5xl">{t("exploreTitle")}</h2>
-        </Reveal>
+      <section className="relative overflow-hidden bg-fade-sage px-5 py-20 sm:px-8 sm:py-28">
+        <div className="relative mx-auto max-w-6xl">
+          <RevealMask className="text-center">
+            <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
+              {t("exploreEyebrow")}
+            </p>
+            <h2 className="mt-3 font-display text-4xl italic text-ink sm:text-5xl">{t("exploreTitle")}</h2>
+          </RevealMask>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-3">
-          {cards.map((card, i) => (
-            <Reveal key={card.href} delay={i * 0.1}>
-              <Link href={card.href} className="group block overflow-hidden rounded-[2rem]">
-                <div className="relative aspect-[4/5] overflow-hidden">
-                  <Image
-                    src={card.img}
-                    alt={card.title}
-                    fill
-                    sizes="(min-width: 640px) 33vw, 100vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
-                  <div className="absolute bottom-0 left-0 p-6">
-                    <p className="font-display text-2xl italic text-cream">{card.title}</p>
-                    <p className="mt-1 text-sm text-cream/80">{card.desc}</p>
+          <div className="mt-12 grid gap-6 sm:grid-cols-3">
+            {cards.map((card, i) => (
+              <RevealCard key={card.href} delay={i * 0.12}>
+                <Link href={card.href} className="group block overflow-hidden rounded-[2rem]">
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <Image
+                      src={card.img}
+                      alt={card.title}
+                      fill
+                      sizes="(min-width: 640px) 33vw, 100vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
+                    <div className="absolute bottom-0 left-0 p-6">
+                      <p className="font-display text-2xl italic text-cream">{card.title}</p>
+                      <p className="mt-1 text-sm text-cream/80">{card.desc}</p>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            </Reveal>
-          ))}
+                </Link>
+              </RevealCard>
+            ))}
+          </div>
         </div>
       </section>
     </>

@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { BookingWidget } from "@/components/BookingWidget";
 import { Reveal } from "@/components/Reveal";
-import { buildLanguageAlternates } from "@/lib/seo";
+import { RevealCard } from "@/components/RevealCard";
+import { RevealMask } from "@/components/RevealMask";
+import { buildCanonical, buildLanguageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -14,7 +16,7 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("description"),
-    alternates: { languages: buildLanguageAlternates("/contacto") },
+    alternates: { canonical: buildCanonical(locale, "/contacto"), languages: buildLanguageAlternates("/contacto") },
   };
 }
 
@@ -24,25 +26,25 @@ export default async function ContactoPage({ params }: { params: Promise<{ local
   const t = await getTranslations("contacto");
 
   const contactItems = [
-    { label: t("emailLabel"), value: "reservas@apugardenlodge.com", href: "mailto:reservas@apugardenlodge.com" },
-    { label: t("phoneLabel"), value: "+51 984 000 000", href: "https://wa.me/51984000000" },
+    { label: t("phoneLabel"), value: "+51 937 454 282", href: "https://wa.me/51937454282" },
     { label: t("locationLabel"), value: t("locationValue"), href: undefined },
+    { label: t("socialLabel"), value: "Facebook", href: "https://www.facebook.com/profile.php?id=61590296495164" },
   ];
 
   return (
     <>
-      <header className="bg-sage-pale/40 px-5 pt-32 pb-16 text-center sm:px-8 sm:pt-40">
-        <Reveal>
+      <header className="relative overflow-hidden bg-sage-pale/40 bg-fade-honey px-5 pt-32 pb-16 text-center sm:px-8 sm:pt-40">
+        <RevealMask className="relative">
           <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">{t("eyebrow")}</p>
           <h1 className="mt-3 font-display text-5xl italic text-ink sm:text-6xl">{t("title")}</h1>
           <p className="mx-auto mt-5 max-w-xl text-ink-soft">{t("subtitle")}</p>
-        </Reveal>
+        </RevealMask>
       </header>
 
-      <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
-        <div className="grid gap-5 sm:grid-cols-3">
+      <section className="relative overflow-hidden bg-fade-clay px-5 py-16 sm:px-8">
+        <div className="relative mx-auto grid max-w-6xl gap-5 sm:grid-cols-3">
           {contactItems.map((item, i) => (
-            <Reveal key={item.label} delay={i * 0.08}>
+            <RevealCard key={item.label} delay={i * 0.08}>
               <div className="rounded-2xl border border-sage-pale bg-cream-soft p-6 text-center">
                 <p className="font-ui text-xs font-semibold uppercase tracking-[0.25em] text-sage-deep">
                   {item.label}
@@ -60,13 +62,13 @@ export default async function ContactoPage({ params }: { params: Promise<{ local
                   <p className="mt-2 text-ink">{item.value}</p>
                 )}
               </div>
-            </Reveal>
+            </RevealCard>
           ))}
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
-        <Reveal>
+        <RevealCard>
           <div className="overflow-hidden rounded-[2rem] border border-sage-pale">
             <iframe
               title={t("mapTitle")}
@@ -76,14 +78,14 @@ export default async function ContactoPage({ params }: { params: Promise<{ local
             />
           </div>
           <p className="mt-2 text-center text-xs text-ink-soft">{t("mapCaption")}</p>
-        </Reveal>
+        </RevealCard>
       </section>
 
-      <section className="bg-sage-pale/40 px-5 py-20 sm:px-8 sm:py-28">
-        <div className="mx-auto max-w-5xl">
-          <Reveal className="text-center">
+      <section className="relative overflow-hidden bg-sage-pale/40 bg-fade-sage px-5 py-20 sm:px-8 sm:py-28">
+        <div className="relative mx-auto max-w-5xl">
+          <RevealMask className="text-center">
             <h2 className="font-display text-4xl italic text-ink sm:text-5xl">{t("availabilityTitle")}</h2>
-          </Reveal>
+          </RevealMask>
           <Reveal delay={0.1} className="mt-10">
             <BookingWidget />
           </Reveal>

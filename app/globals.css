@@ -27,7 +27,7 @@
   --color-star: #f4f1e8;
   --color-celestial: #e8c977;
 
-  --font-display: "Cormorant Garamond", serif;
+  --font-display: "Fraunces", serif;
   --font-ui: "Outfit", sans-serif;
 }
 
@@ -46,6 +46,9 @@
 @layer utilities {
   .font-display {
     font-family: var(--font-display);
+    font-weight: 600;
+    font-optical-sizing: auto;
+    font-variation-settings: "SOFT" 30, "WONK" 0;
   }
 
   /* ponytail: textura de grano sutil vía SVG inline, sin librería de noise */
@@ -60,6 +63,26 @@
     opacity: 0.05;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Degradados sutiles de marca para separar secciones sin caer en bloques de
+     color planos. Usan background-image (no el shorthand background) para
+     poder apilarse sobre un bg-color de Tailwind en el mismo elemento sin
+     resetearlo. */
+  .bg-fade-sage {
+    background-image: radial-gradient(ellipse 80% 60% at 50% 0%, color-mix(in srgb, var(--color-sage-pale) 55%, transparent), transparent 70%);
+  }
+  .bg-fade-honey {
+    background-image: radial-gradient(ellipse 70% 50% at 85% 100%, color-mix(in srgb, var(--color-honey) 18%, transparent), transparent 65%);
+  }
+  .bg-fade-clay {
+    background-image:
+      radial-gradient(ellipse 60% 50% at 8% 0%, color-mix(in srgb, var(--color-tan) 20%, transparent), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 100%, color-mix(in srgb, var(--color-sage-pale) 40%, transparent), transparent 65%);
+  }
+  /* Variante nocturna — para secciones sobre --color-night (página Novedad) */
+  .bg-fade-celestial {
+    background-image: radial-gradient(ellipse 70% 55% at 50% 0%, color-mix(in srgb, var(--color-celestial) 14%, transparent), transparent 70%);
   }
 }
 

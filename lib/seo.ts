@@ -1,9 +1,8 @@
 import { routing } from "@/i18n/routing";
 
-// ponytail: dominio placeholder hasta que el cliente confirme el dominio real
-// de producción — cambiar esta única constante actualiza metadata, sitemap,
-// robots.txt y JSON-LD a la vez.
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://apugardenlodge.com";
+// Dominio real de producción — si se despliega bajo otro dominio (staging,
+// preview), sobreescribir con NEXT_PUBLIC_SITE_URL en ese entorno.
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://apu-garden-lodge.com";
 
 export function buildLanguageAlternates(pathname: string): Record<string, string> {
   const languages: Record<string, string> = {};
@@ -13,4 +12,11 @@ export function buildLanguageAlternates(pathname: string): Record<string, string
   }
   languages["x-default"] = `${SITE_URL}${pathname}`;
   return languages;
+}
+
+// URL canónica de una página para el locale actual — evita que Google indexe
+// la misma página dos veces (con y sin prefijo /en) como contenido duplicado.
+export function buildCanonical(locale: string, pathname: string): string {
+  const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
+  return `${SITE_URL}${prefix}${pathname}`;
 }

@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "title": "Apu Garden Lodge — Rest, Nature & Experience",
-    "description": "A boutique lodge in the Sacred Valley. Cozy rooms, lush gardens, and an astronomical telescope to see the sky like never before.",
+    "title": "Apu Garden Lodge — Boutique Hotel in Urubamba, Sacred Valley",
+    "description": "A boutique hotel in Urubamba, Sacred Valley, Cusco. Cozy rooms, lush gardens, and an astronomical telescope to see the sky like never before.",
     "home": {
-      "title": "Apu Garden Lodge — Rest, Nature & Experience",
-      "description": "A boutique lodge in the Sacred Valley, Cusco. Cozy rooms, lush gardens, and an astronomical telescope to see the sky like never before."
+      "title": "Apu Garden Lodge — Boutique Hotel in Urubamba, Sacred Valley",
+      "description": "A boutique hotel in Urubamba, Sacred Valley, Cusco. Cozy rooms, lush gardens, and an astronomical telescope to see the sky like never before."
     },
     "servicios": {
       "title": "Services",
@@ -20,7 +20,7 @@
     },
     "contacto": {
       "title": "Contact",
-      "description": "Write to us or check room availability at Apu Garden Lodge, Sacred Valley, Cusco."
+      "description": "Write to us or check room availability at Apu Garden Lodge, Urubamba, Sacred Valley, Cusco."
     },
     "reservas": {
       "title": "Booking",
@@ -43,7 +43,7 @@
     "tagline": "Rest, nature and experience among the mountains — your refuge to disconnect and look at the sky like never before.",
     "explore": "Explore",
     "contact": "Contact",
-    "address": "Sacred Valley, Cusco, Peru",
+    "address": "Cidruchayoc, lote 178, sector Yanaconas, Urubamba, Cusco",
     "rights": "All rights reserved."
   },
   "rooms": {
@@ -244,11 +244,11 @@
     "eyebrow": "Contact",
     "title": "Let's talk about your next stay",
     "subtitle": "Write to us directly or check availability right here — whatever feels easiest.",
-    "emailLabel": "Email",
     "phoneLabel": "Phone / WhatsApp",
     "locationLabel": "Location",
-    "locationValue": "Sacred Valley, Cusco, Peru",
-    "mapTitle": "Approximate location — Sacred Valley, Cusco",
+    "locationValue": "Cidruchayoc, lote 178, sector Yanaconas, Urubamba, Cusco, Peru",
+    "socialLabel": "Follow us",
+    "mapTitle": "Approximate location — Urubamba, Sacred Valley",
     "mapCaption": "Approximate location — we'll send you the exact address once your booking is confirmed.",
     "availabilityTitle": "Check availability"
   },

@@ -1,19 +1,23 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { Cormorant_Garamond, Outfit } from "next/font/google";
+import { Fraunces, Outfit } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import "../globals.css";
 import { routing } from "@/i18n/routing";
-import { buildLanguageAlternates, SITE_URL } from "@/lib/seo";
+import { buildCanonical, buildLanguageAlternates, SITE_URL } from "@/lib/seo";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
-const cormorant = Cormorant_Garamond({
+// Fraunces — serif con mucho carácter y peso real en los trazos (a diferencia
+// de Cormorant, que se leía "fina" incluso en negrita). Su cursiva tiene
+// personalidad propia, así que se mantiene el uso de italic en los títulos.
+const fraunces = Fraunces({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: "variable",
   style: ["normal", "italic"],
+  axes: ["opsz", "SOFT", "WONK"],
 });
 
 const outfit = Outfit({
@@ -44,11 +48,16 @@ export async function generateMetadata({
     metadataBase: new URL(SITE_URL),
     title: { default: t("title"), template: `%s — Apu Garden Lodge` },
     description: t("description"),
-    alternates: { languages: buildLanguageAlternates("/") },
+    alternates: { canonical: buildCanonical(locale, "/"), languages: buildLanguageAlternates("/") },
     openGraph: {
       siteName: "Apu Garden Lodge",
       locale: locale === "es" ? "es_PE" : "en_US",
       type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
     },
   };
 }
@@ -71,14 +80,17 @@ export default async function LocaleLayout({
     name: "Apu Garden Lodge",
     url: SITE_URL,
     image: `${SITE_URL}/opengraph-image`,
-    telephone: "+51984000000",
+    telephone: "+51937454282",
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Valle Sagrado",
+      streetAddress: "Cidruchayoc, lote 178, sector Yanaconas",
+      addressLocality: "Urubamba",
       addressRegion: "Cusco",
+      postalCode: "08660",
       addressCountry: "PE",
     },
+    sameAs: ["https://www.facebook.com/profile.php?id=61590296495164"],
     amenityFeature: [
       { "@type": "LocationFeatureSpecification", name: "Telescope / stargazing" },
       { "@type": "LocationFeatureSpecification", name: "Garden" },
@@ -87,7 +99,7 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={locale} className={`${cormorant.variable} ${outfit.variable} h-full antialiased`}>
+    <html lang={locale} className={`${fraunces.variable} ${outfit.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-cream font-ui text-ink">
         <script
           type="application/ld+json"

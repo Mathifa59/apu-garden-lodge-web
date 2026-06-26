@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Reveal } from "@/components/Reveal";
+import { RevealCard } from "@/components/RevealCard";
+import { RevealMask } from "@/components/RevealMask";
 import { RoomShowcaseCard } from "@/components/RoomShowcaseCard";
 import type { RoomType } from "@/lib/api";
-import { buildLanguageAlternates } from "@/lib/seo";
+import { buildCanonical, buildLanguageAlternates } from "@/lib/seo";
 
 const ROOM_TYPES: RoomType[] = ["individual", "doble", "doble_deluxe", "doble_deluxe_twin", "deluxe_extragrande"];
 const AMENITY_KEYS = ["breakfast", "garden", "stars", "wifi", "transport", "spa"] as const;
@@ -37,7 +39,7 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("description"),
-    alternates: { languages: buildLanguageAlternates("/servicios") },
+    alternates: { canonical: buildCanonical(locale, "/servicios"), languages: buildLanguageAlternates("/servicios") },
   };
 }
 
@@ -48,75 +50,80 @@ export default async function ServiciosPage({ params }: { params: Promise<{ loca
 
   return (
     <>
-      <header className="bg-sage-pale/40 px-5 pt-32 pb-16 text-center sm:px-8 sm:pt-40">
-        <Reveal>
+      <header className="relative overflow-hidden bg-sage-pale/40 bg-fade-honey px-5 pt-32 pb-16 text-center sm:px-8 sm:pt-40">
+        <RevealMask className="relative">
           <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">{t("eyebrow")}</p>
           <h1 className="mt-3 font-display text-5xl italic text-ink sm:text-6xl">{t("title")}</h1>
           <p className="mx-auto mt-5 max-w-xl text-ink-soft">{t("subtitle")}</p>
-        </Reveal>
+        </RevealMask>
       </header>
 
-      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
-        <Reveal>
-          <h2 className="font-display text-3xl italic text-ink sm:text-4xl">{t("roomsHeading")}</h2>
-        </Reveal>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {ROOM_TYPES.map((type, i) => (
-            <Reveal key={type} delay={i * 0.08}>
-              <RoomShowcaseCard type={type} priority={i === 0} />
-            </Reveal>
-          ))}
+      <section className="relative overflow-hidden bg-fade-clay px-5 py-20 sm:px-8">
+        <div className="relative mx-auto max-w-6xl">
+          <RevealMask>
+            <h2 className="font-display text-3xl italic text-ink sm:text-4xl">{t("roomsHeading")}</h2>
+          </RevealMask>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {ROOM_TYPES.map((type, i) => (
+              <RevealCard key={type} delay={i * 0.08}>
+                <RoomShowcaseCard type={type} priority={i === 0} />
+              </RevealCard>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-ink px-5 py-20 sm:px-8 sm:py-28">
-        <div className="mx-auto max-w-6xl">
-          <Reveal>
+      <section className="relative overflow-hidden bg-ink px-5 py-20 sm:px-8 sm:py-28">
+        <div className="pointer-events-none absolute inset-0 bg-fade-honey opacity-60" />
+        <div className="relative mx-auto max-w-6xl">
+          <RevealMask>
             <h2 className="font-display text-3xl italic text-cream sm:text-4xl">{t("amenitiesHeading")}</h2>
-          </Reveal>
+          </RevealMask>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {AMENITY_KEYS.map((key, i) => {
               const Icon = AMENITY_ICONS[key];
               return (
-                <Reveal key={key} delay={i * 0.06}>
+                <RevealCard key={key} delay={i * 0.06}>
                   <div className="rounded-2xl border border-cream/10 bg-cream/5 p-6 transition-colors hover:bg-cream/10">
                     <Icon className="h-7 w-7 text-honey" />
                     <p className="mt-4 font-display text-xl italic text-cream">{t(`amenities.${key}.title`)}</p>
                     <p className="mt-1.5 text-sm text-cream/70">{t(`amenities.${key}.desc`)}</p>
                   </div>
-                </Reveal>
+                </RevealCard>
               );
             })}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
-        <Reveal>
-          <h2 className="font-display text-3xl italic text-ink sm:text-4xl">{t("fullAmenitiesHeading")}</h2>
-          <p className="mt-3 max-w-2xl text-ink-soft">{t("fullAmenitiesSubtitle")}</p>
-        </Reveal>
-        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {FULL_AMENITY_KEYS.map((key, i) => (
-            <Reveal key={key} delay={i * 0.05}>
-              <div>
-                <p className="font-display text-xl italic text-sage-deep">{t(`fullAmenities.${key}.title`)}</p>
-                <ul className="mt-3 space-y-1.5">
-                  {t.raw(`fullAmenities.${key}.items`).map((item: string) => (
-                    <li key={item} className="flex items-start gap-2 text-sm text-ink-soft">
-                      <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-sage" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-          ))}
+      <section className="relative overflow-hidden bg-fade-sage px-5 py-20 sm:px-8">
+        <div className="relative mx-auto max-w-6xl">
+          <RevealMask>
+            <h2 className="font-display text-3xl italic text-ink sm:text-4xl">{t("fullAmenitiesHeading")}</h2>
+            <p className="mt-3 max-w-2xl text-ink-soft">{t("fullAmenitiesSubtitle")}</p>
+          </RevealMask>
+          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {FULL_AMENITY_KEYS.map((key, i) => (
+              <RevealCard key={key} delay={i * 0.05}>
+                <div>
+                  <p className="font-display text-xl italic text-sage-deep">{t(`fullAmenities.${key}.title`)}</p>
+                  <ul className="mt-3 space-y-1.5">
+                    {t.raw(`fullAmenities.${key}.items`).map((item: string) => (
+                      <li key={item} className="flex items-start gap-2 text-sm text-ink-soft">
+                        <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-sage" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </RevealCard>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-2xl px-5 py-20 text-center sm:px-8 sm:py-28">
-        <Reveal>
+      <section className="relative overflow-hidden bg-fade-clay px-5 py-20 text-center sm:px-8 sm:py-28">
+        <RevealMask className="relative mx-auto max-w-2xl">
           <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">{t("natureEyebrow")}</p>
           <h2 className="mt-3 font-display text-4xl italic text-ink">{t("gardenHeading")}</h2>
           <p className="mt-5 text-ink-soft">{t("gardenText")}</p>
@@ -126,7 +133,7 @@ export default async function ServiciosPage({ params }: { params: Promise<{ loca
           >
             {t("discoverNew")} →
           </Link>
-        </Reveal>
+        </RevealMask>
       </section>
     </>
   );
