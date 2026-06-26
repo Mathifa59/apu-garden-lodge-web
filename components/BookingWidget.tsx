@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { ApiError, checkAvailability, createBookingRequest, type AvailabilityResponse, type RoomType } from "@/lib/api";
+import { RoomDetailModal } from "./RoomDetailModal";
+import { roomPhotos } from "@/lib/roomPhotos";
 
 const CHECK_IN_TIME = "15:00:00";
 const CHECK_OUT_TIME = "11:00:00";
@@ -23,6 +26,7 @@ export function BookingWidget() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<AvailabilityResponse | null>(null);
   const [selectedType, setSelectedType] = useState<RoomType | null>(null);
+  const [previewType, setPreviewType] = useState<RoomType | null>(null);
 
   const today = new Date().toISOString().slice(0, 10);
 
@@ -121,33 +125,51 @@ export function BookingWidget() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="mt-8 grid gap-3 sm:grid-cols-3"
+            className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
           >
             {result.room_types.map((rt) => (
               <div
                 key={rt.type}
-                className={`rounded-2xl border p-4 transition-all ${
+                className={`overflow-hidden rounded-2xl border transition-all ${
                   rt.available ? "border-sage-pale bg-cream" : "border-cream-deep bg-cream/40 opacity-60"
                 }`}
               >
-                <p className="font-display text-lg italic text-ink">{tr(`${rt.type}.label`)}</p>
-                <p className="mt-1 text-xs text-ink-soft">{tr(`${rt.type}.description`)}</p>
-                <p
-                  className={`mt-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide ${
-                    rt.available ? "bg-sage-pale text-sage-deep" : "bg-terracotta/10 text-terracotta"
-                  }`}
+                <button
+                  onClick={() => setPreviewType(rt.type)}
+                  aria-label={tr(`${rt.type}.label`)}
+                  className="relative block aspect-[16/10] w-full"
                 >
-                  <span className={`h-1.5 w-1.5 rounded-full ${rt.available ? "bg-sage" : "bg-terracotta"}`} />
-                  {rt.available ? t("available") : t("unavailable")}
-                </p>
-                {rt.available && (
-                  <button
-                    onClick={() => setSelectedType(rt.type)}
-                    className="mt-4 w-full rounded-lg border border-sage px-3 py-2 text-xs font-semibold text-sage-deep transition hover:bg-sage hover:text-cream"
+                  <Image
+                    src={roomPhotos(rt.type)[0]}
+                    alt={tr(`${rt.type}.label`)}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                </button>
+                <div className="p-4">
+                  <p className="font-display text-lg italic text-ink">{tr(`${rt.type}.label`)}</p>
+                  <p className="mt-1 text-xs text-ink-soft">{tr(`${rt.type}.description`)}</p>
+                  <p className="mt-2 font-display text-base text-sage-deep">
+                    {t("perNight", { price: rt.price_pen })}
+                  </p>
+                  <p
+                    className={`mt-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide ${
+                      rt.available ? "bg-sage-pale text-sage-deep" : "bg-terracotta/10 text-terracotta"
+                    }`}
                   >
-                    {t("requestBooking")}
-                  </button>
-                )}
+                    <span className={`h-1.5 w-1.5 rounded-full ${rt.available ? "bg-sage" : "bg-terracotta"}`} />
+                    {rt.available ? t("available") : t("unavailable")}
+                  </p>
+                  {rt.available && (
+                    <button
+                      onClick={() => setSelectedType(rt.type)}
+                      className="mt-4 w-full rounded-lg border border-sage px-3 py-2 text-xs font-semibold text-sage-deep transition hover:bg-sage hover:text-cream"
+                    >
+                      {t("requestBooking")}
+                    </button>
+                  )}
+                </div>
               </div>
             ))}
           </motion.div>
@@ -165,6 +187,19 @@ export function BookingWidget() {
           />
         )}
       </AnimatePresence>
+
+      {previewType && (
+        <RoomDetailModal
+          type={previewType}
+          photos={roomPhotos(previewType)}
+          priceLabel={
+            result
+              ? t("perNight", { price: result.room_types.find((rt) => rt.type === previewType)?.price_pen ?? "" })
+              : undefined
+          }
+          onClose={() => setPreviewType(null)}
+        />
+      )}
     </div>
   );
 }

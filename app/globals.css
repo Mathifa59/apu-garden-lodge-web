@@ -1,19 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  /* Apu Garden Lodge — crema botánica + salvia + terracota */
+  /* Apu Garden Lodge — paleta oficial de marca: verde oliva + tostado */
   --color-cream: #f7f1e4;
   --color-cream-soft: #fbf7ee;
   --color-cream-deep: #ece3cd;
   --color-ink: #2b2a22;
   --color-ink-soft: #54513f;
 
-  --color-sage: #5c6b47;
+  --color-sage: #5e692e;
   --color-sage-deep: #3f4a30;
   --color-sage-pale: #dde3c8;
 
-  --color-terracotta: #b5562e;
-  --color-terracotta-bright: #d3713f;
+  /* "terracotta" = tostado de marca (#b08d6d) oscurecido a "clay" para que
+     el texto/los botones cumplan contraste AA sobre fondo crema. El tostado
+     literal de marca queda disponible aparte como --color-tan. */
+  --color-terracotta: #83664a;
+  --color-terracotta-bright: #a3805d;
+  --color-tan: #b08d6d;
 
   --color-honey: #d4a24c;
 
@@ -23,7 +27,7 @@
   --color-star: #f4f1e8;
   --color-celestial: #e8c977;
 
-  --font-display: "Cormorant", serif;
+  --font-display: "Cormorant Garamond", serif;
   --font-ui: "Outfit", sans-serif;
 }
 

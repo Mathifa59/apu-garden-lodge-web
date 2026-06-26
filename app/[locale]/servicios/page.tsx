@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Reveal } from "@/components/Reveal";
-import { IMAGES } from "@/lib/images";
+import { RoomShowcaseCard } from "@/components/RoomShowcaseCard";
 import type { RoomType } from "@/lib/api";
 import { buildLanguageAlternates } from "@/lib/seo";
 
-const ROOM_TYPES: RoomType[] = ["single", "double", "suite"];
+const ROOM_TYPES: RoomType[] = ["individual", "doble", "doble_deluxe", "doble_deluxe_twin", "deluxe_extragrande"];
 const AMENITY_KEYS = ["breakfast", "garden", "stars", "wifi", "transport", "spa"] as const;
 const AMENITY_ICONS = {
   breakfast: CoffeeIcon,
@@ -17,6 +16,16 @@ const AMENITY_ICONS = {
   transport: CarIcon,
   spa: DropIcon,
 };
+const FULL_AMENITY_KEYS = [
+  "room",
+  "bathroom",
+  "food",
+  "wellness",
+  "activities",
+  "reception",
+  "security",
+  "policies",
+] as const;
 
 export async function generateMetadata({
   params,
@@ -36,7 +45,6 @@ export default async function ServiciosPage({ params }: { params: Promise<{ loca
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("servicios");
-  const tr = await getTranslations("rooms");
 
   return (
     <>
@@ -52,13 +60,10 @@ export default async function ServiciosPage({ params }: { params: Promise<{ loca
         <Reveal>
           <h2 className="font-display text-3xl italic text-ink sm:text-4xl">{t("roomsHeading")}</h2>
         </Reveal>
-        <div className="mt-8 grid gap-6 sm:grid-cols-3">
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {ROOM_TYPES.map((type, i) => (
             <Reveal key={type} delay={i * 0.08}>
-              <div className="rounded-[1.75rem] border border-sage-pale bg-cream-soft p-7 transition-shadow hover:shadow-lg hover:shadow-sage/10">
-                <p className="font-display text-2xl italic text-sage-deep">{tr(`${type}.label`)}</p>
-                <p className="mt-2 text-sm text-ink-soft">{tr(`${type}.description`)}</p>
-              </div>
+              <RoomShowcaseCard type={type} priority={i === 0} />
             </Reveal>
           ))}
         </div>
@@ -86,31 +91,42 @@ export default async function ServiciosPage({ params }: { params: Promise<{ loca
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="grid items-center gap-10 sm:grid-cols-2 sm:gap-16">
-          <Reveal>
-            <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">{t("natureEyebrow")}</p>
-            <h2 className="mt-3 font-display text-4xl italic text-ink">{t("gardenHeading")}</h2>
-            <p className="mt-5 text-ink-soft">{t("gardenText")}</p>
-            <Link
-              href="/novedad"
-              className="mt-6 inline-flex items-center gap-2 font-ui text-sm font-semibold text-sage-deep hover:text-terracotta"
-            >
-              {t("discoverNew")} →
-            </Link>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[2.5rem]">
-              <Image
-                src={IMAGES.gardenPath}
-                alt={t("gardenImageAlt")}
-                fill
-                sizes="(min-width: 640px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-          </Reveal>
+      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+        <Reveal>
+          <h2 className="font-display text-3xl italic text-ink sm:text-4xl">{t("fullAmenitiesHeading")}</h2>
+          <p className="mt-3 max-w-2xl text-ink-soft">{t("fullAmenitiesSubtitle")}</p>
+        </Reveal>
+        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {FULL_AMENITY_KEYS.map((key, i) => (
+            <Reveal key={key} delay={i * 0.05}>
+              <div>
+                <p className="font-display text-xl italic text-sage-deep">{t(`fullAmenities.${key}.title`)}</p>
+                <ul className="mt-3 space-y-1.5">
+                  {t.raw(`fullAmenities.${key}.items`).map((item: string) => (
+                    <li key={item} className="flex items-start gap-2 text-sm text-ink-soft">
+                      <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-sage" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          ))}
         </div>
+      </section>
+
+      <section className="mx-auto max-w-2xl px-5 py-20 text-center sm:px-8 sm:py-28">
+        <Reveal>
+          <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">{t("natureEyebrow")}</p>
+          <h2 className="mt-3 font-display text-4xl italic text-ink">{t("gardenHeading")}</h2>
+          <p className="mt-5 text-ink-soft">{t("gardenText")}</p>
+          <Link
+            href="/novedad"
+            className="mt-6 inline-flex items-center gap-2 font-ui text-sm font-semibold text-sage-deep hover:text-terracotta"
+          >
+            {t("discoverNew")} →
+          </Link>
+        </Reveal>
       </section>
     </>
   );
@@ -162,6 +178,13 @@ function DropIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className={className}>
       <path d="M12 3c4 5 6 8 6 11a6 6 0 1 1-12 0c0-3 2-6 6-11Z" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function CheckIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+      <path d="M5 12.5l4.5 4.5L19 7.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Reveal } from "@/components/Reveal";
-import { IMAGES } from "@/lib/images";
+import { roomPhotos } from "@/lib/roomPhotos";
 import { buildLanguageAlternates } from "@/lib/seo";
 
 const VALUE_KEYS = ["nature", "rest", "honest"] as const;
@@ -41,7 +41,7 @@ export default async function NosotrosPage({ params }: { params: Promise<{ local
           <Reveal>
             <div className="relative aspect-[4/3] overflow-hidden rounded-[2.5rem]">
               <Image
-                src={IMAGES.snowCabin}
+                src={roomPhotos("doble_deluxe")[0]}
                 alt={t("cabinImageAlt")}
                 fill
                 sizes="(min-width: 640px) 50vw, 100vw"

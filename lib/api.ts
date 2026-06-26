@@ -1,10 +1,12 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost/api";
 
-export type RoomType = "single" | "double" | "suite";
+export type RoomType = "individual" | "doble" | "doble_deluxe" | "doble_deluxe_twin" | "deluxe_extragrande";
 
 export interface RoomTypeAvailability {
   type: RoomType;
   available: boolean;
+  price_pen: number;
+  price_usd: number;
 }
 
 export interface AvailabilityResponse {

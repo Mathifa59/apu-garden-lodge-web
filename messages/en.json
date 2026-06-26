@@ -47,20 +47,63 @@
     "rights": "All rights reserved."
   },
   "rooms": {
-    "single": {
+    "sizeLabel": "{size} m²",
+    "viewHeading": "View of",
+    "bathroomHeading": "In the private bathroom",
+    "equipmentHeading": "Room amenities",
+    "individual": {
       "label": "Single",
-      "description": "For travelers seeking their own quiet retreat."
+      "description": "18 m² with garden views and everything you need for a quiet stay — ideal for solo travelers.",
+      "size": 18,
+      "bed": "1 single bed",
+      "view": ["Garden views"],
+      "bathroom": ["Free toiletries", "Hairdryer", "Shower", "Toilet paper", "Toilet"],
+      "equipment": ["Desk", "Towels", "Bed linen", "Wardrobe", "Flat-screen TV", "Coat rack", "Wake-up service", "Towels / sheets (surcharge applies)"],
+      "smokingPolicy": "Smoking is not allowed"
     },
-    "double": {
+    "doble": {
       "label": "Double",
-      "description": "Designed for couples, with garden views."
+      "description": "20 m² designed for couples, with a double bed and garden views.",
+      "size": 20,
+      "bed": "1 double bed",
+      "view": ["Garden views"],
+      "bathroom": ["Free toiletries", "Hairdryer", "Shower", "Toilet paper", "Toilet"],
+      "equipment": ["Desk", "Towels", "Bed linen", "Wardrobe", "Flat-screen TV", "Coat rack", "Wake-up service"],
+      "smokingPolicy": "Smoking is not allowed"
     },
-    "suite": {
-      "label": "Suite",
-      "description": "Our most spacious room, with a private terrace."
+    "doble_deluxe": {
+      "label": "Double Deluxe",
+      "description": "19 m² with a large double bed and garden views — a little extra room for your stay.",
+      "size": 19,
+      "bed": "1 large double bed",
+      "view": ["Garden views"],
+      "bathroom": ["Free toiletries", "Hairdryer", "Shower", "Toilet paper", "Toilet"],
+      "equipment": ["Desk", "Towels", "Bed linen", "Wardrobe", "Flat-screen TV", "Coat rack", "Wake-up service"],
+      "smokingPolicy": "Smoking is not allowed"
+    },
+    "doble_deluxe_twin": {
+      "label": "Double Deluxe - Twin",
+      "description": "18 m² with two single beds and garden views — perfect for traveling with family or friends.",
+      "size": 18,
+      "bed": "2 single beds",
+      "view": ["Garden views"],
+      "bathroom": ["Free toiletries", "Hairdryer", "Shower", "Toilet paper", "Toilet"],
+      "equipment": ["Desk", "Wardrobe", "Bed linen", "Coat rack", "Flat-screen TV", "Towels", "Towels / sheets (surcharge applies)"],
+      "smokingPolicy": "Smoking is not allowed"
+    },
+    "deluxe_extragrande": {
+      "label": "Deluxe King",
+      "description": "25 m² with a private balcony, mountain views, and an extra-large bed — our most spacious room.",
+      "size": 25,
+      "bed": "1 extra-large double bed",
+      "view": ["Balcony", "Views"],
+      "bathroom": ["Free toiletries", "Hairdryer", "Shower", "Toilet paper", "Toilet"],
+      "equipment": ["Desk", "Towels", "Bed linen", "Wardrobe", "Flat-screen TV", "Coat rack", "Wake-up service"],
+      "smokingPolicy": "Smoking is not allowed"
     }
   },
   "booking": {
+    "perNight": "S/ {price} / night",
     "title": "Check your stay",
     "subtitle": "See real availability and send your request in a minute.",
     "arrival": "Arrival",
@@ -92,12 +135,12 @@
     "tagline": "Rest · Nature · Experience",
     "heroText": "A refuge among the mountains where time moves at your own pace — lush gardens, cozy rooms, and skies that look different from up here.",
     "heroCta": "Book my stay",
-    "heroImageAlt": "Green mountains of the Sacred Valley at sunrise, seen from Apu Garden Lodge",
+    "heroImageAlt": "View of the Sacred Valley mountains from a room at Apu Garden Lodge",
     "welcomeEyebrow": "Welcome",
     "welcomeTitle": "Your refuge in the mountains",
     "welcomeText": "Every corner of Apu Garden Lodge is designed to slow you down: gardens that invite a quiet walk, warm rooms with views of nature, and a team that takes care of every detail so all you have to do is rest.",
     "welcomeCta": "Discover our story →",
-    "welcomeImageAlt": "Cozy room at Apu Garden Lodge with botanical wallpaper",
+    "welcomeImageAlt": "Deluxe room with extra-large bed at Apu Garden Lodge",
     "bookEyebrow": "Direct booking",
     "bookTitle": "When will you visit us?",
     "exploreEyebrow": "Explore",
@@ -123,11 +166,46 @@
       "transport": { "title": "Transfers", "desc": "We coordinate your arrival from Cusco or the valley." },
       "spa": { "title": "Natural spa", "desc": "Treatments with local plants and infusions." }
     },
+    "fullAmenitiesHeading": "Down to the last detail",
+    "fullAmenitiesSubtitle": "The full list of what you'll find at Apu Garden Lodge, category by category.",
+    "fullAmenities": {
+      "room": {
+        "title": "Room & comfort",
+        "items": ["Private bathroom", "Flat-screen TV", "Desk", "Bed linen", "Wardrobe", "Heating", "Wake-up service", "Coat rack"]
+      },
+      "bathroom": {
+        "title": "Bathroom",
+        "items": ["Shower", "Toilet", "Free toiletries", "Towels", "Toilet paper", "Hairdryer"]
+      },
+      "food": {
+        "title": "Food & drink",
+        "items": ["Breakfast", "Restaurant", "Bar", "On-site café"]
+      },
+      "wellness": {
+        "title": "Wellness & outdoors",
+        "items": ["Spa and wellness center", "Outdoor pool — free, open all year", "Garden", "Terrace", "Picnic area", "Outdoor furniture"]
+      },
+      "activities": {
+        "title": "Activities (paid)",
+        "items": ["Cooking classes", "Local culture tour or class", "Happy hour", "Themed dinners", "Bike tours", "Walking tours", "Hiking (off-site)"]
+      },
+      "reception": {
+        "title": "Reception & services",
+        "items": ["24-hour front desk", "Private and express check-in/check-out", "Concierge service", "Luggage storage", "Tourist information", "Currency exchange", "Invoice available", "Room service", "Airport transfer (paid)"]
+      },
+      "security": {
+        "title": "Security",
+        "items": ["24-hour security", "Security cameras in common areas and exterior", "Security alarm", "Fire extinguishers", "Safe"]
+      },
+      "policies": {
+        "title": "Policies",
+        "items": ["Family rooms", "The whole property is smoke-free", "Pets on request, free of charge", "Free WiFi throughout the property", "No on-site parking", "Spanish and English spoken"]
+      }
+    },
     "natureEyebrow": "Nature",
     "gardenHeading": "Gardens to get lost in",
     "gardenText": "Trails through native flora, shaded corners and stone benches — the garden at Apu Garden Lodge is as much a part of your stay as the room itself.",
-    "discoverNew": "Discover our newest experience",
-    "gardenImageAlt": "Lush garden path at Apu Garden Lodge"
+    "discoverNew": "Discover our newest experience"
   },
   "novedad": {
     "eyebrow": "What's New",
@@ -150,7 +228,7 @@
     "originTitle": "A refuge among the mountains",
     "originText1": "Apu Garden Lodge was born from a simple idea: build a place where the nature of the Sacred Valley would be the protagonist, not just the backdrop. “Apu” — mountain spirit in Quechua — guides every corner of the lodge, from the gardens to the nights we spend looking at the sky.",
     "originText2": "Today we keep growing with that same idea: less noise, more nature, and experiences that truly stay with you.",
-    "cabinImageAlt": "Mountain cabin among the forest, the origin of Apu Garden Lodge",
+    "cabinImageAlt": "Double Deluxe room at Apu Garden Lodge with mountain views",
     "valuesHeading": "What guides us",
     "values": {
       "nature": { "title": "Nature first", "desc": "Every decision at the lodge protects the environment around us." },
@@ -177,6 +255,38 @@
   "reservas": {
     "eyebrow": "Booking",
     "title": "Book your stay",
-    "subtitle": "Check real availability and send your request — we'll confirm by email or WhatsApp within minutes."
+    "subtitle": "Check real availability and send your request — we'll confirm by email or WhatsApp within minutes.",
+    "faqHeading": "Frequently asked questions",
+    "faqSubtitle": "What guests ask most before booking.",
+    "faq": [
+      {
+        "q": "What room types does Apu Garden Lodge have?",
+        "a": "Five: Single, Double, Double Deluxe, Double Deluxe with two beds, and Deluxe with an extra-large bed. All have a private bathroom and garden views."
+      },
+      {
+        "q": "How far is it from downtown Urubamba?",
+        "a": "2 km from downtown Urubamba."
+      },
+      {
+        "q": "Is it suitable for families?",
+        "a": "Yes, we welcome families and children of any age. We don't have cribs or extra beds."
+      },
+      {
+        "q": "What are the check-in and check-out times?",
+        "a": "Check-in is from 10:00 to 12:00. Check-out has no fixed time — just coordinate it with us based on your itinerary."
+      },
+      {
+        "q": "How much does it cost to stay?",
+        "a": "Price varies by room type, starting at S/77 per night. Check the availability search for the exact price on your dates."
+      },
+      {
+        "q": "What's the cancellation policy?",
+        "a": "Free cancellation up to 24 hours before check-in. After that, the full stay is charged."
+      },
+      {
+        "q": "Are pets allowed?",
+        "a": "Yes, on request and at no extra cost."
+      }
+    ]
   }
 }

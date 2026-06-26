@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { BookingWidget } from "@/components/BookingWidget";
+import { FaqAccordion } from "@/components/FaqAccordion";
 import { Reveal } from "@/components/Reveal";
 import { buildLanguageAlternates } from "@/lib/seo";
 
@@ -36,6 +37,16 @@ export default async function ReservasPage({ params }: { params: Promise<{ local
       <section className="mx-auto max-w-5xl px-5 py-16 sm:px-8 sm:py-24">
         <Reveal>
           <BookingWidget />
+        </Reveal>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
+        <Reveal>
+          <h2 className="font-display text-3xl italic text-ink sm:text-4xl">{t("faqHeading")}</h2>
+          <p className="mt-3 text-ink-soft">{t("faqSubtitle")}</p>
+          <div className="mt-8">
+            <FaqAccordion items={t.raw("faq")} />
+          </div>
         </Reveal>
       </section>
     </>

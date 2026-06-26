@@ -6,6 +6,7 @@ import { BookingWidget } from "@/components/BookingWidget";
 import { Reveal } from "@/components/Reveal";
 import { WaveDivider } from "@/components/WaveDivider";
 import { IMAGES } from "@/lib/images";
+import { roomPhotos } from "@/lib/roomPhotos";
 import { buildLanguageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -28,16 +29,26 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const t = await getTranslations("home");
 
   const cards = [
-    { href: "/servicios" as const, title: t("cardServiciosTitle"), desc: t("cardServiciosDesc"), img: IMAGES.gardenPath },
+    {
+      href: "/servicios" as const,
+      title: t("cardServiciosTitle"),
+      desc: t("cardServiciosDesc"),
+      img: roomPhotos("doble_deluxe_twin")[0],
+    },
     { href: "/novedad" as const, title: t("cardNovedadTitle"), desc: t("cardNovedadDesc"), img: IMAGES.observatory },
-    { href: "/nosotros" as const, title: t("cardNosotrosTitle"), desc: t("cardNosotrosDesc"), img: IMAGES.snowCabin },
+    {
+      href: "/nosotros" as const,
+      title: t("cardNosotrosTitle"),
+      desc: t("cardNosotrosDesc"),
+      img: roomPhotos("individual")[0],
+    },
   ];
 
   return (
     <>
       <section className="relative flex min-h-[92vh] items-center overflow-hidden">
         <Image
-          src={IMAGES.heroMountains}
+          src={roomPhotos("doble")[0]}
           alt={t("heroImageAlt")}
           fill
           sizes="100vw"
@@ -74,7 +85,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <Reveal>
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem]">
               <Image
-                src={IMAGES.cozyRoom}
+                src={roomPhotos("deluxe_extragrande")[0]}
                 alt={t("welcomeImageAlt")}
                 fill
                 sizes="(min-width: 640px) 50vw, 100vw"
