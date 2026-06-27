@@ -5,9 +5,7 @@ const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  images: {
-    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
-  },
+  // Ya no se usan imágenes externas: todas las fotos son locales (public/).
   turbopack: {
     root: __dirname,
   },
