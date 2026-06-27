@@ -53,11 +53,13 @@ export async function generateMetadata({
       siteName: "Apu Garden Lodge",
       locale: locale === "es" ? "es_PE" : "en_US",
       type: "website",
+      images: [{ url: `${SITE_URL}/opengraph-image`, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
       title: t("title"),
       description: t("description"),
+      images: [`${SITE_URL}/opengraph-image`],
     },
   };
 }
@@ -89,6 +91,11 @@ export default async function LocaleLayout({
       addressRegion: "Cusco",
       postalCode: "08660",
       addressCountry: "PE",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: -13.2897078,
+      longitude: -72.112883,
     },
     sameAs: ["https://www.facebook.com/profile.php?id=61590296495164"],
     amenityFeature: [

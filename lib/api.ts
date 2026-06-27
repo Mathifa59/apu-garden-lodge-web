@@ -42,6 +42,9 @@ export interface BookingRequestPayload {
   guests: number;
   room_type: RoomType;
   notes?: string;
+  // Honeypot anti-bot: queda vacío para visitantes reales; solo lo llenan los
+  // bots que completan todos los campos del formulario.
+  company?: string;
 }
 
 export async function createBookingRequest(payload: BookingRequestPayload): Promise<{ id: string }> {

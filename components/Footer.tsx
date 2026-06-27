@@ -53,6 +53,16 @@ export function Footer() {
             <li>{tf("address")}</li>
             <li>
               <a
+                href="https://www.booking.com/hotel/pe/apu-garden-lodge-yanaconas.es.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-honey"
+              >
+                Booking.com
+              </a>
+            </li>
+            <li>
+              <a
                 href="https://www.facebook.com/profile.php?id=61590296495164"
                 target="_blank"
                 rel="noopener noreferrer"

@@ -30,11 +30,10 @@ export function Navbar() {
     setOpen(false);
   }
 
-  // Inicio y Novedad abren con una foto/cielo oscuro de fondo bajo el nav;
-  // el resto abre con un encabezado claro — el color del texto del nav debe
-  // partir de ahí, no solo del scroll.
-  const darkHeroRoute = pathname === "/" || pathname === "/novedad";
-  const useLightText = darkHeroRoute && !scrolled;
+  // Todas las páginas abren con una foto/cielo oscuro de fondo bajo el nav
+  // (cada header tiene su propia imagen) — el texto del nav parte claro y
+  // solo cambia a oscuro una vez que se hace scroll sobre fondo claro.
+  const useLightText = !scrolled;
   const otherLocale = locale === "es" ? "en" : "es";
 
   return (

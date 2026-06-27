@@ -6,16 +6,20 @@ export const metadata: Metadata = {
   description: "Reserva, escríbenos o síguenos — todo en un solo lugar.",
 };
 
-const ADDRESS = "Cidruchayoc, lote 178, sector Yanaconas, Urubamba, Cusco, Perú";
+// Pin exacto del lodge (confirmado por el dueño vía Google Maps) — más
+// preciso que buscar por la dirección en texto.
+const LODGE_LAT = -13.2897078;
+const LODGE_LNG = -72.112883;
 
 const LINKS = [
   { label: "Reservar", sub: "Disponibilidad y precios", href: "https://apu-garden-lodge.com/reservas", icon: CalendarIcon },
+  { label: "Booking.com", sub: "Reserva y opiniones", href: "https://www.booking.com/hotel/pe/apu-garden-lodge-yanaconas.es.html", icon: BookingIcon },
   { label: "WhatsApp", sub: "+51 937 454 282", href: "https://wa.me/51937454282", icon: WhatsAppIcon },
   { label: "Facebook", sub: "Síguenos", href: "https://www.facebook.com/profile.php?id=61590296495164", icon: FacebookIcon },
   {
     label: "Ubicación",
     sub: "Urubamba, Valle Sagrado",
-    href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`,
+    href: `https://www.google.com/maps/search/?api=1&query=${LODGE_LAT},${LODGE_LNG}`,
     icon: MapPinIcon,
   },
   { label: "Sitio web", sub: "apu-garden-lodge.com", href: "https://apu-garden-lodge.com", icon: GlobeIcon },
@@ -73,6 +77,15 @@ function WhatsAppIcon({ className }: { className?: string }) {
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
       <path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.6.1-1.4-.7-2.4-1.4-3.3-2.9-.2-.3-.1-.5.1-.7.2-.2.5-.6.7-.8.2-.2.2-.4.1-.6-.1-.2-.7-1.7-1-2.3-.2-.5-.5-.4-.7-.4-.2 0-.5 0-.7.2-.7.7-1 1.5-1 2.5.1 1.7 1 3.4 2.4 4.8 1.7 1.7 3.2 2.4 5 2.5.9 0 1.6-.2 2.2-.8.4-.4.7-1 .8-1.6.1-.3 0-.5-.3-.7z" />
       <path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3Z" strokeWidth="0" />
+    </svg>
+  );
+}
+function BookingIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className}>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="3" />
+      <path d="M8.5 8v8h3.2a2 2 0 0 0 0-4 2 2 0 0 0 0-4H8.5Z" strokeLinejoin="round" />
+      <path d="M15.5 11v5" strokeLinecap="round" />
     </svg>
   );
 }

@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { BookingWidget } from "@/components/BookingWidget";
 import { Reveal } from "@/components/Reveal";
 import { RevealCard } from "@/components/RevealCard";
 import { RevealMask } from "@/components/RevealMask";
+import { roomPhotos } from "@/lib/roomPhotos";
 import { buildCanonical, buildLanguageAlternates } from "@/lib/seo";
+
+// Pin exacto del lodge (confirmado por el dueño vía Google Maps) — se usa
+// tanto para el mapa embebido como para el geo del JSON-LD en el layout.
+const LODGE_LAT = -13.2897078;
+const LODGE_LNG = -72.112883;
 
 export async function generateMetadata({
   params,
@@ -27,18 +34,24 @@ export default async function ContactoPage({ params }: { params: Promise<{ local
 
   const contactItems = [
     { label: t("phoneLabel"), value: "+51 937 454 282", href: "https://wa.me/51937454282" },
-    { label: t("locationLabel"), value: t("locationValue"), href: undefined },
+    {
+      label: t("locationLabel"),
+      value: t("locationValue"),
+      href: `https://www.google.com/maps/search/?api=1&query=${LODGE_LAT},${LODGE_LNG}`,
+    },
     { label: t("socialLabel"), value: "Facebook", href: "https://www.facebook.com/profile.php?id=61590296495164" },
   ];
 
   return (
     <>
-      <header className="relative overflow-hidden bg-sage-pale/40 bg-fade-honey px-5 pt-32 pb-16 text-center sm:px-8 sm:pt-40">
-        <RevealMask className="relative">
-          <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">{t("eyebrow")}</p>
-          <h1 className="mt-3 font-display text-5xl italic text-ink sm:text-6xl">{t("title")}</h1>
-          <p className="mx-auto mt-5 max-w-xl text-ink-soft">{t("subtitle")}</p>
-        </RevealMask>
+      <header className="relative overflow-hidden px-5 pt-32 pb-20 text-center sm:px-8 sm:pt-40 sm:pb-28">
+        <Image src={roomPhotos("individual")[1]} alt="" fill priority sizes="100vw" className="object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/45" />
+        <div className="relative">
+          <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-honey">{t("eyebrow")}</p>
+          <h1 className="mt-3 font-display text-5xl italic text-cream sm:text-6xl">{t("title")}</h1>
+          <p className="mx-auto mt-5 max-w-xl text-cream/85">{t("subtitle")}</p>
+        </div>
       </header>
 
       <section className="relative overflow-hidden bg-fade-clay px-5 py-16 sm:px-8">
@@ -72,7 +85,7 @@ export default async function ContactoPage({ params }: { params: Promise<{ local
           <div className="overflow-hidden rounded-[2rem] border border-sage-pale">
             <iframe
               title={t("mapTitle")}
-              src="https://www.openstreetmap.org/export/embed.html?bbox=-72.2200%2C-13.3400%2C-71.9800%2C-13.1800&layer=mapnik"
+              src={`https://maps.google.com/maps?q=${LODGE_LAT},${LODGE_LNG}&z=16&output=embed`}
               className="h-72 w-full sm:h-96"
               loading="lazy"
             />

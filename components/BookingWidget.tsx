@@ -233,6 +233,7 @@ function RequestForm({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
+  const [company, setCompany] = useState(""); // honeypot — debe quedar vacío
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
@@ -250,6 +251,7 @@ function RequestForm({
         guests,
         room_type: roomType,
         notes: notes || undefined,
+        company: company || undefined,
       });
       setDone(true);
     } catch (err) {
@@ -291,6 +293,20 @@ function RequestForm({
                 ✕
               </button>
             </div>
+
+            {/* Honeypot anti-bot: invisible para humanos (fuera de pantalla,
+                sin tab ni autocompletado). Si llega lleno, el backend lo
+                descarta. No usamos display:none porque algunos bots lo saltan. */}
+            <input
+              type="text"
+              name="company"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              className="absolute left-[-9999px] h-0 w-0 opacity-0"
+            />
 
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               <input
