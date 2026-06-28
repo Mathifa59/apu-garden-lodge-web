@@ -47,7 +47,14 @@ export interface BookingRequestPayload {
   company?: string;
 }
 
-export async function createBookingRequest(payload: BookingRequestPayload): Promise<{ id: string }> {
+export interface BookingRequestResponse {
+  id: string;
+  // false = no había cuarto de ese tipo libre para esas fechas — la
+  // solicitud quedó en lista de espera, recepción la resuelve a mano.
+  room_assigned: boolean;
+}
+
+export async function createBookingRequest(payload: BookingRequestPayload): Promise<BookingRequestResponse> {
   const res = await fetch(`${API_URL}/public/booking-requests`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

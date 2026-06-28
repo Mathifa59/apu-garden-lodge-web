@@ -161,14 +161,20 @@ export function BookingWidget() {
                     <span className={`h-1.5 w-1.5 rounded-full ${rt.available ? "bg-sage" : "bg-terracotta"}`} />
                     {rt.available ? t("available") : t("unavailable")}
                   </p>
-                  {rt.available && (
-                    <button
-                      onClick={() => setSelectedType(rt.type)}
-                      className="mt-4 w-full rounded-lg border border-sage px-3 py-2 text-xs font-semibold text-sage-deep transition hover:bg-sage hover:text-cream"
-                    >
-                      {t("requestBooking")}
-                    </button>
-                  )}
+                  {/* Aunque no haya cupo, se puede enviar la solicitud igual —
+                      queda en lista de espera y recepción la resuelve a mano,
+                      en vez de simplemente cerrarle la puerta al huésped. */}
+                  <button
+                    onClick={() => setSelectedType(rt.type)}
+                    className={`mt-4 w-full rounded-lg border px-3 py-2 text-xs font-semibold transition ${
+                      rt.available
+                        ? "border-sage text-sage-deep hover:bg-sage hover:text-cream"
+                        : "border-terracotta/40 text-terracotta hover:bg-terracotta hover:text-cream"
+                    }`}
+                  >
+                    {rt.available ? t("requestBooking") : t("waitlistBooking")}
+                  </button>
+                  {!rt.available && <p className="mt-2 text-[11px] text-ink-soft">{t("waitlistNote")}</p>}
                 </div>
               </div>
             ))}
@@ -237,12 +243,13 @@ function RequestForm({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
+  const [roomAssigned, setRoomAssigned] = useState(true);
 
   async function submit() {
     setError(null);
     setSubmitting(true);
     try {
-      await createBookingRequest({
+      const res = await createBookingRequest({
         guest_name: name,
         guest_email: email,
         guest_phone: phone || undefined,
@@ -253,6 +260,7 @@ function RequestForm({
         notes: notes || undefined,
         company: company || undefined,
       });
+      setRoomAssigned(res.room_assigned);
       setDone(true);
     } catch (err) {
       setError(err instanceof ApiError && locale === "es" ? err.message : t("genericError"));
@@ -274,7 +282,10 @@ function RequestForm({
           <div className="py-4 text-center">
             <p className="font-display text-xl italic text-sage-deep">{t("sent")}</p>
             <p className="mt-2 text-sm text-ink-soft">
-              {t("sentDetail", { email, roomType: tr(`${roomType}.label`).toLowerCase() })}
+              {t(roomAssigned ? "sentDetail" : "sentWaitlistDetail", {
+                email,
+                roomType: tr(`${roomType}.label`).toLowerCase(),
+              })}
             </p>
             <button
               onClick={onClose}
