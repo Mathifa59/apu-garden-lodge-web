@@ -27,8 +27,20 @@ export default async function ReservasPage({ params }: { params: Promise<{ local
   setRequestLocale(locale);
   const t = await getTranslations("reservas");
 
+  const faqItems = t.raw("faq") as Array<{ q: string; a: string }>;
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <header className="relative overflow-hidden px-5 pt-32 pb-20 text-center sm:px-8 sm:pt-40 sm:pb-28">
         <Image src={roomPhotos("deluxe_extragrande")[1]} alt="" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/45" />

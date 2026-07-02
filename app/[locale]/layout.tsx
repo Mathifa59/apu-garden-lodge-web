@@ -78,12 +78,19 @@ export default async function LocaleLayout({
 
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "LodgingBusiness",
+    "@type": "Hotel",
     name: "Apu Garden Lodge",
+    description:
+      "Hotel boutique en Urubamba, Valle Sagrado, Cusco. Cuartos con baño privado desde S/77 por noche, jardines exuberantes, telescopio astronómico, piscina, spa natural y desayuno botánico.",
     url: SITE_URL,
     image: `${SITE_URL}/opengraph-image`,
     telephone: "+51937454282",
     priceRange: "$$",
+    currenciesAccepted: "PEN, USD",
+    paymentAccepted: "Cash",
+    numberOfRooms: 42,
+    petsAllowed: true,
+    hasMap: `https://www.google.com/maps/search/?api=1&query=-13.2897078,-72.112883`,
     address: {
       "@type": "PostalAddress",
       streetAddress: "Cidruchayoc, lote 178, sector Yanaconas",
@@ -98,10 +105,28 @@ export default async function LocaleLayout({
       longitude: -72.112883,
     },
     sameAs: ["https://www.facebook.com/profile.php?id=61590296495164"],
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      opens: "00:00",
+      closes: "23:59",
+    },
     amenityFeature: [
-      { "@type": "LocationFeatureSpecification", name: "Telescope / stargazing" },
-      { "@type": "LocationFeatureSpecification", name: "Garden" },
-      { "@type": "LocationFeatureSpecification", name: "Wifi" },
+      { "@type": "LocationFeatureSpecification", name: "Free WiFi",               value: true },
+      { "@type": "LocationFeatureSpecification", name: "Swimming Pool",            value: true },
+      { "@type": "LocationFeatureSpecification", name: "Garden",                   value: true },
+      { "@type": "LocationFeatureSpecification", name: "Spa",                      value: true },
+      { "@type": "LocationFeatureSpecification", name: "Restaurant",               value: true },
+      { "@type": "LocationFeatureSpecification", name: "Bar",                      value: true },
+      { "@type": "LocationFeatureSpecification", name: "24-hour Front Desk",       value: true },
+      { "@type": "LocationFeatureSpecification", name: "Astronomical Telescope",   value: true },
+      { "@type": "LocationFeatureSpecification", name: "Botanical Breakfast",      value: true },
+      { "@type": "LocationFeatureSpecification", name: "Airport Transfer",         value: true },
+      { "@type": "LocationFeatureSpecification", name: "Luggage Storage",          value: true },
+      { "@type": "LocationFeatureSpecification", name: "Non-smoking Rooms",        value: true },
+      { "@type": "LocationFeatureSpecification", name: "Pets Allowed",             value: true },
+      { "@type": "LocationFeatureSpecification", name: "Concierge Service",        value: true },
+      { "@type": "LocationFeatureSpecification", name: "Currency Exchange",        value: true },
     ],
   };
 
