@@ -1,10 +1,12 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost/api";
 
-export type RoomType = "single" | "double" | "suite";
+export type RoomType = "individual" | "doble" | "doble_deluxe" | "doble_deluxe_twin" | "deluxe_extragrande";
 
 export interface RoomTypeAvailability {
   type: RoomType;
   available: boolean;
+  price_pen: number;
+  price_usd: number;
 }
 
 export interface AvailabilityResponse {
@@ -40,9 +42,19 @@ export interface BookingRequestPayload {
   guests: number;
   room_type: RoomType;
   notes?: string;
+  // Honeypot anti-bot: queda vacío para visitantes reales; solo lo llenan los
+  // bots que completan todos los campos del formulario.
+  company?: string;
 }
 
-export async function createBookingRequest(payload: BookingRequestPayload): Promise<{ id: string }> {
+export interface BookingRequestResponse {
+  id: string;
+  // false = no había cuarto de ese tipo libre para esas fechas — la
+  // solicitud quedó en lista de espera, recepción la resuelve a mano.
+  room_assigned: boolean;
+}
+
+export async function createBookingRequest(payload: BookingRequestPayload): Promise<BookingRequestResponse> {
   const res = await fetch(`${API_URL}/public/booking-requests`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

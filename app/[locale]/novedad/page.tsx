@@ -3,9 +3,11 @@ import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Reveal } from "@/components/Reveal";
+import { RevealCard } from "@/components/RevealCard";
+import { RevealMask } from "@/components/RevealMask";
 import { Starfield } from "@/components/Starfield";
 import { IMAGES } from "@/lib/images";
-import { buildLanguageAlternates } from "@/lib/seo";
+import { buildCanonical, buildLanguageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -17,7 +19,7 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("description"),
-    alternates: { languages: buildLanguageAlternates("/novedad") },
+    alternates: { canonical: buildCanonical(locale, "/novedad"), languages: buildLanguageAlternates("/novedad") },
   };
 }
 
@@ -57,17 +59,17 @@ export default async function NovedadPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      <section className="relative mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="grid items-center gap-10 sm:grid-cols-2 sm:gap-16">
-          <Reveal>
+      <section className="relative overflow-hidden bg-fade-celestial px-5 py-20 sm:px-8 sm:py-28">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 sm:grid-cols-2 sm:gap-16">
+          <RevealMask>
             <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-celestial">
               {t("experienceEyebrow")}
             </p>
             <h2 className="mt-3 font-display text-4xl italic text-star">{t("experienceTitle")}</h2>
             <p className="mt-5 text-star/75">{t("experienceText1")}</p>
             <p className="mt-4 text-star/75">{t("experienceText2")}</p>
-          </Reveal>
-          <Reveal delay={0.1}>
+          </RevealMask>
+          <RevealCard delay={0.1}>
             <div className="relative aspect-[4/3] overflow-hidden rounded-[2.5rem]">
               <Image
                 src={IMAGES.starryMountains}
@@ -77,15 +79,15 @@ export default async function NovedadPage({ params }: { params: Promise<{ locale
                 className="object-cover"
               />
             </div>
-          </Reveal>
+          </RevealCard>
         </div>
       </section>
 
       <section className="border-t border-star/10 px-5 py-16 text-center sm:px-8">
-        <Reveal>
+        <RevealMask>
           <p className="font-display text-2xl italic text-star sm:text-3xl">{t("quote")}</p>
           <p className="mt-3 text-sm text-star/60">{t("quoteAuthor")}</p>
-        </Reveal>
+        </RevealMask>
       </section>
     </div>
   );

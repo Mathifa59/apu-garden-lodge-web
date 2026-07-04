@@ -45,9 +45,32 @@ export function Footer() {
             {tf("contact")}
           </p>
           <ul className="mt-4 space-y-2 text-sm text-cream/80">
-            <li>reservas@apugardenlodge.com</li>
-            <li>+51 984 000 000</li>
+            <li>
+              <a href="https://wa.me/51937454282" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-honey">
+                +51 937 454 282
+              </a>
+            </li>
             <li>{tf("address")}</li>
+            <li>
+              <a
+                href="https://www.booking.com/hotel/pe/apu-garden-lodge-yanaconas.es.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-honey"
+              >
+                Booking.com
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.facebook.com/profile.php?id=61590296495164"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-honey"
+              >
+                Facebook
+              </a>
+            </li>
           </ul>
         </div>
       </div>

@@ -1,19 +1,23 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { Cormorant, Outfit } from "next/font/google";
+import { Fraunces, Outfit } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import "../globals.css";
 import { routing } from "@/i18n/routing";
-import { buildLanguageAlternates, SITE_URL } from "@/lib/seo";
+import { buildCanonical, buildLanguageAlternates, SITE_URL } from "@/lib/seo";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
-const cormorant = Cormorant({
+// Fraunces — serif con mucho carácter y peso real en los trazos (a diferencia
+// de Cormorant, que se leía "fina" incluso en negrita). Su cursiva tiene
+// personalidad propia, así que se mantiene el uso de italic en los títulos.
+const fraunces = Fraunces({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: "variable",
   style: ["normal", "italic"],
+  axes: ["opsz", "SOFT", "WONK"],
 });
 
 const outfit = Outfit({
@@ -44,11 +48,18 @@ export async function generateMetadata({
     metadataBase: new URL(SITE_URL),
     title: { default: t("title"), template: `%s — Apu Garden Lodge` },
     description: t("description"),
-    alternates: { languages: buildLanguageAlternates("/") },
+    alternates: { canonical: buildCanonical(locale, "/"), languages: buildLanguageAlternates("/") },
     openGraph: {
       siteName: "Apu Garden Lodge",
       locale: locale === "es" ? "es_PE" : "en_US",
       type: "website",
+      images: [{ url: `${SITE_URL}/opengraph-image`, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: [`${SITE_URL}/opengraph-image`],
     },
   };
 }
@@ -67,27 +78,60 @@ export default async function LocaleLayout({
 
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "LodgingBusiness",
+    "@type": "Hotel",
     name: "Apu Garden Lodge",
+    description:
+      "Hotel boutique en Urubamba, Valle Sagrado, Cusco. Cuartos con baño privado desde S/77 por noche, jardines exuberantes, telescopio astronómico, piscina, spa natural y desayuno botánico.",
     url: SITE_URL,
     image: `${SITE_URL}/opengraph-image`,
-    telephone: "+51984000000",
+    telephone: "+51937454282",
     priceRange: "$$",
+    currenciesAccepted: "PEN, USD",
+    paymentAccepted: "Cash",
+    numberOfRooms: 42,
+    petsAllowed: true,
+    hasMap: `https://www.google.com/maps/search/?api=1&query=-13.2897078,-72.112883`,
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Valle Sagrado",
+      streetAddress: "Cidruchayoc, lote 178, sector Yanaconas",
+      addressLocality: "Urubamba",
       addressRegion: "Cusco",
+      postalCode: "08660",
       addressCountry: "PE",
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: -13.2897078,
+      longitude: -72.112883,
+    },
+    sameAs: ["https://www.facebook.com/profile.php?id=61590296495164"],
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      opens: "00:00",
+      closes: "23:59",
+    },
     amenityFeature: [
-      { "@type": "LocationFeatureSpecification", name: "Telescope / stargazing" },
-      { "@type": "LocationFeatureSpecification", name: "Garden" },
-      { "@type": "LocationFeatureSpecification", name: "Wifi" },
+      { "@type": "LocationFeatureSpecification", name: "Free WiFi",               value: true },
+      { "@type": "LocationFeatureSpecification", name: "Swimming Pool",            value: true },
+      { "@type": "LocationFeatureSpecification", name: "Garden",                   value: true },
+      { "@type": "LocationFeatureSpecification", name: "Spa",                      value: true },
+      { "@type": "LocationFeatureSpecification", name: "Restaurant",               value: true },
+      { "@type": "LocationFeatureSpecification", name: "Bar",                      value: true },
+      { "@type": "LocationFeatureSpecification", name: "24-hour Front Desk",       value: true },
+      { "@type": "LocationFeatureSpecification", name: "Astronomical Telescope",   value: true },
+      { "@type": "LocationFeatureSpecification", name: "Botanical Breakfast",      value: true },
+      { "@type": "LocationFeatureSpecification", name: "Airport Transfer",         value: true },
+      { "@type": "LocationFeatureSpecification", name: "Luggage Storage",          value: true },
+      { "@type": "LocationFeatureSpecification", name: "Non-smoking Rooms",        value: true },
+      { "@type": "LocationFeatureSpecification", name: "Pets Allowed",             value: true },
+      { "@type": "LocationFeatureSpecification", name: "Concierge Service",        value: true },
+      { "@type": "LocationFeatureSpecification", name: "Currency Exchange",        value: true },
     ],
   };
 
   return (
-    <html lang={locale} className={`${cormorant.variable} ${outfit.variable} h-full antialiased`}>
+    <html lang={locale} className={`${fraunces.variable} ${outfit.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-cream font-ui text-ink">
         <script
           type="application/ld+json"

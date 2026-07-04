@@ -11,3 +11,10 @@ export function buildLanguageAlternates(pathname: string): Record<string, string
   languages["x-default"] = `${SITE_URL}${pathname}`;
   return languages;
 }
+
+// URL canónica de una página para el locale actual — evita que Google indexe
+// la misma página dos veces (con y sin prefijo /en) como contenido duplicado.
+export function buildCanonical(locale: string, pathname: string): string {
+  const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
+  return `${SITE_URL}${prefix}${pathname}`;
+}
