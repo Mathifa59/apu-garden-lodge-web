@@ -7,6 +7,7 @@ import { RevealCard } from "@/components/RevealCard";
 import { RevealMask } from "@/components/RevealMask";
 import { roomPhotos } from "@/lib/roomPhotos";
 import { buildCanonical, buildLanguageAlternates } from "@/lib/seo";
+import { whatsappHref } from "@/lib/whatsapp";
 
 // Pin exacto del lodge (confirmado por el dueño vía Google Maps) — se usa
 // tanto para el mapa embebido como para el geo del JSON-LD en el layout.
@@ -31,9 +32,10 @@ export default async function ContactoPage({ params }: { params: Promise<{ local
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("contacto");
+  const tw = await getTranslations("whatsapp");
 
   const contactItems = [
-    { label: t("phoneLabel"), value: "+51 937 454 282", href: "https://wa.me/51937454282" },
+    { label: t("phoneLabel"), value: "+51 937 454 282", href: whatsappHref(tw("defaultMessage")) },
     {
       label: t("locationLabel"),
       value: t("locationValue"),

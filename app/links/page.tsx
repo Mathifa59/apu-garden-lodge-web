@@ -10,6 +10,7 @@ import {
   TikTokIcon,
   WhatsAppIcon,
 } from "@/components/SocialIcons";
+import { whatsappHref } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "Apu Garden Lodge — Links",
@@ -24,7 +25,12 @@ const LODGE_LNG = -72.112883;
 const LINKS = [
   { label: "Reservar", sub: "Disponibilidad y precios", href: "https://apu-garden-lodge.com/reservas", icon: CalendarIcon },
   { label: "Booking.com", sub: "Reserva y opiniones", href: "https://www.booking.com/hotel/pe/apu-garden-lodge-yanaconas.es.html", icon: BookingIcon },
-  { label: "WhatsApp", sub: "+51 937 454 282", href: "https://wa.me/51937454282", icon: WhatsAppIcon },
+  {
+    label: "WhatsApp",
+    sub: "+51 937 454 282",
+    href: whatsappHref("Hola, me gustaría hacer una reserva o consultar disponibilidad en Apu Garden Lodge."),
+    icon: WhatsAppIcon,
+  },
   { label: "Instagram", sub: "@apugardenlodge", href: "https://www.instagram.com/apugardenlodge/", icon: InstagramIcon },
   { label: "TikTok", sub: "@apu.garden.hotel", href: "https://www.tiktok.com/@apu.garden.hotel", icon: TikTokIcon },
   { label: "Facebook", sub: "Síguenos", href: "https://www.facebook.com/profile.php?id=61590296495164", icon: FacebookIcon },

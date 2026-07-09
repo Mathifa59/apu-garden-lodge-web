@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { whatsappHref } from "@/lib/whatsapp";
 import { Logo } from "./Logo";
 import {
   BookingIcon,
@@ -32,9 +33,10 @@ const ACCENTS = ["bg-terracotta/25 text-terracotta-bright", "bg-sage/25 text-sag
 export function Footer() {
   const t = useTranslations("nav");
   const tf = useTranslations("footer");
+  const tw = useTranslations("whatsapp");
 
   const contactItems = [
-    { label: "+51 937 454 282", href: "https://wa.me/51937454282", icon: WhatsAppIcon },
+    { label: "+51 937 454 282", href: whatsappHref(tw("defaultMessage")), icon: WhatsAppIcon },
     {
       label: tf("address"),
       href: `https://www.google.com/maps/search/?api=1&query=${LODGE_LAT},${LODGE_LNG}`,

@@ -1,36 +1,35 @@
-"use client";
-
-import { motion, useReducedMotion } from "motion/react";
+import { getTranslations } from "next-intl/server";
+import { whatsappHref } from "@/lib/whatsapp";
 
 // Botón flotante fijo en todas las páginas — anillo de pulso continuo estilo
 // "disponible ahora" para que destaque sobre el fondo arena sin depender de
-// hover (la mayoría del tráfico es móvil). Respeta prefers-reduced-motion
-// quitando el pulso pero deja el botón intacto.
-export function WhatsAppButton() {
-  const reduceMotion = useReducedMotion();
+// hover (la mayoría del tráfico es móvil).
+//
+// El anillo usa `animate-ping` nativo de Tailwind (CSS puro) en vez de
+// keyframes de Framer Motion con valores duplicados ([1.8, 1.8]) — ese
+// patrón deja el anillo "congelado" invisible en la segunda mitad del ciclo
+// y luego salta de golpe (opacity 0 → 0.55 en un frame) al reiniciar,
+// leyéndose como un corte abrupto. `animate-ping` evita esto: el anillo
+// reaparece a escala 1 (exactamente detrás del botón sólido), así que el
+// reinicio del loop queda oculto sin ningún salto visible. También hereda
+// gratis la regla global de prefers-reduced-motion de globals.css, así que
+// no necesita su propio guard de accesibilidad.
+export async function WhatsAppButton() {
+  const t = await getTranslations("whatsapp");
+  const href = whatsappHref(t("defaultMessage"));
 
   return (
     <a
-      href="https://wa.me/51937454282"
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Escríbenos por WhatsApp"
       className="group fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center sm:bottom-7 sm:right-7"
     >
-      {!reduceMotion && (
-        <>
-          <motion.span
-            className="absolute inset-0 rounded-full bg-[#25d366]"
-            animate={{ scale: [1, 1.8, 1.8], opacity: [0.55, 0, 0] }}
-            transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut" }}
-          />
-          <motion.span
-            className="absolute inset-0 rounded-full bg-[#25d366]"
-            animate={{ scale: [1, 1.8, 1.8], opacity: [0.55, 0, 0] }}
-            transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut", delay: 1.1 }}
-          />
-        </>
-      )}
+      <span
+        className="absolute inset-0 animate-ping rounded-full bg-[#25d366] opacity-60"
+        style={{ animationDuration: "2.2s" }}
+      />
       <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366] text-cream shadow-lg shadow-ink/30 transition-transform group-hover:scale-105 group-active:scale-95">
         <WhatsAppIcon className="h-7 w-7" />
       </span>

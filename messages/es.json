@@ -46,6 +46,9 @@
     "address": "Cidruchayoc, lote 178, sector Yanaconas, Urubamba, Cusco",
     "rights": "Todos los derechos reservados."
   },
+  "whatsapp": {
+    "defaultMessage": "Hola, me gustaría hacer una reserva o consultar disponibilidad en Apu Garden Lodge."
+  },
   "rooms": {
     "sizeLabel": "{size} m²",
     "viewHeading": "Vista a",
