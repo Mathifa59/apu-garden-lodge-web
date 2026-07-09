@@ -1,7 +1,5 @@
 import { routing } from "@/i18n/routing";
 
-// Dominio real de producción — si se despliega bajo otro dominio (staging,
-// preview), sobreescribir con NEXT_PUBLIC_SITE_URL en ese entorno.
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://apu-garden-lodge.com";
 
 export function buildLanguageAlternates(pathname: string): Record<string, string> {
