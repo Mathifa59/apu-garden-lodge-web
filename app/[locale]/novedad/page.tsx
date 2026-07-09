@@ -59,7 +59,7 @@ export default async function NovedadPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-fade-celestial px-5 py-20 sm:px-8 sm:py-28">
+      <section className="relative overflow-hidden bg-fade-celestial px-5 py-14 sm:px-8 sm:py-20">
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 sm:grid-cols-2 sm:gap-16">
           <RevealMask>
             <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-celestial">

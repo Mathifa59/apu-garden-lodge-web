@@ -88,7 +88,7 @@ export default async function LocaleLayout({
     priceRange: "$$",
     currenciesAccepted: "PEN, USD",
     paymentAccepted: "Cash",
-    numberOfRooms: 42,
+    numberOfRooms: 14,
     petsAllowed: true,
     hasMap: `https://www.google.com/maps/search/?api=1&query=-13.2897078,-72.112883`,
     address: {

@@ -80,13 +80,14 @@
   .bg-fade-celestial {
     background-image: radial-gradient(ellipse 70% 55% at 50% 0%, color-mix(in srgb, var(--color-celestial) 14%, transparent), transparent 70%);
   }
-  /* Glow del footer — dos manchas de color (terracota arriba-izq, salvia
-     abajo-der) sobre el --color-ink, para que no se lea como bloque sólido
-     plano cortando el fondo arena del resto de la página. */
+  /* Glow del footer — tres manchas de color (terracota arriba-izq, salvia
+     abajo-der, miel al centro) sobre el --color-ink, para que no se lea como
+     bloque sólido plano cortando el fondo arena del resto de la página. */
   .bg-fade-footer {
     background-image:
-      radial-gradient(ellipse 55% 70% at 15% 0%, color-mix(in srgb, var(--color-terracotta) 35%, transparent), transparent 60%),
-      radial-gradient(ellipse 60% 60% at 100% 100%, color-mix(in srgb, var(--color-sage) 30%, transparent), transparent 65%);
+      radial-gradient(ellipse 55% 75% at 12% -10%, color-mix(in srgb, var(--color-terracotta) 45%, transparent), transparent 60%),
+      radial-gradient(ellipse 65% 65% at 105% 110%, color-mix(in srgb, var(--color-sage) 40%, transparent), transparent 65%),
+      radial-gradient(ellipse 50% 40% at 50% 100%, color-mix(in srgb, var(--color-honey) 16%, transparent), transparent 70%);
   }
 }
 

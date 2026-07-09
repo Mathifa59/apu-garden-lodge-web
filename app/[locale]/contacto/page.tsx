@@ -94,7 +94,7 @@ export default async function ContactoPage({ params }: { params: Promise<{ local
         </RevealCard>
       </section>
 
-      <section className="relative overflow-hidden bg-sage-pale/40 bg-fade-sage px-5 py-20 sm:px-8 sm:py-28">
+      <section className="relative overflow-hidden bg-sage-pale/40 bg-fade-sage px-5 py-14 sm:px-8 sm:py-20">
         <div className="relative mx-auto max-w-5xl">
           <RevealMask className="text-center">
             <h2 className="font-display text-4xl text-ink sm:text-5xl">{t("availabilityTitle")}</h2>

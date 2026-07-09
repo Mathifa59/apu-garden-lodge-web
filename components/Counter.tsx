@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
 
 // Contador que cuenta de 0 al valor final cuando entra en viewport — para las
-// tarjetas de stat estilo referencia (ej. "42 cuartos", "5.0 ★"). Soporta
+// tarjetas de stat estilo referencia (ej. "14 cuartos", "5.0 ★"). Soporta
 // decimales y sufijo/prefijo. Respeta prefers-reduced-motion mostrando el
 // valor final directo.
 export function Counter({

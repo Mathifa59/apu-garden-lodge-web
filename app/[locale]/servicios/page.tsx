@@ -77,7 +77,7 @@ export default async function ServiciosPage({ params }: { params: Promise<{ loca
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-ink px-5 py-20 sm:px-8 sm:py-28">
+      <section className="relative overflow-hidden bg-ink px-5 py-14 sm:px-8 sm:py-20">
         <div className="pointer-events-none absolute inset-0 bg-fade-honey opacity-60" />
         <div className="relative mx-auto max-w-6xl">
           <RevealMask>

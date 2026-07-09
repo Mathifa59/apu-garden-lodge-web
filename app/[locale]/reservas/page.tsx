@@ -51,7 +51,7 @@ export default async function ReservasPage({ params }: { params: Promise<{ local
         </div>
       </header>
 
-      <section className="relative overflow-hidden bg-fade-sage px-5 py-16 sm:px-8 sm:py-24">
+      <section className="relative overflow-hidden bg-fade-sage px-5 py-12 sm:px-8 sm:py-16">
         <div className="relative mx-auto max-w-5xl">
           <Reveal>
             <BookingWidget />
@@ -59,7 +59,7 @@ export default async function ReservasPage({ params }: { params: Promise<{ local
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-fade-clay px-5 py-16 sm:px-8 sm:py-24">
+      <section className="relative overflow-hidden bg-fade-clay px-5 py-12 sm:px-8 sm:py-16">
         <RevealMask className="relative mx-auto max-w-3xl">
           <h2 className="font-display text-3xl text-ink sm:text-4xl">{t("faqHeading")}</h2>
           <p className="mt-3 text-ink-soft">{t("faqSubtitle")}</p>

@@ -52,7 +52,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   ];
 
   const stats = [
-    { value: 42, decimals: 0, suffix: "", label: t("statsRooms") },
+    { value: 14, decimals: 0, suffix: "", label: t("statsRooms") },
     { value: 5, decimals: 0, suffix: "", label: t("statsTypes") },
     { value: 2, decimals: 0, suffix: "", label: t("statsDistance") },
     { value: 5.0, decimals: 1, suffix: "★", label: t("statsRating") },
@@ -113,7 +113,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <Reveal delay={0.4} className="absolute right-0 top-6">
               <div className="stat-float animate-float-soft w-44">
                 <p className="font-display text-3xl text-honey">
-                  <Counter to={42} />
+                  <Counter to={14} />
                 </p>
                 <p className="mt-0.5 text-xs font-medium uppercase tracking-widest text-cream/70">
                   {t("statsRooms")}
@@ -152,7 +152,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-fade-clay px-5 py-20 sm:px-8 sm:py-28">
+      <section className="relative overflow-hidden bg-fade-clay px-5 py-14 sm:px-8 sm:py-20">
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 sm:grid-cols-2 sm:gap-16">
           <RevealCard>
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem]">
@@ -181,7 +181,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
       <section
         id="reservar"
-        className="relative scroll-mt-24 overflow-hidden bg-sage-pale/40 bg-fade-honey px-5 py-20 sm:px-8 sm:py-28"
+        className="relative scroll-mt-24 overflow-hidden bg-sage-pale/40 bg-fade-honey px-5 py-14 sm:px-8 sm:py-20"
       >
         <div className="relative mx-auto max-w-5xl">
           <RevealMask className="text-center">
@@ -194,7 +194,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-fade-sage px-5 py-20 sm:px-8 sm:py-28">
+      <section className="relative overflow-hidden bg-fade-sage px-5 py-14 sm:px-8 sm:py-20">
         <div className="relative mx-auto max-w-6xl">
           <RevealMask className="text-center">
             <span className="pill">{t("exploreEyebrow")}</span>
