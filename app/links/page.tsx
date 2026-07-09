@@ -15,6 +15,8 @@ const LINKS = [
   { label: "Reservar", sub: "Disponibilidad y precios", href: "https://apu-garden-lodge.com/reservas", icon: CalendarIcon },
   { label: "Booking.com", sub: "Reserva y opiniones", href: "https://www.booking.com/hotel/pe/apu-garden-lodge-yanaconas.es.html", icon: BookingIcon },
   { label: "WhatsApp", sub: "+51 937 454 282", href: "https://wa.me/51937454282", icon: WhatsAppIcon },
+  { label: "Instagram", sub: "@apugardenlodge", href: "https://www.instagram.com/apugardenlodge/", icon: InstagramIcon },
+  { label: "TikTok", sub: "@apu.garden.hotel", href: "https://www.tiktok.com/@apu.garden.hotel", icon: TikTokIcon },
   { label: "Facebook", sub: "Síguenos", href: "https://www.facebook.com/profile.php?id=61590296495164", icon: FacebookIcon },
   {
     label: "Ubicación",
@@ -93,6 +95,22 @@ function FacebookIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
       <path d="M14 9h2.5V6H14c-2 0-3.5 1.6-3.5 3.5V11H8.5v3H10.5v6h3v-6h2l.5-3h-2.5v-1.5c0-.5.4-.5.5-.5Z" />
+    </svg>
+  );
+}
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className}>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="16.8" cy="7.2" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+function TikTokIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M16.5 3c.4 2.2 1.8 3.6 4 3.9v2.6c-1.4 0-2.7-.4-3.9-1.2v6.4c0 3.1-2.5 5.3-5.4 5.3A5.2 5.2 0 0 1 6 14.7c0-2.9 2.3-5.3 5.2-5.3.3 0 .6 0 .9.1v2.7a2.6 2.6 0 0 0-.9-.2 2.6 2.6 0 1 0 0 5.2c1.4 0 2.7-1 2.7-2.7V3h2.6Z" />
     </svg>
   );
 }

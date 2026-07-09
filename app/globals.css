@@ -5,6 +5,9 @@
   --color-cream: #f7f1e4;
   --color-cream-soft: #fbf7ee;
   --color-cream-deep: #ece3cd;
+  /* Fondo base de página — más arena/tostado que "cream" para que el sitio
+     no se lea blanco; las tarjetas en cream/cream-soft ganan elevación. */
+  --color-sand: #efe3c6;
   --color-ink: #2b2a22;
   --color-ink-soft: #54513f;
 
@@ -27,13 +30,13 @@
   --color-star: #f4f1e8;
   --color-celestial: #e8c977;
 
-  --font-display: "Fraunces", serif;
+  --font-display: "Bricolage Grotesque", sans-serif;
   --font-ui: "Outfit", sans-serif;
 }
 
 @layer base {
   body {
-    background-color: var(--color-cream);
+    background-color: var(--color-sand);
     color: var(--color-ink);
   }
 
@@ -44,13 +47,6 @@
 }
 
 @layer utilities {
-  .font-display {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-optical-sizing: auto;
-    font-variation-settings: "SOFT" 30, "WONK" 0;
-  }
-
   /* ponytail: textura de grano sutil vía SVG inline, sin librería de noise */
   .grain {
     position: relative;
@@ -84,7 +80,116 @@
   .bg-fade-celestial {
     background-image: radial-gradient(ellipse 70% 55% at 50% 0%, color-mix(in srgb, var(--color-celestial) 14%, transparent), transparent 70%);
   }
+  /* Glow del footer — dos manchas de color (terracota arriba-izq, salvia
+     abajo-der) sobre el --color-ink, para que no se lea como bloque sólido
+     plano cortando el fondo arena del resto de la página. */
+  .bg-fade-footer {
+    background-image:
+      radial-gradient(ellipse 55% 70% at 15% 0%, color-mix(in srgb, var(--color-terracotta) 35%, transparent), transparent 60%),
+      radial-gradient(ellipse 60% 60% at 100% 100%, color-mix(in srgb, var(--color-sage) 30%, transparent), transparent 65%);
+  }
 }
+
+/* ── Componentes de marca (CSS plano, SIN @layer) ──
+   Tailwind v4 recorta propiedades de las clases custom dentro de
+   `@layer utilities` cuando coinciden con una categoría de utilidad suya
+   (padding/background/color/font-weight/text-transform…). Por eso estas
+   clases van como CSS plano sin capa: se emiten verbatim y ganan a la capa
+   de utilidades por estar sin capa. Las `.bg-fade-*`/`.grain` de arriba sí
+   pueden quedar en el layer porque usan una sola propiedad no conflictiva
+   (background-image). */
+
+/* Título display — Bricolage Grotesque bold con tracking apretado.
+   El font-family también lo aporta la utilidad `font-display` generada por
+   el token de tema, pero acá lo repetimos para ser autocontenido. */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-optical-sizing: auto;
+  letter-spacing: -0.025em;
+}
+
+/* Pill/eyebrow: etiqueta redondeada con punto. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--color-sage) 25%, transparent);
+  background: color-mix(in srgb, var(--color-sage-pale) 40%, transparent);
+  padding: 0.4rem 0.9rem;
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-sage-deep);
+}
+.pill::before {
+  content: "";
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 9999px;
+  background: var(--color-honey);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-honey) 25%, transparent);
+}
+/* Variante sobre fondo oscuro */
+.pill-dark {
+  border-color: color-mix(in srgb, var(--color-honey) 35%, transparent);
+  background: color-mix(in srgb, var(--color-star) 8%, transparent);
+  color: color-mix(in srgb, var(--color-star) 85%, transparent);
+}
+
+/* Highlight de keyword dentro de un título — subrayado orgánico en tostado */
+.kw {
+  color: var(--color-terracotta-bright);
+  position: relative;
+  white-space: nowrap;
+}
+.kw::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.06em;
+  height: 0.14em;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-honey) 55%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: kw-underline 0.9s 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .kw::after { transform: scaleX(1); animation: none; }
+}
+
+/* Patrón de puntos sutil para secciones oscuras */
+.dot-grid {
+  background-image: radial-gradient(color-mix(in srgb, var(--color-star) 10%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Tarjeta flotante de stat sobre el hero */
+.stat-float {
+  border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--color-star) 18%, transparent);
+  background: color-mix(in srgb, var(--color-ink) 55%, transparent);
+  backdrop-filter: blur(12px);
+  padding: 0.85rem 1.1rem;
+  box-shadow: 0 20px 40px -20px rgb(0 0 0 / 0.5);
+}
+
+@keyframes kw-underline {
+  to { transform: scaleX(1); }
+}
+
+/* Flotación lenta para tarjetas de stat sobre el hero */
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float-soft { animation: float-soft 5s ease-in-out infinite; }
+.animate-float-soft-delayed { animation: float-soft 5s ease-in-out 1.4s infinite; }
 
 @keyframes twinkle {
   0%,

@@ -45,8 +45,8 @@ export default async function ReservasPage({ params }: { params: Promise<{ local
         <Image src={roomPhotos("deluxe_extragrande")[1]} alt="" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/45" />
         <div className="relative">
-          <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-honey">{t("eyebrow")}</p>
-          <h1 className="mt-3 font-display text-5xl italic text-cream sm:text-6xl">{t("title")}</h1>
+          <span className="pill pill-dark">{t("eyebrow")}</span>
+          <h1 className="mt-3 font-display text-5xl text-cream sm:text-6xl">{t("title")}</h1>
           <p className="mx-auto mt-5 max-w-xl text-cream/85">{t("subtitle")}</p>
         </div>
       </header>
@@ -61,7 +61,7 @@ export default async function ReservasPage({ params }: { params: Promise<{ local
 
       <section className="relative overflow-hidden bg-fade-clay px-5 py-16 sm:px-8 sm:py-24">
         <RevealMask className="relative mx-auto max-w-3xl">
-          <h2 className="font-display text-3xl italic text-ink sm:text-4xl">{t("faqHeading")}</h2>
+          <h2 className="font-display text-3xl text-ink sm:text-4xl">{t("faqHeading")}</h2>
           <p className="mt-3 text-ink-soft">{t("faqSubtitle")}</p>
           <div className="mt-8">
             <FaqAccordion items={t.raw("faq")} />

@@ -25,7 +25,7 @@ export function RoomShowcaseCard({
       <div className="overflow-hidden rounded-[1.75rem] border border-sage-pale bg-cream-soft transition-shadow hover:shadow-lg hover:shadow-sage/10">
         <RoomGallery photos={photos} alt={label} rounded={false} priority={priority} onExpand={() => setOpen(true)} />
         <div className="p-7">
-          <p className="font-display text-2xl italic text-sage-deep">{label}</p>
+          <p className="font-display text-2xl text-sage-deep">{label}</p>
           <p className="mt-2 text-sm text-ink-soft">{description}</p>
         </div>
       </div>

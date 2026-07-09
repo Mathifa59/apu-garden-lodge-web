@@ -39,7 +39,7 @@ export function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-cream/90 shadow-[0_1px_0_0_var(--color-cream-deep)] backdrop-blur-md" : "bg-transparent"
+        scrolled ? "bg-sand/90 shadow-[0_1px_0_0_var(--color-cream-deep)] backdrop-blur-md" : "bg-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
@@ -112,7 +112,7 @@ export function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden border-t border-cream-deep bg-cream lg:hidden"
+            className="overflow-hidden border-t border-cream-deep bg-sand lg:hidden"
           >
             <ul className="flex flex-col gap-1 px-5 py-4">
               {ROUTES.map((href) => (

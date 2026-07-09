@@ -22,7 +22,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
               aria-expanded={open}
               className="flex w-full items-center justify-between gap-4 py-5 text-left"
             >
-              <span className="font-display text-lg italic text-ink">{item.q}</span>
+              <span className="font-display text-lg text-ink">{item.q}</span>
               <span
                 className={`shrink-0 text-2xl text-sage transition-transform ${open ? "rotate-45" : ""}`}
                 aria-hidden

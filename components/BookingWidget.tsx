@@ -62,7 +62,7 @@ export function BookingWidget() {
 
   return (
     <div id="reservar" className="rounded-[2rem] border border-sage-pale bg-cream-soft p-6 shadow-xl shadow-ink/5 sm:p-8">
-      <p className="font-display text-2xl italic text-sage-deep">{t("title")}</p>
+      <p className="font-display text-2xl text-sage-deep">{t("title")}</p>
       <p className="mt-1 text-sm text-ink-soft">{t("subtitle")}</p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-[1fr_1fr_auto_auto]">
@@ -148,7 +148,7 @@ export function BookingWidget() {
                   />
                 </button>
                 <div className="p-4">
-                  <p className="font-display text-lg italic text-ink">{tr(`${rt.type}.label`)}</p>
+                  <p className="font-display text-lg text-ink">{tr(`${rt.type}.label`)}</p>
                   <p className="mt-1 text-xs text-ink-soft">{tr(`${rt.type}.description`)}</p>
                   <p className="mt-2 font-display text-base text-sage-deep">
                     {t("perNight", { price: rt.price_pen })}
@@ -280,7 +280,7 @@ function RequestForm({
       <div className="mt-6 rounded-2xl border border-sage-pale bg-cream p-5 sm:p-6">
         {done ? (
           <div className="py-4 text-center">
-            <p className="font-display text-xl italic text-sage-deep">{t("sent")}</p>
+            <p className="font-display text-xl text-sage-deep">{t("sent")}</p>
             <p className="mt-2 text-sm text-ink-soft">
               {t(roomAssigned ? "sentDetail" : "sentWaitlistDetail", {
                 email,
@@ -297,7 +297,7 @@ function RequestForm({
         ) : (
           <>
             <div className="flex items-center justify-between">
-              <p className="font-display text-lg italic text-ink">
+              <p className="font-display text-lg text-ink">
                 {t("yourDetails")} — {tr(`${roomType}.label`)}
               </p>
               <button onClick={onClose} aria-label={t("close")} className="text-ink-soft hover:text-terracotta">

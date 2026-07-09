@@ -45,7 +45,7 @@ export default async function NovedadPage({ params }: { params: Promise<{ locale
         <div className="relative z-10 mx-auto w-full max-w-4xl px-5 pt-24 text-center sm:px-8">
           <Reveal>
             <p className="font-ui text-xs font-semibold uppercase tracking-[0.4em] text-celestial">{t("eyebrow")}</p>
-            <h1 className="mx-auto mt-5 max-w-2xl font-display text-5xl italic leading-[1.05] text-star sm:text-7xl">
+            <h1 className="mx-auto mt-5 max-w-2xl font-display text-5xl leading-[1.05] text-star sm:text-7xl">
               {t("title")}
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-base text-star/80 sm:text-lg">{t("subtitle")}</p>
@@ -65,7 +65,7 @@ export default async function NovedadPage({ params }: { params: Promise<{ locale
             <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-celestial">
               {t("experienceEyebrow")}
             </p>
-            <h2 className="mt-3 font-display text-4xl italic text-star">{t("experienceTitle")}</h2>
+            <h2 className="mt-3 font-display text-4xl text-star">{t("experienceTitle")}</h2>
             <p className="mt-5 text-star/75">{t("experienceText1")}</p>
             <p className="mt-4 text-star/75">{t("experienceText2")}</p>
           </RevealMask>
@@ -85,7 +85,7 @@ export default async function NovedadPage({ params }: { params: Promise<{ locale
 
       <section className="border-t border-star/10 px-5 py-16 text-center sm:px-8">
         <RevealMask>
-          <p className="font-display text-2xl italic text-star sm:text-3xl">{t("quote")}</p>
+          <p className="font-display text-2xl text-star sm:text-3xl">{t("quote")}</p>
           <p className="mt-3 text-sm text-star/60">{t("quoteAuthor")}</p>
         </RevealMask>
       </section>

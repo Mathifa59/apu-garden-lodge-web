@@ -103,7 +103,7 @@ export function RoomDetailModal({
             >
               ✕
             </button>
-            <p className="font-display text-2xl italic text-ink">{label}</p>
+            <p className="font-display text-2xl text-ink">{label}</p>
 
             <div className="mt-3 flex flex-wrap gap-1.5">
               <Tag>{t("sizeLabel", { size })}</Tag>

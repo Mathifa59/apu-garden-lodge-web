@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { Fraunces, Outfit } from "next/font/google";
+import { Bricolage_Grotesque, Outfit } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import "../globals.css";
@@ -8,16 +8,16 @@ import { routing } from "@/i18n/routing";
 import { buildCanonical, buildLanguageAlternates, SITE_URL } from "@/lib/seo";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
-// Fraunces — serif con mucho carácter y peso real en los trazos (a diferencia
-// de Cormorant, que se leía "fina" incluso en negrita). Su cursiva tiene
-// personalidad propia, así que se mantiene el uso de italic en los títulos.
-const fraunces = Fraunces({
+// Bricolage Grotesque — grotesca contemporánea con carácter (ink traps,
+// terminales suaves). Reemplaza a Fraunces: los títulos pasan de serif
+// itálico "editorial" a sans-serif bold "moderno cálido", más cercano a la
+// referencia que pidió el dueño manteniendo la paleta tierra.
+const bricolage = Bricolage_Grotesque({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: "variable",
-  style: ["normal", "italic"],
-  axes: ["opsz", "SOFT", "WONK"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const outfit = Outfit({
@@ -131,8 +131,8 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={locale} className={`${fraunces.variable} ${outfit.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col bg-cream font-ui text-ink">
+    <html lang={locale} className={`${bricolage.variable} ${outfit.variable} h-full antialiased`}>
+      <body className="flex min-h-full flex-col bg-sand font-ui text-ink">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -141,6 +141,7 @@ export default async function LocaleLayout({
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
+          <WhatsAppButton />
         </NextIntlClientProvider>
       </body>
     </html>

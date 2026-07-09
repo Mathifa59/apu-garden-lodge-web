@@ -18,8 +18,9 @@ export function Footer() {
   const tf = useTranslations("footer");
 
   return (
-    <footer className="bg-ink px-5 py-14 text-cream sm:px-8">
-      <div className="mx-auto grid max-w-6xl gap-10 sm:grid-cols-3">
+    <footer className="relative overflow-hidden bg-ink px-5 py-14 text-cream sm:px-8">
+      <div className="pointer-events-none absolute inset-0 bg-fade-footer" />
+      <div className="relative mx-auto grid max-w-6xl gap-10 sm:grid-cols-3">
         <div>
           <Logo light />
           <p className="mt-4 max-w-xs text-sm text-cream/70">{tf("tagline")}</p>
@@ -71,11 +72,31 @@ export function Footer() {
                 Facebook
               </a>
             </li>
+            <li>
+              <a
+                href="https://www.instagram.com/apugardenlodge/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-honey"
+              >
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.tiktok.com/@apu.garden.hotel"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-honey"
+              >
+                TikTok
+              </a>
+            </li>
           </ul>
         </div>
       </div>
 
-      <div className="mx-auto mt-12 max-w-6xl border-t border-cream/10 pt-6 text-xs text-cream/40">
+      <div className="relative mx-auto mt-12 max-w-6xl border-t border-cream/10 pt-6 text-xs text-cream/40">
         © {new Date().getFullYear()} Apu Garden Lodge. {tf("rights")}
       </div>
     </footer>

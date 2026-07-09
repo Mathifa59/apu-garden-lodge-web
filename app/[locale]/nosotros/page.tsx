@@ -35,8 +35,8 @@ export default async function NosotrosPage({ params }: { params: Promise<{ local
         <Image src={roomPhotos("doble")[3]} alt="" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/45" />
         <div className="relative">
-          <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-honey">{t("eyebrow")}</p>
-          <h1 className="mt-3 font-display text-5xl italic text-cream sm:text-6xl">{t("title")}</h1>
+          <span className="pill pill-dark">{t("eyebrow")}</span>
+          <h1 className="mt-3 font-display text-5xl text-cream sm:text-6xl">{t("title")}</h1>
         </div>
       </header>
 
@@ -57,7 +57,7 @@ export default async function NosotrosPage({ params }: { params: Promise<{ local
             <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
               {t("originEyebrow")}
             </p>
-            <h2 className="mt-3 font-display text-4xl italic text-ink">{t("originTitle")}</h2>
+            <h2 className="mt-3 font-display text-4xl text-ink">{t("originTitle")}</h2>
             <p className="mt-5 text-ink-soft">{t("originText1")}</p>
             <p className="mt-4 text-ink-soft">{t("originText2")}</p>
           </RevealMask>
@@ -68,13 +68,13 @@ export default async function NosotrosPage({ params }: { params: Promise<{ local
         <div className="pointer-events-none absolute inset-0 bg-fade-sage opacity-40" />
         <div className="relative mx-auto max-w-6xl">
           <RevealMask className="text-center">
-            <h2 className="font-display text-3xl italic sm:text-4xl">{t("valuesHeading")}</h2>
+            <h2 className="font-display text-3xl sm:text-4xl">{t("valuesHeading")}</h2>
           </RevealMask>
           <div className="mt-12 grid gap-6 sm:grid-cols-3">
             {VALUE_KEYS.map((key, i) => (
               <RevealCard key={key} delay={i * 0.1}>
                 <div className="rounded-2xl border border-cream/10 bg-cream/5 p-7 text-center">
-                  <p className="font-display text-xl italic text-honey">{t(`values.${key}.title`)}</p>
+                  <p className="font-display text-xl text-honey">{t(`values.${key}.title`)}</p>
                   <p className="mt-2 text-sm text-cream/70">{t(`values.${key}.desc`)}</p>
                 </div>
               </RevealCard>
@@ -88,7 +88,7 @@ export default async function NosotrosPage({ params }: { params: Promise<{ local
           <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-terracotta">
             {t("locationEyebrow")}
           </p>
-          <h2 className="mt-3 font-display text-4xl italic text-ink">{t("locationTitle")}</h2>
+          <h2 className="mt-3 font-display text-4xl text-ink">{t("locationTitle")}</h2>
           <p className="mx-auto mt-5 max-w-xl text-ink-soft">{t("locationText")}</p>
           <Link
             href="/contacto"

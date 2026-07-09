@@ -48,8 +48,8 @@ export default async function ContactoPage({ params }: { params: Promise<{ local
         <Image src={roomPhotos("individual")[1]} alt="" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/45" />
         <div className="relative">
-          <p className="font-ui text-xs font-semibold uppercase tracking-[0.3em] text-honey">{t("eyebrow")}</p>
-          <h1 className="mt-3 font-display text-5xl italic text-cream sm:text-6xl">{t("title")}</h1>
+          <span className="pill pill-dark">{t("eyebrow")}</span>
+          <h1 className="mt-3 font-display text-5xl text-cream sm:text-6xl">{t("title")}</h1>
           <p className="mx-auto mt-5 max-w-xl text-cream/85">{t("subtitle")}</p>
         </div>
       </header>
@@ -97,7 +97,7 @@ export default async function ContactoPage({ params }: { params: Promise<{ local
       <section className="relative overflow-hidden bg-sage-pale/40 bg-fade-sage px-5 py-20 sm:px-8 sm:py-28">
         <div className="relative mx-auto max-w-5xl">
           <RevealMask className="text-center">
-            <h2 className="font-display text-4xl italic text-ink sm:text-5xl">{t("availabilityTitle")}</h2>
+            <h2 className="font-display text-4xl text-ink sm:text-5xl">{t("availabilityTitle")}</h2>
           </RevealMask>
           <Reveal delay={0.1} className="mt-10">
             <BookingWidget />
