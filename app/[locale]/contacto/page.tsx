@@ -5,14 +5,10 @@ import { BookingWidget } from "@/components/BookingWidget";
 import { Reveal } from "@/components/Reveal";
 import { RevealCard } from "@/components/RevealCard";
 import { RevealMask } from "@/components/RevealMask";
+import { LODGE_LAT, LODGE_LNG, LODGE_MAPS_URL } from "@/lib/lodge";
 import { roomPhotos } from "@/lib/roomPhotos";
 import { buildCanonical, buildLanguageAlternates } from "@/lib/seo";
 import { whatsappHref } from "@/lib/whatsapp";
-
-// Pin exacto del lodge (confirmado por el dueño vía Google Maps) — se usa
-// tanto para el mapa embebido como para el geo del JSON-LD en el layout.
-const LODGE_LAT = -13.2897078;
-const LODGE_LNG = -72.112883;
 
 export async function generateMetadata({
   params,
@@ -39,7 +35,7 @@ export default async function ContactoPage({ params }: { params: Promise<{ local
     {
       label: t("locationLabel"),
       value: t("locationValue"),
-      href: `https://www.google.com/maps/search/?api=1&query=${LODGE_LAT},${LODGE_LNG}`,
+      href: LODGE_MAPS_URL,
     },
     { label: t("socialLabel"), value: "Facebook", href: "https://www.facebook.com/profile.php?id=61590296495164" },
   ];

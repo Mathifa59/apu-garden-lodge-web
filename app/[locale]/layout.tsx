@@ -5,6 +5,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import "../globals.css";
 import { routing } from "@/i18n/routing";
+import { LODGE_LAT, LODGE_LNG, LODGE_MAPS_URL } from "@/lib/lodge";
 import { buildCanonical, buildLanguageAlternates, SITE_URL } from "@/lib/seo";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -90,7 +91,7 @@ export default async function LocaleLayout({
     paymentAccepted: "Cash",
     numberOfRooms: 14,
     petsAllowed: true,
-    hasMap: `https://www.google.com/maps/search/?api=1&query=-13.2897078,-72.112883`,
+    hasMap: LODGE_MAPS_URL,
     address: {
       "@type": "PostalAddress",
       streetAddress: "Cidruchayoc, lote 178, sector Yanaconas",
@@ -101,8 +102,8 @@ export default async function LocaleLayout({
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: -13.2897078,
-      longitude: -72.112883,
+      latitude: LODGE_LAT,
+      longitude: LODGE_LNG,
     },
     sameAs: ["https://www.facebook.com/profile.php?id=61590296495164"],
     openingHoursSpecification: {

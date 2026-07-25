@@ -10,17 +10,17 @@ import {
   TikTokIcon,
   WhatsAppIcon,
 } from "@/components/SocialIcons";
+import { LODGE_MAPS_URL } from "@/lib/lodge";
 import { whatsappHref } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "Apu Garden Lodge — Links",
   description: "Reserva, escríbenos o síguenos — todo en un solo lugar.",
+  // Landing del QR de la tarjeta de presentación: solo se llega por el QR o
+  // la bio de redes. Fuera del índice para que no compita con la home en
+  // búsquedas de marca (su contenido es solo enlaces, sin valor de ranking).
+  robots: { index: false, follow: true },
 };
-
-// Pin exacto del lodge (confirmado por el dueño vía Google Maps) — más
-// preciso que buscar por la dirección en texto.
-const LODGE_LAT = -13.2897078;
-const LODGE_LNG = -72.112883;
 
 const LINKS = [
   { label: "Reservar", sub: "Disponibilidad y precios", href: "https://apu-garden-lodge.com/reservas", icon: CalendarIcon },
@@ -37,7 +37,7 @@ const LINKS = [
   {
     label: "Ubicación",
     sub: "Urubamba, Valle Sagrado",
-    href: `https://www.google.com/maps/search/?api=1&query=${LODGE_LAT},${LODGE_LNG}`,
+    href: LODGE_MAPS_URL,
     icon: MapPinIcon,
   },
   { label: "Sitio web", sub: "apu-garden-lodge.com", href: "https://apu-garden-lodge.com", icon: GlobeIcon },

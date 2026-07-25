@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { LODGE_MAPS_URL } from "@/lib/lodge";
 import { whatsappHref } from "@/lib/whatsapp";
 import { Logo } from "./Logo";
 import {
@@ -22,10 +23,6 @@ const ROUTE_KEYS: Record<(typeof ROUTES)[number], string> = {
   "/contacto": "contact",
 };
 
-// Pin exacto del lodge — mismo usado en contacto/page.tsx y app/links.
-const LODGE_LAT = -13.2897078;
-const LODGE_LNG = -72.112883;
-
 // Rotación de acentos de marca para los badges de ícono — evita que la
 // columna de contacto se lea como un solo bloque monocromo de texto.
 const ACCENTS = ["bg-terracotta/25 text-terracotta-bright", "bg-sage/25 text-sage-pale", "bg-honey/25 text-honey"];
@@ -39,7 +36,7 @@ export function Footer() {
     { label: "+51 937 454 282", href: whatsappHref(tw("defaultMessage")), icon: WhatsAppIcon },
     {
       label: tf("address"),
-      href: `https://www.google.com/maps/search/?api=1&query=${LODGE_LAT},${LODGE_LNG}`,
+      href: LODGE_MAPS_URL,
       icon: MapPinIcon,
     },
     { label: "Booking.com", href: "https://www.booking.com/hotel/pe/apu-garden-lodge-yanaconas.es.html", icon: BookingIcon },
