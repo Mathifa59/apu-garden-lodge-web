@@ -82,35 +82,43 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-ink/10" />
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ink/55 to-transparent" />
 
+        {/* Márgenes internos apretados a propósito (mt-4 en vez de mt-5/6,
+            mt-7 en vez de mt-9): el bloque entero se centra verticalmente en
+            el hero, así que en ventanas cortas (barra de marcadores/pestañas
+            de más) los botones podían quedar recortados debajo del fold sin
+            que hiciera falta ningún scroll para notarlo. pt-24 se deja igual
+            — es lo que separa el badge del header fijo (88px), no hay
+            margen para bajarlo sin arriesgar que se toquen en esos mismos
+            casos de ventana corta. */}
         <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 px-5 pt-24 sm:px-8 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="text-center lg:text-left">
             <Reveal y={12}>
               <span className="pill pill-dark">{t("badge")}</span>
             </Reveal>
             <Reveal delay={0.08}>
-              <h1 className="mt-5 font-display text-6xl leading-[0.95] text-cream sm:text-7xl lg:text-8xl">
+              <h1 className="mt-3 font-display text-6xl leading-[0.95] text-cream sm:text-7xl lg:text-8xl">
                 Apu Garden Lodge
               </h1>
             </Reveal>
             <Reveal delay={0.16}>
-              <p className="mx-auto mt-5 max-w-md text-sm font-medium uppercase tracking-[0.3em] text-cream/80 lg:mx-0">
+              <p className="mx-auto mt-3 max-w-md text-sm font-medium uppercase tracking-[0.3em] text-cream/80 lg:mx-0">
                 {t("tagline")}
               </p>
             </Reveal>
             <Reveal delay={0.24}>
-              <p className="mx-auto mt-6 max-w-xl text-base text-cream/85 sm:text-lg lg:mx-0">{t("heroText")}</p>
+              <p className="mx-auto mt-3 max-w-xl text-base text-cream/85 sm:text-lg lg:mx-0">{t("heroText")}</p>
             </Reveal>
             <Reveal delay={0.32}>
-              <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
+              <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
                 <Link
                   href="/#reservar"
-                  className="inline-block rounded-full bg-terracotta px-8 py-3.5 font-ui text-sm font-semibold text-cream shadow-lg shadow-ink/30 transition-all hover:bg-terracotta-bright hover:shadow-xl active:scale-95"
+                  className="inline-block rounded-full bg-terracotta px-8 py-3 font-ui text-sm font-semibold text-cream shadow-lg shadow-ink/30 transition-all hover:bg-terracotta-bright hover:shadow-xl active:scale-95"
                 >
                   {t("heroCta")}
                 </Link>
                 <Link
                   href="/servicios"
-                  className="inline-flex items-center gap-2 rounded-full border border-cream/30 px-7 py-3.5 font-ui text-sm font-semibold text-cream backdrop-blur-sm transition-all hover:border-cream/60 hover:bg-cream/10 active:scale-95"
+                  className="inline-flex items-center gap-2 rounded-full border border-cream/30 px-7 py-3 font-ui text-sm font-semibold text-cream backdrop-blur-sm transition-all hover:border-cream/60 hover:bg-cream/10 active:scale-95"
                 >
                   {t("heroCtaSecondary")}
                 </Link>
@@ -165,7 +173,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="relative overflow-hidden bg-fade-clay px-5 py-14 sm:px-8 sm:py-20">
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 sm:grid-cols-2 sm:gap-16">
           <RevealCard>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem]">
+            {/* aspect-[3/4], no 4/5: la foto fuente es 576×768 (exactamente
+                3:4) — con 4/5 el contenedor era más alto de lo que la foto
+                cubre sin recortar, y object-cover recortaba arriba/abajo
+                justo el borde del tapiz y del velador. 3/4 calza exacto con
+                la foto, cero recorte. */}
+            <div className="relative aspect-[3/4] overflow-hidden rounded-[2.5rem]">
               <Image
                 src={roomPhotos("deluxe_extragrande")[0]}
                 alt={t("welcomeImageAlt")}
