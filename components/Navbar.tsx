@@ -52,7 +52,7 @@ export function Navbar() {
             <li key={href}>
               <Link
                 href={href}
-                className={`font-ui text-sm font-medium tracking-wide transition-colors drop-shadow-sm ${
+                className={`inline-flex items-center gap-1.5 font-ui text-sm font-medium tracking-wide transition-colors drop-shadow-sm ${
                   pathname === href
                     ? "text-terracotta"
                     : useLightText
@@ -61,6 +61,15 @@ export function Navbar() {
                 }`}
               >
                 {t(routeKey(href))}
+                {/* Punto pulsante: señala que "Novedad" es contenido nuevo,
+                    sin depender de un texto extra tipo "NUEVO" que compita
+                    con el resto del nav. */}
+                {href === "/novedad" && (
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-honey opacity-75" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-honey" />
+                  </span>
+                )}
               </Link>
             </li>
           ))}
@@ -119,11 +128,17 @@ export function Navbar() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className={`block rounded-lg px-3 py-2.5 font-ui text-base ${
+                    className={`flex items-center gap-1.5 rounded-lg px-3 py-2.5 font-ui text-base ${
                       pathname === href ? "bg-sage-pale text-sage-deep" : "text-ink-soft"
                     }`}
                   >
                     {t(routeKey(href))}
+                    {href === "/novedad" && (
+                      <span className="relative flex h-1.5 w-1.5">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-honey opacity-75" />
+                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-honey" />
+                      </span>
+                    )}
                   </Link>
                 </li>
               ))}

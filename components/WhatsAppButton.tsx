@@ -19,21 +19,33 @@ export async function WhatsAppButton() {
   const href = whatsappHref(t("defaultMessage"));
 
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Escríbenos por WhatsApp"
-      className="group fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center sm:bottom-7 sm:right-7"
-    >
+    <div className="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 sm:bottom-7 sm:right-7">
+      {/* Burbuja de invitación — aparece con un pequeño retraso (no compite
+          con la animación de entrada del resto de la página) y se queda
+          fija ahí, como una invitación permanente a escribir, no un tooltip
+          que dependa de hover (la mayoría del tráfico es móvil, sin hover). */}
       <span
-        className="absolute inset-0 animate-ping rounded-full bg-[#25d366] opacity-60"
-        style={{ animationDuration: "2.2s" }}
-      />
-      <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366] text-cream shadow-lg shadow-ink/30 transition-transform group-hover:scale-105 group-active:scale-95">
-        <WhatsAppIcon className="h-7 w-7" />
+        className="animate-whatsapp-greet-in max-w-[11rem] rounded-2xl rounded-br-sm bg-cream-soft px-3.5 py-2.5 text-xs font-medium leading-snug text-ink shadow-lg shadow-ink/15 sm:max-w-[13rem] sm:text-sm"
+        style={{ animationDelay: "1.1s" }}
+      >
+        {t("greeting")}
       </span>
-    </a>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Escríbenos por WhatsApp"
+        className="group relative flex h-14 w-14 shrink-0 items-center justify-center"
+      >
+        <span
+          className="absolute inset-0 animate-ping rounded-full bg-[#25d366] opacity-60"
+          style={{ animationDuration: "2.2s" }}
+        />
+        <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366] text-cream shadow-lg shadow-ink/30 transition-transform group-hover:scale-105 group-active:scale-95">
+          <WhatsAppIcon className="h-7 w-7" />
+        </span>
+      </a>
+    </div>
   );
 }
 

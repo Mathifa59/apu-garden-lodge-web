@@ -52,12 +52,11 @@ export default async function ServiciosPage({ params }: { params: Promise<{ loca
 
   return (
     <>
-      <header className="relative overflow-hidden px-5 pt-32 pb-20 text-center sm:px-8 sm:pt-40 sm:pb-28">
+      <header className="relative overflow-hidden px-5 pt-24 pb-14 text-center sm:px-8 sm:pt-28 sm:pb-16">
         <Image src={roomPhotos("doble_deluxe_twin")[1]} alt="" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/45" />
         <div className="relative">
-          <span className="pill pill-dark">{t("eyebrow")}</span>
-          <h1 className="mt-3 font-display text-5xl text-cream sm:text-6xl">{t("title")}</h1>
+          <h1 className="font-display text-5xl text-cream sm:text-6xl">{t("title")}</h1>
           <p className="mx-auto mt-5 max-w-xl text-cream/85">{t("subtitle")}</p>
         </div>
       </header>

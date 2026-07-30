@@ -53,11 +53,12 @@ export function RoomDetailModal({
           <div className="relative flex flex-col bg-ink">
             <div className="relative aspect-[4/3]">
               <Image
+                key={index}
                 src={photos[index]}
                 alt={label}
                 fill
                 sizes="(min-width: 640px) 60vw, 100vw"
-                className="object-cover"
+                className="animate-gallery-fade-in object-cover"
               />
               {photos.length > 1 && (
                 <>

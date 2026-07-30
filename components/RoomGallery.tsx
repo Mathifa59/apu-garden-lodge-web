@@ -33,13 +33,18 @@ export function RoomGallery({
           onExpand ? "cursor-pointer" : ""
         }`}
       >
+        {/* key={index}: fuerza a React a remontar el <Image> en cada cambio
+            de foto (en vez de solo actualizar el src del mismo nodo), así
+            la animación de fade-in se dispara desde cero cada vez — antes
+            la foto cambiaba de golpe, sin ninguna transición. */}
         <Image
+          key={index}
           src={photos[index]}
           alt={alt}
           fill
           priority={priority}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover transition-opacity"
+          className="animate-gallery-fade-in object-cover"
         />
         {photos.length > 1 && (
           <>

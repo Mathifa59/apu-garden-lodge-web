@@ -47,7 +47,8 @@
     "rights": "All rights reserved."
   },
   "whatsapp": {
-    "defaultMessage": "Hi, I'd like to make a reservation or check availability at Apu Garden Lodge."
+    "defaultMessage": "Hi, I'd like to make a reservation or check availability at Apu Garden Lodge.",
+    "greeting": "Want to have an amazing time with us? Message us"
   },
   "rooms": {
     "sizeLabel": "{size} m²",

@@ -170,20 +170,23 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-fade-clay px-5 py-14 sm:px-8 sm:py-20">
+      <section className="relative overflow-hidden bg-fade-welcome px-5 py-14 sm:px-8 sm:py-20">
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 sm:grid-cols-2 sm:gap-16">
           <RevealCard>
-            {/* aspect-[3/4], no 4/5: la foto fuente es 576×768 (exactamente
-                3:4) — con 4/5 el contenedor era más alto de lo que la foto
-                cubre sin recortar, y object-cover recortaba arriba/abajo
-                justo el borde del tapiz y del velador. 3/4 calza exacto con
-                la foto, cero recorte. */}
-            <div className="relative aspect-[3/4] overflow-hidden rounded-[2.5rem]">
+            {/* La columna del grid mide ~50% de max-w-6xl (~500-550px según
+                pantalla) — con aspect-[3/4] la foto llegaba a 667px de
+                alto, más que la columna de texto de al lado (280px) y casi
+                toda la sección quedaba ocupada por esta sola imagen. max-w-sm
+                pone un techo al ancho real (así el alto queda controlado
+                sin importar qué tan ancha sea la columna), y aspect-[4/5]
+                (vs. 3/4) recorta apenas ~6.7% arriba/abajo — casi
+                imperceptible, muy distinto al recorte grande de antes. */}
+            <div className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[2.5rem]">
               <Image
                 src={roomPhotos("deluxe_extragrande")[0]}
                 alt={t("welcomeImageAlt")}
                 fill
-                sizes="(min-width: 640px) 50vw, 100vw"
+                sizes="(min-width: 640px) 384px, 100vw"
                 className="object-cover"
               />
             </div>

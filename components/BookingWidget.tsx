@@ -5,6 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { ApiError, checkAvailability, createBookingRequest, type AvailabilityResponse, type RoomType } from "@/lib/api";
+import { DateField } from "./DateField";
 import { RoomDetailModal } from "./RoomDetailModal";
 import { roomPhotos } from "@/lib/roomPhotos";
 
@@ -19,6 +20,7 @@ export function BookingWidget() {
   const t = useTranslations("booking");
   const tr = useTranslations("rooms");
   const locale = useLocale();
+  const [name, setName] = useState("");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState(2);
@@ -65,24 +67,28 @@ export function BookingWidget() {
       <p className="font-display text-2xl text-sage-deep">{t("title")}</p>
       <p className="mt-1 text-sm text-ink-soft">{t("subtitle")}</p>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-[1fr_1fr_auto_auto]">
-        <Field label={t("arrival")}>
+      {/* Nombre arriba de todo, separado de fechas/huéspedes: se puede
+          escribir de entrada, pero NO condiciona que aparezcan resultados —
+          eso sigue dependiendo solo de fechas + huéspedes + "Consultar" (ver
+          search()). Se precarga en el formulario de solicitud de abajo para
+          no pedirlo dos veces. */}
+      <div className="mt-6">
+        <Field label={t("fullName")}>
           <input
-            type="date"
-            min={today}
-            value={checkIn}
-            onChange={(e) => setCheckIn(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder={t("fullName")}
             className="w-full rounded-xl border border-sage-pale bg-cream px-3.5 py-2.5 text-sm text-ink outline-none transition focus:border-sage focus:ring-2 focus:ring-sage/25"
           />
         </Field>
+      </div>
+
+      <div className="mt-4 grid gap-4 sm:grid-cols-[1fr_1fr_auto_auto]">
+        <Field label={t("arrival")}>
+          <DateField value={checkIn} onChange={setCheckIn} min={today} />
+        </Field>
         <Field label={t("departure")}>
-          <input
-            type="date"
-            min={checkIn || today}
-            value={checkOut}
-            onChange={(e) => setCheckOut(e.target.value)}
-            className="w-full rounded-xl border border-sage-pale bg-cream px-3.5 py-2.5 text-sm text-ink outline-none transition focus:border-sage focus:ring-2 focus:ring-sage/25"
-          />
+          <DateField value={checkOut} onChange={setCheckOut} min={checkIn || today} />
         </Field>
         <Field label={t("guests")}>
           <div className="flex items-center justify-between rounded-xl border border-sage-pale bg-cream px-1">
@@ -189,6 +195,7 @@ export function BookingWidget() {
             checkIn={toIso(checkIn, CHECK_IN_TIME)}
             checkOut={toIso(checkOut, CHECK_OUT_TIME)}
             guests={guests}
+            initialName={name}
             onClose={() => setSelectedType(null)}
           />
         )}
@@ -224,18 +231,22 @@ function RequestForm({
   checkIn,
   checkOut,
   guests,
+  initialName,
   onClose,
 }: {
   roomType: RoomType;
   checkIn: string;
   checkOut: string;
   guests: number;
+  // Precargado desde el nombre que ya se escribió arriba en el buscador —
+  // para no pedírselo dos veces al huésped.
+  initialName: string;
   onClose: () => void;
 }) {
   const t = useTranslations("booking");
   const tr = useTranslations("rooms");
   const locale = useLocale();
-  const [name, setName] = useState("");
+  const [name, setName] = useState(initialName);
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");

@@ -30,7 +30,10 @@ export default async function NovedadPage({ params }: { params: Promise<{ locale
 
   return (
     <div className="bg-night text-star">
-      <section className="relative flex min-h-[95vh] items-center overflow-hidden">
+      {/* min-h-screen (no 95vh): mismo motivo que el hero de Home — con
+          menos de 100vh se alcanzaba a ver el inicio de la siguiente
+          sección antes de hacer scroll. */}
+      <section className="relative flex min-h-screen items-center overflow-hidden">
         <Image
           src={IMAGES.observatory}
           alt={t("heroImageAlt")}
@@ -44,8 +47,7 @@ export default async function NovedadPage({ params }: { params: Promise<{ locale
 
         <div className="relative z-10 mx-auto w-full max-w-4xl px-5 pt-24 text-center sm:px-8">
           <Reveal>
-            <p className="font-ui text-xs font-semibold uppercase tracking-[0.4em] text-celestial">{t("eyebrow")}</p>
-            <h1 className="mx-auto mt-5 max-w-2xl font-display text-5xl leading-[1.05] text-star sm:text-7xl">
+            <h1 className="mx-auto max-w-2xl font-display text-5xl leading-[1.05] text-star sm:text-7xl">
               {t("title")}
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-base text-star/80 sm:text-lg">{t("subtitle")}</p>
