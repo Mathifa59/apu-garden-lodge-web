@@ -60,7 +60,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <>
-      <section className="relative flex min-h-[92vh] items-center overflow-hidden">
+      {/* min-h-screen (no 92vh): el header flota encima con position:fixed
+          (no ocupa espacio de layout), así que el hero puede ocupar el
+          100% del viewport real — con 92vh se alcanzaba a ver una franja
+          de la siguiente sección ya en la carga inicial, antes de scrollear. */}
+      <section className="relative flex min-h-screen items-center overflow-hidden">
         <Image
           src={roomPhotos("doble")[0]}
           alt={t("heroImageAlt")}
