@@ -67,7 +67,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           fill
           sizes="100vw"
           priority
-          className="object-cover"
+          // object-top (no center, el default): en ventanas anchas y bajas
+          // object-cover centrado recorta justo la franja más oscura/plana
+          // de la foto (el borde de la cama), dejando una "zona muerta" sin
+          // detalle exactamente donde caen los botones y el wave. Anclando
+          // arriba se prioriza la ventana con vista (la parte más luminosa
+          // de la foto) y ese recorte oscuro queda fuera o al borde.
+          className="object-cover object-top"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-ink/10" />
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ink/55 to-transparent" />
