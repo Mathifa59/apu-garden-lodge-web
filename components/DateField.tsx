@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useLocale } from "next-intl";
 
 // Reemplaza <input type="date"> — su selector nativo (el panel azul de dos
@@ -9,6 +10,12 @@ import { useLocale } from "next-intl";
 // tocar la lógica de BookingWidget, solo el input cambia por este componente.
 // A diferencia del DateTimeField del sistema de gestión, acá no hace falta
 // hora — el sitio público solo pide fechas de llegada/salida.
+//
+// El popover se renderiza vía portal en <body>, NO como hijo normal del
+// botón: las secciones que usan este campo (BookingWidget vive dentro de
+// secciones con `overflow-hidden`, necesario para recortar el degradado de
+// fondo) cortaban el calendario a la mitad justo donde terminaba la sección.
+// Portal + posición calculada a mano esquiva ese overflow por completo.
 
 function parseDate(value: string): Date | null {
   if (!value) return null;
@@ -38,6 +45,8 @@ function capitalizeFirst(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+const POPOVER_WIDTH = 288; // w-72
+
 export function DateField({
   value,
   onChange,
@@ -53,15 +62,30 @@ export function DateField({
 }) {
   const locale = useLocale();
   const [open, setOpen] = useState(false);
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [coords, setCoords] = useState<{ top: number; left: number } | null>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
   const selected = parseDate(value);
   const minDate = min ? parseDate(min) : null;
   const [viewMonth, setViewMonth] = useState(() => selected ?? minDate ?? new Date());
 
+  function openPopover() {
+    const rect = buttonRef.current!.getBoundingClientRect();
+    // Documento (no viewport): +scrollY/scrollX, para que la posición
+    // calculada una sola vez al abrir siga alineada con el botón aunque la
+    // página se desplace mientras el calendario está abierto.
+    const left = Math.min(rect.left + window.scrollX, document.documentElement.clientWidth + window.scrollX - POPOVER_WIDTH - 8);
+    setCoords({ top: rect.bottom + window.scrollY + 8, left: Math.max(8, left) });
+    setOpen(true);
+  }
+
   useEffect(() => {
     if (!open) return;
     function onClickOutside(e: MouseEvent) {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) setOpen(false);
+      const target = e.target as Node;
+      const insideButton = buttonRef.current?.contains(target);
+      const insidePopover = popoverRef.current?.contains(target);
+      if (!insideButton && !insidePopover) setOpen(false);
     }
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") setOpen(false);
@@ -104,10 +128,11 @@ export function DateField({
     : placeholder;
 
   return (
-    <div ref={wrapperRef} className="relative">
+    <>
       <button
+        ref={buttonRef}
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => (open ? setOpen(false) : openPopover())}
         className={`flex w-full items-center justify-between rounded-xl border border-sage-pale bg-cream px-3.5 py-2.5 text-left text-sm outline-none transition focus:border-sage focus:ring-2 focus:ring-sage/25 ${
           selected ? "text-ink" : "text-ink-soft/60"
         }`}
@@ -125,66 +150,75 @@ export function DateField({
         </svg>
       </button>
 
-      {open && (
-        <div className="absolute z-50 mt-2 w-72 rounded-xl border border-sage-pale bg-cream-soft p-4 shadow-xl shadow-ink/10">
-          <div className="flex items-center justify-between">
-            <button
-              type="button"
-              onClick={() => setViewMonth(new Date(viewMonth.getFullYear(), viewMonth.getMonth() - 1, 1))}
-              className="rounded-md p-1 text-ink-soft transition hover:bg-sage-pale/50 hover:text-sage-deep"
-              aria-label="Mes anterior"
-            >
-              ‹
-            </button>
-            {/* Mayúscula solo en la primera letra (no la clase `capitalize`
-                de Tailwind, que pondría mayúscula en CADA palabra — "Julio
-                De 2026" en vez de "Julio de 2026"). */}
-            <span className="font-display text-sm text-ink">{capitalizeFirst(monthFormatter.format(viewMonth))}</span>
-            <button
-              type="button"
-              onClick={() => setViewMonth(new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 1))}
-              className="rounded-md p-1 text-ink-soft transition hover:bg-sage-pale/50 hover:text-sage-deep"
-              aria-label="Mes siguiente"
-            >
-              ›
-            </button>
-          </div>
+      {open &&
+        coords &&
+        createPortal(
+          <div
+            ref={popoverRef}
+            style={{ position: "absolute", top: coords.top, left: coords.left, width: POPOVER_WIDTH }}
+            className="z-50 rounded-xl border border-sage-pale bg-cream-soft p-4 shadow-xl shadow-ink/10"
+          >
+            <div className="flex items-center justify-between">
+              <button
+                type="button"
+                onClick={() => setViewMonth(new Date(viewMonth.getFullYear(), viewMonth.getMonth() - 1, 1))}
+                className="rounded-md p-1 text-ink-soft transition hover:bg-sage-pale/50 hover:text-sage-deep"
+                aria-label="Mes anterior"
+              >
+                ‹
+              </button>
+              {/* Mayúscula solo en la primera letra (no la clase `capitalize`
+                  de Tailwind, que pondría mayúscula en CADA palabra — "Julio
+                  De 2026" en vez de "Julio de 2026"). */}
+              <span className="font-display text-sm text-ink">
+                {capitalizeFirst(monthFormatter.format(viewMonth))}
+              </span>
+              <button
+                type="button"
+                onClick={() => setViewMonth(new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 1))}
+                className="rounded-md p-1 text-ink-soft transition hover:bg-sage-pale/50 hover:text-sage-deep"
+                aria-label="Mes siguiente"
+              >
+                ›
+              </button>
+            </div>
 
-          <div className="mt-3 grid grid-cols-7 gap-1 text-center text-[10px] font-medium uppercase tracking-wide text-ink-soft">
-            {weekdayLabels.map((w, i) => (
-              <span key={i}>{w}</span>
-            ))}
-          </div>
-          <div className="mt-1 grid grid-cols-7 gap-1">
-            {cells.map(({ date, inMonth }, i) => {
-              const isSelected = selected !== null && isSameDay(date, selected);
-              const isToday = isSameDay(date, today);
-              const disabled = isDisabled(date);
-              return (
-                <button
-                  type="button"
-                  key={i}
-                  disabled={disabled}
-                  onClick={() => pickDay(date)}
-                  className={`rounded-md py-1 text-xs transition ${
-                    disabled
-                      ? "cursor-not-allowed text-ink-soft/25"
-                      : !inMonth
-                        ? "text-ink-soft/30 hover:text-ink-soft/60"
-                        : isSelected
-                          ? "bg-terracotta font-semibold text-cream"
-                          : isToday
-                            ? "border border-terracotta/50 text-ink"
-                            : "text-ink hover:bg-sage-pale/50"
-                  }`}
-                >
-                  {date.getDate()}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
-    </div>
+            <div className="mt-3 grid grid-cols-7 gap-1 text-center text-[10px] font-medium uppercase tracking-wide text-ink-soft">
+              {weekdayLabels.map((w, i) => (
+                <span key={i}>{w}</span>
+              ))}
+            </div>
+            <div className="mt-1 grid grid-cols-7 gap-1">
+              {cells.map(({ date, inMonth }, i) => {
+                const isSelected = selected !== null && isSameDay(date, selected);
+                const isToday = isSameDay(date, today);
+                const disabled = isDisabled(date);
+                return (
+                  <button
+                    type="button"
+                    key={i}
+                    disabled={disabled}
+                    onClick={() => pickDay(date)}
+                    className={`rounded-md py-1 text-xs transition ${
+                      disabled
+                        ? "cursor-not-allowed text-ink-soft/25"
+                        : !inMonth
+                          ? "text-ink-soft/30 hover:text-ink-soft/60"
+                          : isSelected
+                            ? "bg-terracotta font-semibold text-cream"
+                            : isToday
+                              ? "border border-terracotta/50 text-ink"
+                              : "text-ink hover:bg-sage-pale/50"
+                    }`}
+                  >
+                    {date.getDate()}
+                  </button>
+                );
+              })}
+            </div>
+          </div>,
+          document.body
+        )}
+    </>
   );
 }
