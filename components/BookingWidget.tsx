@@ -9,8 +9,8 @@ import { DateField } from "./DateField";
 import { RoomDetailModal } from "./RoomDetailModal";
 import { roomPhotos } from "@/lib/roomPhotos";
 
-const CHECK_IN_TIME = "15:00:00";
-const CHECK_OUT_TIME = "11:00:00";
+const CHECK_IN_TIME = "11:00:00";
+const CHECK_OUT_TIME = "10:00:00";
 
 function toIso(date: string, time: string) {
   return `${date}T${time}`;
