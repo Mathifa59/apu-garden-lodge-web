@@ -201,3 +201,143 @@ pulgar. Aplicado globalmente en `app/globals.css` dentro de `@layer base`.
 
 Todo en `main`, pusheado (`improve project v.16`, `v.17`). Sin pendientes
 de esta tanda.
+
+---
+
+# Tanda 2026-09-09 — idioma, footer, legal, Libro de Reclamaciones, 404
+
+> Commits `agrego terminos, privacidad y libro de reclamaciones, fixes de
+> idioma y 404` + `corrijo horario de check-in desactualizado...`, en `main`.
+> Origen: pedido directo del dueño (redirect www, idioma español por
+> defecto, footer con crédito, términos/privacidad) + auditoría propia
+> contra un checklist de lanzamiento (SEO/legal/técnico) que identificó el
+> resto.
+
+## 1. El sitio detectaba el idioma del navegador
+
+**Problema:** un visitante con el navegador en inglés podía terminar en
+`/en` aunque entrara por la raíz — next-intl usa el header
+`Accept-Language` (y una cookie) para elegir el locale por default.
+
+**Solución:** `localeDetection: false` en `i18n/routing.ts`. Verificado
+seteando `document.cookie = "NEXT_LOCALE=en"` a mano y recargando: el
+sitio se queda en español; el toggle manual del nav a `/en` sigue
+funcionando.
+
+**Archivos:** `i18n/routing.ts`.
+
+## 2. Footer sin crédito de autoría ni links legales
+
+**Solución:** línea nueva en la barra inferior del footer — "Desarrollado
+por DevHorses" (link a `https://www.devhorses.com/`, `target="_blank"`) +
+links a Términos, Privacidad y Libro de Reclamaciones.
+
+**Archivos:** `components/Footer.tsx`, `messages/es.json`/`en.json`
+(namespace `footer`).
+
+## 3. Términos y Condiciones, Política de Privacidad
+
+**Nuevas páginas** `/terminos` y `/privacidad`, bilingües, en el sitemap.
+Contenido basado en las políticas **ya publicadas** en el FAQ de Reservas
+(check-in/check-out, cancelación 24h) para no inventar cifras nuevas que
+choquen con lo que el sitio ya dice en otro lado.
+
+**Archivos:** `components/LegalDocument.tsx` (componente compartido, sin
+foto de cabecera — "páginas de lectura, no de marketing"),
+`app/[locale]/terminos/page.tsx`, `app/[locale]/privacidad/page.tsx`,
+`app/sitemap.ts`.
+
+**Nota:** no reemplaza revisión legal real — es contenido razonable para
+un hotel boutique en Perú (Ley N.° 29733, derechos ARCO), pero vale la
+pena que alguien con conocimiento legal en Perú lo revise, sobre todo la
+política de privacidad.
+
+**Bug encontrado post-commit:** el `v.18` (subido a mano el 30 jul) había
+cambiado el horario real de check-in de "10:00 a 12:00" a "11:00am en
+adelante / check-out hasta 10:00am" en el FAQ — pero Términos, escrito
+después con el dato viejo, seguía citando "10:00 a 12:00". Corregido en
+un commit aparte antes de pushear, en ambos idiomas.
+
+## 4. Libro de Reclamaciones Virtual
+
+**Por qué:** obligatorio en Perú para negocios que atienden consumidores
+(Indecopi), y el sitio no tenía ninguna vía de reclamo formal — solo
+WhatsApp.
+
+**Solución:** página `/libro-de-reclamaciones` con el formulario mínimo
+que exige la normativa (tipo reclamo/queja, datos del consumidor,
+menor de edad + tutor, servicio contratado, detalle, pedido concreto) +
+un endpoint (`app/api/libro-de-reclamaciones/route.ts`) que valida en
+servidor, genera un código de referencia y envía el reclamo por email
+(Resend) al hotel, más una copia de cortesía al consumidor con su código
+y el plazo de respuesta (30 días calendario).
+
+**Datos del proveedor mostrados:** CATNET PERU SAC, RUC 20608166204 (dados
+por el dueño, no inventados).
+
+**Limitación conocida — remitente sandbox de Resend:** sin un dominio
+propio verificado en Resend, el remitente `onboarding@resend.dev` solo
+puede enviar a la casilla con la que se creó la cuenta
+(`sgutierrezvilla@gmail.com`). El correo al hotel siempre llega bien; la
+copia de cortesía al consumidor que reclama **puede no llegarle** si usa
+otro email — falla en silencio, sin romper el registro del reclamo. Para
+que llegue con cualquier consumidor hace falta verificar un dominio
+propio en Resend (ej. `mail.apu-garden-lodge.com`, con registros DNS) y
+cambiar el remitente en `route.ts`.
+
+**Sin correlativo real:** no hay base de datos en el sitio público, así
+que el código de referencia (`RC-YYYYMMDD-XXXX`) es único por reclamo
+pero no un correlativo secuencial de "libro" formal.
+
+**Variables de entorno necesarias (no committeadas):** `RESEND_API_KEY`,
+`COMPLAINTS_EMAIL_TO`. En local viven en `.env.local` (este repo) y en
+producción en el `.env` de **Apu Gestion System** en el servidor (ver
+`docker-compose.prod.yml`, servicio `web` → `env_file: .env`) — el valor
+real de la key no está en ningún archivo versionado, solo en esos `.env`
+locales al equipo/servidor.
+
+**Archivos:** `app/[locale]/libro-de-reclamaciones/page.tsx`,
+`components/ComplaintsBookForm.tsx`, `lib/complaints.ts`,
+`app/api/libro-de-reclamaciones/route.ts`.
+
+**Verificación:** probado end-to-end en el navegador — envío real,
+respuesta `200 OK` con código de referencia, sin errores de Resend en los
+logs del servidor de desarrollo.
+
+## 5. 404 sin marca (genérico de Next.js)
+
+**Causa:** el proyecto no tiene un único `app/layout.tsx` raíz (hay dos
+root layouts — `[locale]/` y `links/`, ver comentario en
+`app/links/layout.tsx`), así que Next no podía componer
+`app/[locale]/not-found.tsx` para rutas que no matchean ningún segmento
+(ej. `/lo-que-sea`) — caía directo al 404 genérico interno.
+
+**Solución:** `app/global-not-found.tsx` + flag experimental
+`globalNotFound: true` en `next.config.ts` — la vía documentada en
+`node_modules/next/dist/docs/.../not-found.md` para exactamente este
+caso. Bypasea el árbol de layouts normal, así que trae su propio
+`<html>`/`<body>`/fuentes, y el copy va fijo en español (no pasa por
+next-intl, sin locale de request).
+
+**Archivos:** `app/global-not-found.tsx`, `next.config.ts`,
+`app/[locale]/not-found.tsx` (red de seguridad para `notFound()` disparado
+dentro de una ruta ya resuelta).
+
+**Nota de proceso:** durante el diagnóstico hubo dos falsos positivos de
+"páginas rotas" (`/terminos`, `/contacto`) que resultaron ser reinicios
+del dev server pisándose entre sí (borrar `.next/` muy seguido en
+Windows), no un bug real — se confirmó con `npm run build` limpio antes
+de dar el tema por cerrado.
+
+## 6. Redirect `www` → sin `www` (nginx)
+
+Vive en el repo **Apu Gestion System** (`nginx/nginx.prod.conf`), no en
+este — ver su propio changelog/DEPLOY.md. `apu-garden-lodge.com` (sin
+www) ya era el canonical real en `lib/seo.ts`; ahora también se fuerza a
+nivel de servidor con un 301.
+
+## Estado
+
+Código en `main` de ambos repos, pusheado. **Pendiente: desplegar al
+servidor** — ver "Pendiente de despliegue" en `DEPLOY.md` (Apu Gestion
+System) para el estado exacto y los pasos para terminarlo.
