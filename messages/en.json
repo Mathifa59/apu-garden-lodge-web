@@ -25,6 +25,22 @@
     "reservas": {
       "title": "Book Your Room | Apu Garden Lodge — Sacred Valley Boutique Hotel",
       "description": "Book directly at Apu Garden Lodge, Urubamba. 5 room types with private bathroom from S/77/night. Free cancellation up to 24 h before arrival. No intermediaries, no extra fees."
+    },
+    "terminos": {
+      "title": "Terms and Conditions | Apu Garden Lodge",
+      "description": "Booking terms, rates, check-in/check-out times and cancellation policy at Apu Garden Lodge, Urubamba, Sacred Valley."
+    },
+    "privacidad": {
+      "title": "Privacy Policy | Apu Garden Lodge",
+      "description": "How Apu Garden Lodge collects, uses and protects the personal data you share when requesting a reservation."
+    },
+    "notFound": {
+      "title": "Page not found | Apu Garden Lodge",
+      "description": "The page you're looking for doesn't exist or was moved."
+    },
+    "libro": {
+      "title": "Complaints Book | Apu Garden Lodge",
+      "description": "File a complaint or claim about the service at Apu Garden Lodge, under Peru's consumer protection law."
     }
   },
   "nav": {
@@ -44,7 +60,11 @@
     "explore": "Explore",
     "contact": "Contact",
     "address": "Cidruchayoc, lote 178, sector Yanaconas, Urubamba, Cusco",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "terms": "Terms and conditions",
+    "privacy": "Privacy policy",
+    "complaintsBook": "Complaints Book",
+    "developedBy": "Developed by"
   },
   "whatsapp": {
     "defaultMessage": "Hi, I'd like to make a reservation or check availability at Apu Garden Lodge.",
@@ -300,5 +320,183 @@
         "a": "Yes, on request and at no extra cost."
       }
     ]
+  },
+  "terminos": {
+    "title": "Terms and Conditions",
+    "subtitle": "In effect since October 2026 — please read before sending a booking request.",
+    "lastUpdated": "Last updated: October 2026",
+    "sections": [
+      {
+        "heading": "Acceptance of terms",
+        "body": [
+          "By using this website and submitting a booking request at Apu Garden Lodge, you accept these Terms and Conditions. If you do not agree with them, please do not use the site or submit booking requests."
+        ]
+      },
+      {
+        "heading": "Bookings and availability",
+        "body": [
+          "Requests submitted through this site are not automatically a confirmed booking: they are subject to confirmation by our team via email or WhatsApp, based on the actual availability of the requested room type.",
+          "If the chosen room type has no availability for the requested dates, the request is placed on a waitlist and we'll reach out as soon as a room becomes available."
+        ]
+      },
+      {
+        "heading": "Rates and payment",
+        "body": [
+          "Rates are shown in Peruvian soles (S/) and US dollars (US$) per night, depending on the room type. Payment is made directly at the hotel — this site does not process online payments or store card details."
+        ]
+      },
+      {
+        "heading": "Check-in and check-out",
+        "body": [
+          "Check-in is from 10:00 to 12:00. Check-out has no fixed time — it's coordinated with our team based on your departure itinerary."
+        ]
+      },
+      {
+        "heading": "Cancellations",
+        "body": [
+          "You can cancel your booking free of charge up to 24 hours before check-in. After that window, or in case of a no-show, the full stay is charged."
+        ]
+      },
+      {
+        "heading": "Use of the site",
+        "body": [
+          "The content on this site (text, photographs, design) belongs to Apu Garden Lodge or is used with the corresponding authorization. It may not be reproduced for commercial purposes without prior written authorization."
+        ]
+      },
+      {
+        "heading": "Liability",
+        "body": [
+          "Apu Garden Lodge is not liable for indirect damages arising from the use of this website, for service interruptions caused by circumstances beyond our control, or for errors in the information shown that are corrected promptly once identified."
+        ]
+      },
+      {
+        "heading": "Governing law",
+        "body": [
+          "These terms are governed by the laws of the Republic of Peru. Any dispute arising from their interpretation or enforcement is subject to the courts of Cusco, Peru."
+        ]
+      },
+      {
+        "heading": "Contact",
+        "body": [
+          "For questions about these terms, message us on WhatsApp at +51 937 454 282 or through the channels listed on the Contact page."
+        ]
+      }
+    ]
+  },
+  "privacidad": {
+    "title": "Privacy Policy",
+    "subtitle": "How we collect, use and protect your personal data when you request a reservation.",
+    "lastUpdated": "Last updated: October 2026",
+    "sections": [
+      {
+        "heading": "Data controller",
+        "body": [
+          "Apu Garden Lodge, located at Cidruchayoc, lote 178, sector Yanaconas, Urubamba, Cusco, Peru, is responsible for processing the personal data you share with us through this site."
+        ]
+      },
+      {
+        "heading": "What data we collect",
+        "body": [
+          "When you submit a booking request we collect: full name, email address, phone number (optional), arrival and departure dates, number of guests, requested room type, and any notes you add.",
+          "If you message us on WhatsApp, that platform's own privacy terms also apply."
+        ]
+      },
+      {
+        "heading": "How we use your data",
+        "body": [
+          "We use this information solely to manage your booking request, confirm availability, contact you by email or WhatsApp, and coordinate your stay."
+        ]
+      },
+      {
+        "heading": "Who we share your data with",
+        "body": [
+          "We do not sell or share your data with third parties for advertising purposes. Your information is recorded in the hotel's internal management system, for the exclusive use of Apu Garden Lodge staff."
+        ]
+      },
+      {
+        "heading": "Cookies and analytics",
+        "body": [
+          "This site does not use tracking cookies or third-party analytics tools."
+        ]
+      },
+      {
+        "heading": "How long we keep your data",
+        "body": [
+          "We retain your booking data for as long as your relationship with the hotel lasts, plus any additional time needed for administrative or legal purposes."
+        ]
+      },
+      {
+        "heading": "Your rights",
+        "body": [
+          "Under Peru's Law No. 29733 (Personal Data Protection Law), you may request access, rectification, cancellation, or objection (ARCO rights) regarding your personal data by writing to us through the contact channels listed below."
+        ]
+      },
+      {
+        "heading": "Security",
+        "body": [
+          "We take reasonable measures to protect your information, although no system is completely infallible."
+        ]
+      },
+      {
+        "heading": "Changes to this policy",
+        "body": [
+          "We may update this policy from time to time. The last-updated date is shown at the top of this page."
+        ]
+      },
+      {
+        "heading": "Contact",
+        "body": [
+          "To exercise your rights or ask questions about this policy, message us on WhatsApp at +51 937 454 282 or through the form on the Contact page."
+        ]
+      }
+    ]
+  },
+  "notFound": {
+    "eyebrow": "Error 404",
+    "title": "This page wandered off the trail",
+    "description": "We couldn't find what you were looking for. The link might be broken, or the page may have moved.",
+    "backHome": "Back to home",
+    "seeRooms": "See rooms"
+  },
+  "libro": {
+    "eyebrow": "Virtual Complaints Book",
+    "title": "Claims and complaints",
+    "subtitle": "Under Peru's consumer protection regulation, you can file a claim or complaint here about the service at Apu Garden Lodge.",
+    "note": "A claim expresses disagreement with the lodging service itself. A complaint expresses dissatisfaction with how you were attended to. In both cases, we'll respond within 30 calendar days at most.",
+    "businessTitle": "Provider details",
+    "businessName": "Legal name",
+    "businessRuc": "Tax ID (RUC)",
+    "businessAddress": "Address",
+    "formTitle": "Claim details",
+    "kindLabel": "Type",
+    "kindReclamo": "Claim",
+    "kindQueja": "Complaint",
+    "fullName": "Full name",
+    "documentType": "Document type",
+    "docDni": "National ID (DNI)",
+    "docCe": "Foreign resident card",
+    "docPassport": "Passport",
+    "documentNumber": "Document number",
+    "address": "Address (optional)",
+    "phone": "Phone (optional)",
+    "email": "Email address",
+    "isMinorLabel": "This is being filed by a parent or guardian on behalf of a minor",
+    "guardianName": "Parent/guardian's full name",
+    "guardianDocumentNumber": "Parent/guardian's document number",
+    "serviceDescription": "Service booked (optional)",
+    "serviceDescriptionPlaceholder": "E.g.: Deluxe double room booking, July 12–14, 2026",
+    "claimedAmount": "Amount claimed in S/ (optional)",
+    "detail": "Details of the claim or complaint",
+    "detailPlaceholder": "Describe what happened in as much detail as possible.",
+    "request": "What you're asking for",
+    "requestPlaceholder": "What resolution are you expecting? E.g.: refund, room change, a formal apology, etc.",
+    "submit": "Submit claim",
+    "sending": "Sending…",
+    "errorMissingFields": "Fill in all required fields with a valid format.",
+    "errorGeneric": "We couldn't submit your claim. Try again or message us on WhatsApp.",
+    "successTitle": "Claim filed",
+    "successBody": "Your reference code is {claimCode}. Keep it — we also emailed a copy to {email}.",
+    "successDeadline": "We'll respond within 30 calendar days at most.",
+    "newComplaint": "File another claim"
   }
 }

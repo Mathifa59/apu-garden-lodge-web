@@ -97,8 +97,32 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="relative mx-auto mt-12 max-w-6xl border-t border-cream/10 pt-6 text-xs text-cream/40">
-        © {new Date().getFullYear()} Apu Garden Lodge. {tf("rights")}
+      <div className="relative mx-auto mt-12 flex max-w-6xl flex-col gap-3 border-t border-cream/10 pt-6 text-xs text-cream/40 sm:flex-row sm:items-center sm:justify-between">
+        <p>
+          © {new Date().getFullYear()} Apu Garden Lodge. {tf("rights")}
+        </p>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <Link href="/terminos" className="transition-colors hover:text-cream/70">
+            {tf("terms")}
+          </Link>
+          <Link href="/privacidad" className="transition-colors hover:text-cream/70">
+            {tf("privacy")}
+          </Link>
+          <Link href="/libro-de-reclamaciones" className="transition-colors hover:text-cream/70">
+            {tf("complaintsBook")}
+          </Link>
+          <span>
+            {tf("developedBy")}{" "}
+            <a
+              href="https://www.devhorses.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cream/60 transition-colors hover:text-honey"
+            >
+              DevHorses
+            </a>
+          </span>
+        </div>
       </div>
     </footer>
   );

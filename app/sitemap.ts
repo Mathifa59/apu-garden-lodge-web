@@ -15,6 +15,9 @@ const PATHS: PathConfig[] = [
   { path: "/contacto",  changeFrequency: "monthly", priority: 0.7 },
   { path: "/novedad",   changeFrequency: "monthly", priority: 0.7 },
   { path: "/nosotros",  changeFrequency: "monthly", priority: 0.6 },
+  { path: "/terminos",   changeFrequency: "yearly", priority: 0.2 },
+  { path: "/privacidad", changeFrequency: "yearly", priority: 0.2 },
+  { path: "/libro-de-reclamaciones", changeFrequency: "yearly", priority: 0.2 },
 ];
 
 const LAST_MODIFIED = new Date("2026-07-01");

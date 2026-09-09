@@ -25,6 +25,22 @@
     "reservas": {
       "title": "Reserva tu habitación | Apu Garden Lodge — Hotel boutique Valle Sagrado",
       "description": "Reserva directamente en Apu Garden Lodge, Urubamba. 5 tipos de habitación con baño privado desde S/77/noche. Cancelación gratuita 24 h antes. Sin intermediarios, sin cargos extra."
+    },
+    "terminos": {
+      "title": "Términos y condiciones | Apu Garden Lodge",
+      "description": "Términos y condiciones de reserva, tarifas, check-in/check-out y cancelaciones en Apu Garden Lodge, Urubamba, Valle Sagrado."
+    },
+    "privacidad": {
+      "title": "Política de privacidad | Apu Garden Lodge",
+      "description": "Cómo Apu Garden Lodge recopila, usa y protege los datos personales que compartes al solicitar una reserva."
+    },
+    "notFound": {
+      "title": "Página no encontrada | Apu Garden Lodge",
+      "description": "La página que buscas no existe o fue movida."
+    },
+    "libro": {
+      "title": "Libro de Reclamaciones | Apu Garden Lodge",
+      "description": "Presenta un reclamo o queja sobre el servicio de Apu Garden Lodge, conforme al Código de Protección y Defensa del Consumidor."
     }
   },
   "nav": {
@@ -44,7 +60,11 @@
     "explore": "Explorar",
     "contact": "Contacto",
     "address": "Cidruchayoc, lote 178, sector Yanaconas, Urubamba, Cusco",
-    "rights": "Todos los derechos reservados."
+    "rights": "Todos los derechos reservados.",
+    "terms": "Términos y condiciones",
+    "privacy": "Política de privacidad",
+    "complaintsBook": "Libro de Reclamaciones",
+    "developedBy": "Desarrollado por"
   },
   "whatsapp": {
     "defaultMessage": "Hola, me gustaría hacer una reserva o consultar disponibilidad en Apu Garden Lodge.",
@@ -300,5 +320,183 @@
         "a": "Sí, bajo petición previa y sin costo adicional."
       }
     ]
+  },
+  "terminos": {
+    "title": "Términos y condiciones",
+    "subtitle": "Vigentes desde octubre de 2026 — léelos antes de enviar tu solicitud de reserva.",
+    "lastUpdated": "Última actualización: octubre de 2026",
+    "sections": [
+      {
+        "heading": "Aceptación de los términos",
+        "body": [
+          "Al usar este sitio web y enviar una solicitud de reserva en Apu Garden Lodge, aceptas los presentes Términos y Condiciones. Si no estás de acuerdo con ellos, te pedimos no usar el sitio ni enviar solicitudes de reserva."
+        ]
+      },
+      {
+        "heading": "Reservas y disponibilidad",
+        "body": [
+          "Las solicitudes enviadas desde este sitio no son una reserva confirmada de forma automática: quedan sujetas a confirmación de nuestro equipo por correo electrónico o WhatsApp, según la disponibilidad real del tipo de cuarto solicitado.",
+          "Si el tipo de cuarto elegido no tiene cupo para las fechas indicadas, la solicitud queda en lista de espera y te contactamos apenas haya disponibilidad."
+        ]
+      },
+      {
+        "heading": "Tarifas y forma de pago",
+        "body": [
+          "Las tarifas se muestran en soles (S/) y dólares (US$) por noche, según el tipo de cuarto elegido. El pago se realiza directamente en el hotel — este sitio no procesa pagos en línea ni almacena datos de tarjetas."
+        ]
+      },
+      {
+        "heading": "Check-in y check-out",
+        "body": [
+          "El check-in es de 10:00 a 12:00. El check-out no tiene un horario fijo — se coordina con nuestro equipo según tu itinerario de salida."
+        ]
+      },
+      {
+        "heading": "Cancelaciones",
+        "body": [
+          "Puedes cancelar tu reserva sin cargo hasta 24 horas antes del check-in. Pasado ese plazo, o en caso de no presentarte (no-show), se cobra el total de la estadía."
+        ]
+      },
+      {
+        "heading": "Uso del sitio",
+        "body": [
+          "El contenido de este sitio (textos, fotografías, diseño) pertenece a Apu Garden Lodge o se usa con la autorización correspondiente. No está permitida su reproducción con fines comerciales sin autorización previa por escrito."
+        ]
+      },
+      {
+        "heading": "Responsabilidad",
+        "body": [
+          "Apu Garden Lodge no se hace responsable por daños indirectos derivados del uso de este sitio web, por interrupciones del servicio debidas a causas fuera de nuestro control, ni por errores en la información mostrada que sean corregidos oportunamente al detectarse."
+        ]
+      },
+      {
+        "heading": "Ley aplicable",
+        "body": [
+          "Estos términos se rigen por las leyes de la República del Perú. Cualquier controversia derivada de su interpretación o cumplimiento se somete a los jueces y tribunales de Cusco, Perú."
+        ]
+      },
+      {
+        "heading": "Contacto",
+        "body": [
+          "Para consultas sobre estos términos, escríbenos por WhatsApp al +51 937 454 282 o a través de los medios indicados en la página de Contacto."
+        ]
+      }
+    ]
+  },
+  "privacidad": {
+    "title": "Política de privacidad",
+    "subtitle": "Cómo recopilamos, usamos y protegemos tus datos personales al solicitar una reserva.",
+    "lastUpdated": "Última actualización: octubre de 2026",
+    "sections": [
+      {
+        "heading": "Responsable del tratamiento",
+        "body": [
+          "Apu Garden Lodge, con domicilio en Cidruchayoc, lote 178, sector Yanaconas, Urubamba, Cusco, Perú, es responsable del tratamiento de los datos personales que nos compartes a través de este sitio."
+        ]
+      },
+      {
+        "heading": "Qué datos recopilamos",
+        "body": [
+          "Cuando envías una solicitud de reserva recopilamos: nombre completo, correo electrónico, teléfono (opcional), fechas de llegada y salida, número de huéspedes, tipo de cuarto solicitado y cualquier nota que agregues.",
+          "Si nos escribes por WhatsApp, aplican además las condiciones de privacidad propias de esa plataforma."
+        ]
+      },
+      {
+        "heading": "Para qué usamos tus datos",
+        "body": [
+          "Usamos esta información únicamente para gestionar tu solicitud de reserva, confirmar disponibilidad, contactarte por correo o WhatsApp, y coordinar tu estadía."
+        ]
+      },
+      {
+        "heading": "Con quién compartimos tus datos",
+        "body": [
+          "No vendemos ni compartimos tus datos con terceros con fines publicitarios. Tu información se registra en el sistema interno de gestión del hotel, de uso exclusivo del personal de Apu Garden Lodge."
+        ]
+      },
+      {
+        "heading": "Cookies y analítica",
+        "body": [
+          "Este sitio no utiliza cookies de rastreo ni herramientas de analítica de terceros."
+        ]
+      },
+      {
+        "heading": "Cuánto tiempo conservamos tus datos",
+        "body": [
+          "Conservamos los datos de tu reserva mientras dure tu relación con el hotel, y por el tiempo adicional necesario para fines administrativos o legales."
+        ]
+      },
+      {
+        "heading": "Tus derechos",
+        "body": [
+          "De acuerdo con la Ley N.° 29733, Ley de Protección de Datos Personales del Perú, puedes solicitar acceso, rectificación, cancelación u oposición (derechos ARCO) sobre tus datos personales escribiéndonos a través de los medios de contacto indicados abajo."
+        ]
+      },
+      {
+        "heading": "Seguridad",
+        "body": [
+          "Tomamos medidas razonables para proteger tu información, aunque ningún sistema es completamente infalible."
+        ]
+      },
+      {
+        "heading": "Cambios a esta política",
+        "body": [
+          "Podemos actualizar esta política ocasionalmente. La fecha de la última actualización se indica al inicio de esta página."
+        ]
+      },
+      {
+        "heading": "Contacto",
+        "body": [
+          "Para ejercer tus derechos o resolver dudas sobre esta política, escríbenos por WhatsApp al +51 937 454 282 o a través del formulario de la página de Contacto."
+        ]
+      }
+    ]
+  },
+  "notFound": {
+    "eyebrow": "Error 404",
+    "title": "Esta página se perdió en el camino",
+    "description": "No encontramos lo que buscabas. Puede que el enlace esté roto o que la página haya cambiado de dirección.",
+    "backHome": "Volver al inicio",
+    "seeRooms": "Ver habitaciones"
+  },
+  "libro": {
+    "eyebrow": "Libro de Reclamaciones Virtual",
+    "title": "Reclamos y quejas",
+    "subtitle": "Conforme a la normativa peruana de protección al consumidor, puedes registrar aquí un reclamo o una queja sobre el servicio de Apu Garden Lodge.",
+    "note": "Un reclamo expresa disconformidad con el servicio de hospedaje. Una queja expresa malestar respecto a la atención. En ambos casos, responderemos en un plazo máximo de 30 días calendario.",
+    "businessTitle": "Datos del proveedor",
+    "businessName": "Razón social",
+    "businessRuc": "RUC",
+    "businessAddress": "Dirección",
+    "formTitle": "Datos del reclamo",
+    "kindLabel": "Tipo",
+    "kindReclamo": "Reclamo",
+    "kindQueja": "Queja",
+    "fullName": "Nombres y apellidos",
+    "documentType": "Tipo de documento",
+    "docDni": "DNI",
+    "docCe": "Carné de extranjería",
+    "docPassport": "Pasaporte",
+    "documentNumber": "N.º de documento",
+    "address": "Domicilio (opcional)",
+    "phone": "Teléfono (opcional)",
+    "email": "Correo electrónico",
+    "isMinorLabel": "El reclamo lo presenta un padre, madre o tutor en representación de un menor de edad",
+    "guardianName": "Nombres y apellidos del padre/madre/tutor",
+    "guardianDocumentNumber": "N.º de documento del padre/madre/tutor",
+    "serviceDescription": "Servicio contratado (opcional)",
+    "serviceDescriptionPlaceholder": "Ej: Reserva de habitación doble deluxe, 12–14 de julio de 2026",
+    "claimedAmount": "Monto reclamado en S/ (opcional)",
+    "detail": "Detalle del reclamo o queja",
+    "detailPlaceholder": "Describe lo ocurrido con el mayor detalle posible.",
+    "request": "Pedido concreto",
+    "requestPlaceholder": "¿Qué solución esperas? Ej: reembolso, cambio de habitación, una disculpa formal, etc.",
+    "submit": "Enviar reclamo",
+    "sending": "Enviando…",
+    "errorMissingFields": "Completa todos los campos obligatorios con un formato válido.",
+    "errorGeneric": "No pudimos enviar tu reclamo. Intenta de nuevo o escríbenos por WhatsApp.",
+    "successTitle": "Reclamo registrado",
+    "successBody": "Tu código de referencia es {claimCode}. Guárdalo — también te lo enviamos por correo a {email}.",
+    "successDeadline": "Te responderemos en un plazo máximo de 30 días calendario.",
+    "newComplaint": "Registrar otro reclamo"
   }
 }

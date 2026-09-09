@@ -1,0 +1,157 @@
+import { Resend } from "resend";
+import type { ComplaintPayload } from "@/lib/complaints";
+
+// Remitente del sandbox de Resend: funciona sin verificar un dominio propio,
+// pero solo puede enviar a la casilla con la que se creó la cuenta de Resend
+// (sgutierrezvilla@gmail.com). Para que la copia de cortesía le llegue a
+// CUALQUIER consumidor que reclame, hay que verificar un dominio propio
+// (ej. mail.apu-garden-lodge.com) en el dashboard de Resend y cambiar este
+// remitente — ver aviso en el reporte de esta tarea.
+const FROM_EMAIL = "Apu Garden Lodge <onboarding@resend.dev>";
+const TO_EMAIL = process.env.COMPLAINTS_EMAIL_TO ?? "sgutierrezvilla@gmail.com";
+
+const BUSINESS = {
+  razonSocial: "CATNET PERU SAC",
+  ruc: "20608166204",
+  direccion: "Cidruchayoc, lote 178, sector Yanaconas, Urubamba, Cusco, Perú",
+};
+
+const REQUIRED_FIELDS: (keyof ComplaintPayload)[] = [
+  "kind",
+  "fullName",
+  "documentType",
+  "documentNumber",
+  "email",
+  "detail",
+  "request",
+];
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function validate(body: Partial<ComplaintPayload>): string[] {
+  const missing = REQUIRED_FIELDS.filter((field) => !body[field] || String(body[field]).trim() === "");
+  if (body.email && !EMAIL_RE.test(body.email)) missing.push("email");
+  if (body.isMinor && (!body.guardianName || !body.guardianDocumentNumber)) {
+    missing.push("guardianName", "guardianDocumentNumber");
+  }
+  return missing;
+}
+
+// Sin base de datos no hay un correlativo global confiable entre reclamos —
+// este código sirve como referencia única para que el consumidor y el hotel
+// identifiquen el caso en el correo, no como el número de libro formal.
+function generateClaimCode(): string {
+  const datePart = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+  const rand = Math.random().toString(36).slice(2, 6).toUpperCase();
+  return `RC-${datePart}-${rand}`;
+}
+
+function formatSubmittedAt(date: Date): string {
+  return new Intl.DateTimeFormat("es-PE", {
+    dateStyle: "long",
+    timeStyle: "short",
+    timeZone: "America/Lima",
+  }).format(date);
+}
+
+function row(label: string, value: string | undefined): string {
+  if (!value) return "";
+  return `<tr><td style="padding:4px 12px 4px 0;color:#6b6152;white-space:nowrap;vertical-align:top;"><strong>${label}</strong></td><td style="padding:4px 0;color:#2b2620;">${value.replace(/\n/g, "<br/>")}</td></tr>`;
+}
+
+function businessEmailHtml(body: ComplaintPayload, claimCode: string, submittedAt: string): string {
+  const kindLabel = body.kind === "queja" ? "Queja" : "Reclamo";
+  return `
+    <div style="font-family:sans-serif;max-width:600px;">
+      <h2 style="color:#2b2620;">${kindLabel} nuevo — ${claimCode}</h2>
+      <p style="color:#6b6152;">Recibido el ${submittedAt} (hora Perú) a través del Libro de Reclamaciones Virtual de apu-garden-lodge.com.</p>
+      <table style="border-collapse:collapse;width:100%;">
+        ${row("Tipo", kindLabel)}
+        ${row("Nombre", body.fullName)}
+        ${row("Documento", `${body.documentType.toUpperCase()} ${body.documentNumber}`)}
+        ${row("Domicilio", body.address)}
+        ${row("Teléfono", body.phone)}
+        ${row("Email", body.email)}
+        ${body.isMinor ? row("Tutor/a", `${body.guardianName} — Doc. ${body.guardianDocumentNumber}`) : ""}
+        ${row("Servicio contratado", body.serviceDescription)}
+        ${row("Monto reclamado", body.claimedAmount)}
+        ${row("Detalle", body.detail)}
+        ${row("Pedido concreto", body.request)}
+      </table>
+      <p style="margin-top:16px;color:#6b6152;font-size:13px;">Responder directamente a este correo llega a ${body.email}.</p>
+    </div>
+  `;
+}
+
+function consumerEmailHtml(body: ComplaintPayload, claimCode: string, submittedAt: string): string {
+  const kindLabel = body.kind === "queja" ? "queja" : "reclamo";
+  return `
+    <div style="font-family:sans-serif;max-width:600px;">
+      <h2 style="color:#2b2620;">Constancia de tu ${kindLabel}</h2>
+      <p style="color:#2b2620;">Hola ${body.fullName}, confirmamos la recepción de tu ${kindLabel} con el siguiente código de referencia:</p>
+      <p style="font-size:20px;font-weight:bold;color:#b45f3e;">${claimCode}</p>
+      <p style="color:#6b6152;">Recibido el ${submittedAt} (hora Perú). Te responderemos en un plazo máximo de 30 días calendario, conforme al Código de Protección y Defensa del Consumidor.</p>
+      <hr style="border:none;border-top:1px solid #e5ddc8;margin:20px 0;"/>
+      <p style="color:#6b6152;font-size:13px;">${BUSINESS.razonSocial} — RUC ${BUSINESS.ruc}<br/>${BUSINESS.direccion}</p>
+    </div>
+  `;
+}
+
+export async function POST(request: Request) {
+  let body: Partial<ComplaintPayload>;
+  try {
+    body = await request.json();
+  } catch {
+    return Response.json({ error: "invalid_body" }, { status: 400 });
+  }
+
+  // Honeypot: si un bot llenó el campo invisible, respondemos como si
+  // hubiera funcionado (sin enviar nada) para no delatarlo.
+  if (body.company) {
+    return Response.json({ claimCode: generateClaimCode(), submittedAt: new Date().toISOString() });
+  }
+
+  const missing = validate(body);
+  if (missing.length > 0) {
+    return Response.json({ error: `missing_fields:${missing.join(",")}` }, { status: 400 });
+  }
+
+  if (!process.env.RESEND_API_KEY) {
+    console.error("RESEND_API_KEY no configurada — no se puede enviar el reclamo");
+    return Response.json({ error: "server_not_configured" }, { status: 500 });
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const payload = body as ComplaintPayload;
+  const claimCode = generateClaimCode();
+  const submittedAtDate = new Date();
+  const submittedAt = formatSubmittedAt(submittedAtDate);
+
+  try {
+    const { error } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: TO_EMAIL,
+      replyTo: payload.email,
+      subject: `[${payload.kind === "queja" ? "Queja" : "Reclamo"} ${claimCode}] ${payload.fullName}`,
+      html: businessEmailHtml(payload, claimCode, submittedAt),
+    });
+    if (error) throw error;
+  } catch (err) {
+    console.error("Error enviando el reclamo por Resend", err);
+    return Response.json({ error: "send_failed" }, { status: 502 });
+  }
+
+  // Copia de cortesía al consumidor — best effort: si falla (ej. remitente
+  // sandbox sin dominio verificado, solo puede mandar a TO_EMAIL) no debe
+  // tumbar la respuesta al usuario, porque el reclamo YA quedó registrado.
+  resend.emails
+    .send({
+      from: FROM_EMAIL,
+      to: payload.email,
+      subject: `Constancia de tu ${payload.kind === "queja" ? "queja" : "reclamo"} — Apu Garden Lodge (${claimCode})`,
+      html: consumerEmailHtml(payload, claimCode, submittedAt),
+    })
+    .catch((err) => console.error("No se pudo enviar la copia de cortesía al consumidor", err));
+
+  return Response.json({ claimCode, submittedAt: submittedAtDate.toISOString() });
+}
