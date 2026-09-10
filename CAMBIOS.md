@@ -338,6 +338,9 @@ nivel de servidor con un 301.
 
 ## Estado
 
-Código en `main` de ambos repos, pusheado. **Pendiente: desplegar al
-servidor** — ver "Pendiente de despliegue" en `DEPLOY.md` (Apu Gestion
-System) para el estado exacto y los pasos para terminarlo.
+Desplegado en producción (2026-09-10) — ver `DEPLOY.md` del repo
+Apu Gestion System para el detalle de la verificación. El Libro de
+Reclamaciones ya envía correos reales por Resend (con la clave del
+sandbox — falta verificar un dominio propio para que la copia de
+cortesía le llegue a cualquier consumidor, no solo a la cuenta de
+Resend).
