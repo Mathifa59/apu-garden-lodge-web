@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { BookingWidget } from "@/components/BookingWidget";
+import { ContactMessageForm } from "@/components/ContactMessageForm";
 import { Reveal } from "@/components/Reveal";
 import { RevealCard } from "@/components/RevealCard";
 import { RevealMask } from "@/components/RevealMask";
@@ -30,6 +31,7 @@ export default async function ContactoPage({ params }: { params: Promise<{ local
   setRequestLocale(locale);
   const t = await getTranslations("contacto");
   const tw = await getTranslations("whatsapp");
+  const tf = await getTranslations("contactForm");
 
   const contactItems = [
     {
@@ -92,7 +94,20 @@ export default async function ContactoPage({ params }: { params: Promise<{ local
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
+      <section className="mx-auto max-w-2xl px-5 pt-16 pb-4 sm:px-8 sm:pt-20">
+        <div className="text-center">
+          <span className="pill">{tf("eyebrow")}</span>
+          <RevealMask delay={0.05}>
+            <h2 className="mt-4 font-display text-3xl text-ink sm:text-4xl">{tf("title")}</h2>
+          </RevealMask>
+          <p className="mx-auto mt-3 max-w-md text-ink-soft">{tf("subtitle")}</p>
+        </div>
+        <Reveal delay={0.1} className="mt-8">
+          <ContactMessageForm />
+        </Reveal>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pt-8 pb-20 sm:px-8">
         <RevealCard>
           <div className="overflow-hidden rounded-[2rem] border border-sage-pale">
             <iframe

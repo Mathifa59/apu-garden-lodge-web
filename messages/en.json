@@ -284,6 +284,23 @@
     "mapCaption": "This is how to find us — tap the map to open directions in Google Maps.",
     "availabilityTitle": "Check availability"
   },
+  "contactForm": {
+    "eyebrow": "Write to us",
+    "title": "Have a question?",
+    "subtitle": "Send us a message and we'll reply straight to your inbox — no need to check dates yet.",
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone (optional)",
+    "message": "Message",
+    "messagePlaceholder": "How can we help?",
+    "submit": "Send message",
+    "sending": "Sending…",
+    "errorMissingFields": "Fill in your name, email, and message.",
+    "errorGeneric": "We couldn't send your message. Try again or write to us on WhatsApp.",
+    "successTitle": "Message sent!",
+    "successBody": "Thanks for writing to us — we'll reply soon to {email}.",
+    "sendAnother": "Send another message"
+  },
   "reservas": {
     "eyebrow": "Booking",
     "title": "Book your stay",

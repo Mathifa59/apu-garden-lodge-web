@@ -1,34 +1,12 @@
 import { Resend } from "resend";
 import type { ComplaintPayload } from "@/lib/complaints";
+import { BRAND, emailShell, preheader, row } from "@/lib/emailBrand";
 
 // Dominio propio verificado en Resend (2026-09-21) — ya no depende del
 // sandbox, así que la copia de cortesía le llega a cualquier consumidor que
 // reclame, no solo a la cuenta de Resend.
 const FROM_EMAIL = "Apu Garden Lodge <reclamos@apu-garden-lodge.com>";
 const TO_EMAIL = process.env.COMPLAINTS_EMAIL_TO ?? "sgutierrezvilla@gmail.com";
-
-const BUSINESS = {
-  razonSocial: "CATNET PERU SAC",
-  ruc: "20608166204",
-  direccion: "Cidruchayoc, lote 178, sector Yanaconas, Urubamba, Cusco, Perú",
-};
-
-// Mismos tokens de color que app/globals.css, en hex — los clientes de
-// correo no leen custom properties de CSS, así que no se pueden reusar las
-// variables del sitio y hay que repetirlas acá.
-const BRAND = {
-  cream: "#f7f1e4",
-  creamSoft: "#fbf7ee",
-  sand: "#efe3c6",
-  ink: "#2b2a22",
-  inkSoft: "#54513f",
-  sageDeep: "#3f4a30",
-  sagePale: "#dde3c8",
-  terracotta: "#83664a",
-};
-const SITE_URL = "https://apu-garden-lodge.com";
-const LOGO_URL = `${SITE_URL}/logo-white.png`;
-const FONT_STACK = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
 
 const REQUIRED_FIELDS: (keyof ComplaintPayload)[] = [
   "kind",
@@ -66,73 +44,6 @@ function formatSubmittedAt(date: Date): string {
     timeStyle: "short",
     timeZone: "America/Lima",
   }).format(date);
-}
-
-// Envoltorio compartido por los dos correos — header con logo sobre fondo
-// salvia oscuro, banda de color con tipo+código, y footer con los datos del
-// proveedor (obligatorios en cualquier comunicación del Libro de
-// Reclamaciones). Tablas anidadas en vez de flexbox/grid porque Outlook
-// desktop (motor Word) no soporta CSS moderno — esto sí renderiza igual en
-// todos los clientes, aunque sea más verboso.
-function emailShell(bannerColor: string, bannerLabel: string, claimCode: string, bodyHtml: string): string {
-  return `<!doctype html>
-<html lang="es">
-  <body style="margin:0;padding:0;background:${BRAND.sand};font-family:${FONT_STACK};">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${BRAND.sand};">
-      <tr>
-        <td align="center" style="padding:32px 16px;">
-          <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:${BRAND.creamSoft};border-radius:18px;border:1px solid ${BRAND.sagePale};">
-            <tr>
-              <td style="background:${BRAND.sageDeep};padding:28px 32px;text-align:center;border-radius:18px 18px 0 0;">
-                <img src="${LOGO_URL}" width="150" alt="Apu Garden Lodge" style="display:block;margin:0 auto;border:0;outline:none;" />
-              </td>
-            </tr>
-            <tr>
-              <td style="background:${bannerColor};padding:12px 32px;">
-                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td style="font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#ffffff;">
-                      ${bannerLabel}
-                    </td>
-                    <td align="right" style="font-size:13px;font-weight:700;color:#ffffff;">${claimCode}</td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-            <tr>
-              <td style="padding:28px 32px 8px;">
-                ${bodyHtml}
-              </td>
-            </tr>
-            <tr>
-              <td style="padding:24px 32px;border-top:1px solid ${BRAND.sagePale};text-align:center;">
-                <p style="margin:0;font-size:12px;line-height:1.7;color:${BRAND.inkSoft};">
-                  <strong style="color:${BRAND.ink};">${BUSINESS.razonSocial}</strong> — RUC ${BUSINESS.ruc}<br/>
-                  ${BUSINESS.direccion}<br/>
-                  <a href="${SITE_URL}" style="color:${BRAND.terracotta};text-decoration:none;">apu-garden-lodge.com</a>
-                </p>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-  </body>
-</html>`;
-}
-
-// Texto oculto que los clientes de correo muestran como adelanto en la
-// bandeja de entrada, antes de abrir el mensaje.
-function preheader(text: string): string {
-  return `<div style="display:none;max-height:0;overflow:hidden;opacity:0;">${text}</div>`;
-}
-
-function row(label: string, value: string | undefined): string {
-  if (!value) return "";
-  return `<tr>
-    <td style="padding:10px 16px 10px 0;color:${BRAND.inkSoft};font-size:12px;font-weight:600;white-space:nowrap;vertical-align:top;border-bottom:1px solid ${BRAND.sagePale};">${label}</td>
-    <td style="padding:10px 0;color:${BRAND.ink};font-size:14px;line-height:1.5;vertical-align:top;border-bottom:1px solid ${BRAND.sagePale};">${value.replace(/\n/g, "<br/>")}</td>
-  </tr>`;
 }
 
 function businessEmailHtml(body: ComplaintPayload, claimCode: string, submittedAt: string): string {

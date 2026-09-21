@@ -284,6 +284,23 @@
     "mapCaption": "Así llegas — toca el mapa para abrir la ruta en Google Maps.",
     "availabilityTitle": "Consulta disponibilidad"
   },
+  "contactForm": {
+    "eyebrow": "Escríbenos",
+    "title": "¿Tienes una pregunta?",
+    "subtitle": "Mándanos un mensaje y te respondemos directo a tu correo — sin tener que buscar fechas todavía.",
+    "name": "Nombre completo",
+    "email": "Correo electrónico",
+    "phone": "Teléfono (opcional)",
+    "message": "Mensaje",
+    "messagePlaceholder": "¿En qué te podemos ayudar?",
+    "submit": "Enviar mensaje",
+    "sending": "Enviando…",
+    "errorMissingFields": "Completa tu nombre, correo y mensaje.",
+    "errorGeneric": "No pudimos enviar tu mensaje. Intenta de nuevo o escríbenos por WhatsApp.",
+    "successTitle": "¡Mensaje enviado!",
+    "successBody": "Gracias por escribirnos — te responderemos pronto a {email}.",
+    "sendAnother": "Enviar otro mensaje"
+  },
   "reservas": {
     "eyebrow": "Reservas",
     "title": "Reserva tu estadía",
