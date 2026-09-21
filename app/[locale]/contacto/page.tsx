@@ -5,6 +5,7 @@ import { BookingWidget } from "@/components/BookingWidget";
 import { Reveal } from "@/components/Reveal";
 import { RevealCard } from "@/components/RevealCard";
 import { RevealMask } from "@/components/RevealMask";
+import { FacebookIcon, MapPinIcon, WhatsAppIcon } from "@/components/SocialIcons";
 import { LODGE_LAT, LODGE_LNG, LODGE_MAPS_URL } from "@/lib/lodge";
 import { roomPhotos } from "@/lib/roomPhotos";
 import { buildCanonical, buildLanguageAlternates } from "@/lib/seo";
@@ -31,13 +32,24 @@ export default async function ContactoPage({ params }: { params: Promise<{ local
   const tw = await getTranslations("whatsapp");
 
   const contactItems = [
-    { label: t("phoneLabel"), value: "+51 937 454 282", href: whatsappHref(tw("defaultMessage")) },
+    {
+      label: t("phoneLabel"),
+      value: "+51 937 454 282",
+      href: whatsappHref(tw("defaultMessage")),
+      Icon: WhatsAppIcon,
+    },
     {
       label: t("locationLabel"),
       value: t("locationValue"),
       href: LODGE_MAPS_URL,
+      Icon: MapPinIcon,
     },
-    { label: t("socialLabel"), value: "Facebook", href: "https://www.facebook.com/profile.php?id=61590296495164" },
+    {
+      label: t("socialLabel"),
+      value: "Facebook",
+      href: "https://www.facebook.com/profile.php?id=61590296495164",
+      Icon: FacebookIcon,
+    },
   ];
 
   return (
@@ -55,8 +67,11 @@ export default async function ContactoPage({ params }: { params: Promise<{ local
         <div className="relative mx-auto grid max-w-6xl gap-5 sm:grid-cols-3">
           {contactItems.map((item, i) => (
             <RevealCard key={item.label} delay={i * 0.08}>
-              <div className="rounded-2xl border border-sage-pale bg-cream-soft p-6 text-center">
-                <p className="font-ui text-xs font-semibold uppercase tracking-[0.25em] text-sage-deep">
+              <div className="group rounded-2xl border border-sage-pale bg-cream-soft p-6 text-center shadow-lg shadow-ink/5 transition-all duration-300 hover:-translate-y-1.5 hover:border-terracotta/40 hover:shadow-xl hover:shadow-ink/10">
+                <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-sage-pale/60 text-sage-deep transition-colors duration-300 group-hover:bg-terracotta group-hover:text-cream">
+                  <item.Icon className="h-5 w-5" />
+                </span>
+                <p className="mt-4 font-ui text-xs font-semibold uppercase tracking-[0.25em] text-sage-deep">
                   {item.label}
                 </p>
                 {item.href ? (

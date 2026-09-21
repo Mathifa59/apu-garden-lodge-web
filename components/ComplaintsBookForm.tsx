@@ -126,7 +126,10 @@ export function ComplaintsBookForm() {
 
   return (
     <div className="rounded-[2rem] border border-sage-pale bg-cream-soft p-6 shadow-xl shadow-ink/5 sm:p-8">
-      <p className="font-display text-2xl text-sage-deep">{t("formTitle")}</p>
+      <div className="flex items-center gap-3">
+        <span className="h-1.5 w-8 rounded-full bg-terracotta" />
+        <p className="font-display text-2xl text-sage-deep">{t("formTitle")}</p>
+      </div>
 
       {/* Honeypot anti-bot: invisible para humanos (ver components/BookingWidget.tsx) */}
       <input
@@ -195,6 +198,8 @@ export function ComplaintsBookForm() {
           <input value={phone} onChange={(e) => setPhone(e.target.value)} className={inputClass} />
         </Field>
       </div>
+
+      <div className="mt-5 border-t border-sage-pale/60" />
 
       <label className="mt-4 flex items-start gap-2.5 text-sm text-ink-soft">
         <input
