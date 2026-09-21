@@ -1,13 +1,10 @@
 import { Resend } from "resend";
 import type { ComplaintPayload } from "@/lib/complaints";
 
-// Remitente del sandbox de Resend: funciona sin verificar un dominio propio,
-// pero solo puede enviar a la casilla con la que se creó la cuenta de Resend
-// (sgutierrezvilla@gmail.com). Para que la copia de cortesía le llegue a
-// CUALQUIER consumidor que reclame, hay que verificar un dominio propio
-// (ej. mail.apu-garden-lodge.com) en el dashboard de Resend y cambiar este
-// remitente — ver aviso en el reporte de esta tarea.
-const FROM_EMAIL = "Apu Garden Lodge <onboarding@resend.dev>";
+// Dominio propio verificado en Resend (2026-09-21) — ya no depende del
+// sandbox, así que la copia de cortesía le llega a cualquier consumidor que
+// reclame, no solo a la cuenta de Resend.
+const FROM_EMAIL = "Apu Garden Lodge <reclamos@apu-garden-lodge.com>";
 const TO_EMAIL = process.env.COMPLAINTS_EMAIL_TO ?? "sgutierrezvilla@gmail.com";
 
 const BUSINESS = {
