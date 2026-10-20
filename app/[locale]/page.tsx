@@ -3,20 +3,17 @@ import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { BookingWidget } from "@/components/BookingWidget";
-import { Counter } from "@/components/Counter";
 import { Reveal } from "@/components/Reveal";
-import { RevealCard } from "@/components/RevealCard";
-import { RevealMask } from "@/components/RevealMask";
+import { RoomShowcaseCard } from "@/components/RoomShowcaseCard";
 import { WaveDivider } from "@/components/WaveDivider";
+import type { RoomType } from "@/lib/api";
 import { IMAGES } from "@/lib/images";
 import { roomPhotos } from "@/lib/roomPhotos";
 import { buildCanonical, buildLanguageAlternates } from "@/lib/seo";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+const FEATURED_ROOMS: RoomType[] = ["doble", "doble_deluxe_twin", "deluxe_extragrande"];
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata.home" });
   return {
@@ -30,228 +27,125 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("home");
-
-  // Resalta una keyword del título — el texto trae <kw>…</kw> en las
-  // traducciones y acá se convierte en el span con subrayado tostado.
+  const tn = await getTranslations("novedad");
+  const tv = await getTranslations("nosotros.values");
   const kw = (chunks: React.ReactNode) => <span className="kw">{chunks}</span>;
-
-  const cards = [
-    {
-      href: "/servicios" as const,
-      title: t("cardServiciosTitle"),
-      desc: t("cardServiciosDesc"),
-      img: roomPhotos("doble_deluxe_twin")[0],
-    },
-    { href: "/novedad" as const, title: t("cardNovedadTitle"), desc: t("cardNovedadDesc"), img: IMAGES.observatory },
-    {
-      href: "/nosotros" as const,
-      title: t("cardNosotrosTitle"),
-      desc: t("cardNosotrosDesc"),
-      img: roomPhotos("individual")[0],
-    },
-  ];
-
+  // Facts are immediately readable, including the rating, without duplicated counters.
   const stats = [
-    { value: 14, decimals: 0, suffix: "", label: t("statsRooms") },
-    { value: 5, decimals: 0, suffix: "", label: t("statsTypes") },
-    { value: 2, decimals: 0, suffix: "", label: t("statsDistance") },
-    { value: 5.0, decimals: 1, suffix: "★", label: t("statsRating") },
+    { value: "14", label: t("statsRooms") },
+    { value: "5", label: t("statsTypes") },
+    { value: "2", label: t("statsDistance") },
+    { value: "5.0 ★", label: t("statsRating") },
   ];
 
   return (
     <>
-      {/* min-h-screen (no 92vh): el header flota encima con position:fixed
-          (no ocupa espacio de layout), así que el hero puede ocupar el
-          100% del viewport real — con 92vh se alcanzaba a ver una franja
-          de la siguiente sección ya en la carga inicial, antes de scrollear. */}
-      <section className="relative flex min-h-screen items-center overflow-hidden">
-        <Image
-          src={roomPhotos("doble")[0]}
-          alt={t("heroImageAlt")}
-          fill
-          sizes="100vw"
-          priority
-          // object-top (no center, el default): en ventanas anchas y bajas
-          // object-cover centrado recorta justo la franja más oscura/plana
-          // de la foto (el borde de la cama), dejando una "zona muerta" sin
-          // detalle exactamente donde caen los botones y el wave. Anclando
-          // arriba se prioriza la ventana con vista (la parte más luminosa
-          // de la foto) y ese recorte oscuro queda fuera o al borde.
-          className="object-cover object-top"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-ink/10" />
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ink/55 to-transparent" />
-
-        {/* Márgenes internos apretados a propósito (mt-4 en vez de mt-5/6,
-            mt-7 en vez de mt-9): el bloque entero se centra verticalmente en
-            el hero, así que en ventanas cortas (barra de marcadores/pestañas
-            de más) los botones podían quedar recortados debajo del fold sin
-            que hiciera falta ningún scroll para notarlo. pt-24 se deja igual
-            — es lo que separa el badge del header fijo (88px), no hay
-            margen para bajarlo sin arriesgar que se toquen en esos mismos
-            casos de ventana corta. */}
-        <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 px-5 pt-24 sm:px-8 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="text-center lg:text-left">
-            <Reveal y={12}>
-              <span className="pill pill-dark">{t("badge")}</span>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <h1 className="mt-3 font-display text-6xl leading-[0.95] text-cream sm:text-7xl lg:text-8xl">
-                Apu Garden Lodge
-              </h1>
-            </Reveal>
-            <Reveal delay={0.16}>
-              <p className="mx-auto mt-3 max-w-md text-sm font-medium uppercase tracking-[0.3em] text-cream/80 lg:mx-0">
-                {t("tagline")}
-              </p>
-            </Reveal>
-            <Reveal delay={0.24}>
-              <p className="mx-auto mt-3 max-w-xl text-base text-cream/85 sm:text-lg lg:mx-0">{t("heroText")}</p>
-            </Reveal>
-            <Reveal delay={0.32}>
-              <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
-                <Link
-                  href="/#reservar"
-                  className="inline-block rounded-full bg-terracotta px-8 py-3 font-ui text-sm font-semibold text-cream shadow-lg shadow-ink/30 transition-all hover:bg-terracotta-bright hover:shadow-xl active:scale-95"
-                >
-                  {t("heroCta")}
-                </Link>
-                <Link
-                  href="/servicios"
-                  className="inline-flex items-center gap-2 rounded-full border border-cream/30 px-7 py-3 font-ui text-sm font-semibold text-cream backdrop-blur-sm transition-all hover:border-cream/60 hover:bg-cream/10 active:scale-95"
-                >
-                  {t("heroCtaSecondary")}
-                </Link>
-              </div>
-            </Reveal>
-          </div>
-
-          {/* Tarjetas flotantes de stat sobre el hero — solo desktop */}
-          <div className="relative hidden h-full min-h-80 lg:block">
-            <Reveal delay={0.4} className="absolute right-0 top-6">
-              <div className="stat-float animate-float-soft w-44">
-                <p className="font-display text-3xl text-honey">
-                  <Counter to={14} />
-                </p>
-                <p className="mt-0.5 text-xs font-medium uppercase tracking-widest text-cream/70">
-                  {t("statsRooms")}
-                </p>
-              </div>
-            </Reveal>
-            <Reveal delay={0.55} className="absolute right-24 top-44">
-              <div className="stat-float animate-float-soft-delayed w-40">
-                <p className="font-display text-3xl text-honey">
-                  <Counter to={5} decimals={1} suffix="★" />
-                </p>
-                <p className="mt-0.5 text-xs font-medium uppercase tracking-widest text-cream/70">
-                  {t("statsRating")}
-                </p>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0">
-          <WaveDivider />
-        </div>
-      </section>
-
-      {/* Banda de estadísticas con contadores animados */}
-      <section className="border-b border-tan/25 bg-fade-honey px-5 py-12 sm:px-8">
-        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 sm:grid-cols-4">
-          {stats.map((s, i) => (
-            <Reveal key={s.label} delay={i * 0.08} className="text-center">
-              <p className="font-display text-4xl text-sage sm:text-5xl">
-                <Counter to={s.value} decimals={s.decimals} suffix={s.suffix} />
-              </p>
-              <p className="mt-1 text-xs font-medium uppercase tracking-[0.15em] text-ink-soft">{s.label}</p>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden bg-fade-welcome px-5 py-14 sm:px-8 sm:py-20">
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 sm:grid-cols-2 sm:gap-16">
-          <RevealCard>
-            {/* La columna del grid mide ~50% de max-w-6xl (~500-550px según
-                pantalla) — con aspect-[3/4] la foto llegaba a 667px de
-                alto, más que la columna de texto de al lado (280px) y casi
-                toda la sección quedaba ocupada por esta sola imagen. max-w-sm
-                pone un techo al ancho real (así el alto queda controlado
-                sin importar qué tan ancha sea la columna), y aspect-[4/5]
-                (vs. 3/4) recorta apenas ~6.7% arriba/abajo — casi
-                imperceptible, muy distinto al recorte grande de antes. */}
-            <div className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[2.5rem]">
-              <Image
-                src={roomPhotos("deluxe_extragrande")[0]}
-                alt={t("welcomeImageAlt")}
-                fill
-                sizes="(min-width: 640px) 384px, 100vw"
-                className="object-cover"
-              />
+      <section className="relative flex min-h-svh items-center overflow-hidden bg-ink">
+        <Image src={roomPhotos("doble")[0]} alt={t("heroImageAlt")} fill sizes="100vw" priority className="object-cover object-top" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/50 to-ink/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-ink/35" />
+        <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-28 pt-36 sm:px-8 sm:pb-32">
+          <div className="max-w-2xl">
+            <p className="eyebrow text-cream/85">{t("badge")}</p>
+            <h1 className="hero-title mt-5 font-display text-[clamp(3rem,14vw,6.5rem)] text-cream sm:text-[clamp(3.5rem,8vw,6.5rem)]">
+              Apu Garden <span className="block">Lodge</span>
+            </h1>
+            <p className="mt-6 text-xs font-medium uppercase leading-relaxed tracking-[0.22em] text-cream/80 sm:text-sm">{t("tagline")}</p>
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-cream/90 sm:text-lg">{t("heroText")}</p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Link href="/#reservar" className="btn-primary">{t("heroCta")} <span aria-hidden="true">↗</span></Link>
+              <Link href="/servicios" className="inline-flex min-h-12 items-center rounded-full border border-cream/60 px-6 py-3 text-sm font-medium text-cream transition-colors hover:bg-cream/10">{t("heroCtaSecondary")}</Link>
             </div>
-          </RevealCard>
-          <RevealMask delay={0.1}>
-            <span className="pill">{t("welcomeEyebrow")}</span>
-            <h2 className="mt-4 font-display text-4xl text-ink sm:text-5xl">{t.rich("welcomeTitle", { kw })}</h2>
-            <p className="mt-5 text-ink-soft">{t("welcomeText")}</p>
-            <Link
-              href="/nosotros"
-              className="mt-6 inline-flex items-center gap-2 font-ui text-sm font-semibold text-sage-deep transition-colors hover:text-terracotta"
-            >
-              {t("welcomeCta")}
-            </Link>
-          </RevealMask>
+          </div>
+        </div>
+        <div className="absolute inset-x-0 bottom-0"><WaveDivider color="var(--color-cream-soft)" /></div>
+      </section>
+
+      <section id="reservar" aria-labelledby="booking-heading" className="scroll-mt-24 bg-cream-soft px-5 pb-8 pt-6 sm:px-8 sm:pb-10">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="eyebrow text-terracotta">{t("bookEyebrow")}</p>
+              <h2 id="booking-heading" className="section-title mt-2 text-3xl text-ink sm:text-4xl">{t.rich("bookTitle", { kw })}</h2>
+            </div>
+            <p className="max-w-xs text-sm leading-relaxed text-ink-soft">{t("bookIntro")}</p>
+          </div>
+          <BookingWidget showHeading={false} anchorId={null} />
         </div>
       </section>
 
-      <section
-        id="reservar"
-        className="relative scroll-mt-24 overflow-hidden bg-sage-pale/40 bg-fade-honey px-5 py-14 sm:px-8 sm:py-20"
-      >
-        <div className="relative mx-auto max-w-5xl">
-          <RevealMask className="text-center">
-            <span className="pill">{t("bookEyebrow")}</span>
-            <h2 className="mt-4 font-display text-4xl text-ink sm:text-5xl">{t.rich("bookTitle", { kw })}</h2>
-          </RevealMask>
-          <Reveal delay={0.1} className="mt-10">
-            <BookingWidget />
+      <section aria-labelledby="rooms-heading" className="bg-cream-soft px-5 pb-12 pt-8 sm:px-8 sm:pb-20 sm:pt-12">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div className="max-w-xl">
+                <p className="eyebrow text-terracotta">{t("roomsEyebrow")}</p>
+                <h2 id="rooms-heading" className="section-title mt-3 text-4xl text-ink sm:text-5xl">{t("roomsTitle")}</h2>
+                <p className="mt-4 leading-relaxed text-ink-soft">{t("roomsIntro")}</p>
+              </div>
+              <Link href="/servicios" className="text-link shrink-0">{t("allRooms")} <span aria-hidden="true">↗</span></Link>
+            </div>
+          </Reveal>
+          <div className="mt-9 grid gap-6 md:grid-cols-3">
+            {FEATURED_ROOMS.map((type) => <RoomShowcaseCard key={type} type={type} />)}
+          </div>
+          <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-tan/25 pt-8 sm:grid-cols-4">
+            {stats.map((stat) => (
+              <div key={stat.label}>
+                <dt className="text-xs font-medium uppercase tracking-[0.12em] text-ink-soft">{stat.label}</dt>
+                <dd className="mt-2 font-display text-3xl text-sage-deep">{stat.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <section aria-labelledby="welcome-heading" className="relative overflow-hidden bg-fade-welcome px-5 py-16 sm:px-8 sm:py-24">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-[0.85fr_1.15fr] md:gap-20">
+          <div className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-t-[8rem] rounded-b-2xl">
+            <Image src={roomPhotos("deluxe_extragrande")[0]} alt={t("welcomeImageAlt")} fill sizes="(min-width: 768px) 384px, 100vw" className="object-cover" />
+          </div>
+          <Reveal>
+            <p className="eyebrow text-terracotta">{t("welcomeEyebrow")}</p>
+            <h2 id="welcome-heading" className="section-title mt-4 max-w-lg text-4xl text-ink sm:text-5xl">{t.rich("welcomeTitle", { kw })}</h2>
+            <p className="mt-6 max-w-lg leading-relaxed text-ink-soft">{t("welcomeText")}</p>
+            <div className="mt-8 grid grid-cols-1 gap-5 border-t border-tan/30 pt-6 sm:grid-cols-3">
+              {(["nature", "rest", "honest"] as const).map((key) => (
+                <div key={key}>
+                  <h3 className="font-display text-base text-sage-deep">{tv(key + ".title")}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">{tv(key + ".desc")}</p>
+                </div>
+              ))}
+            </div>
+            <Link href="/nosotros" className="text-link mt-8">{t("welcomeCta")}</Link>
           </Reveal>
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-fade-sage px-5 py-14 sm:px-8 sm:py-20">
-        <div className="relative mx-auto max-w-6xl">
-          <RevealMask className="text-center">
-            <span className="pill">{t("exploreEyebrow")}</span>
-            <h2 className="mt-4 font-display text-4xl text-ink sm:text-5xl">{t.rich("exploreTitle", { kw })}</h2>
-          </RevealMask>
-
-          <div className="mt-12 grid gap-6 sm:grid-cols-3">
-            {cards.map((card, i) => (
-              <RevealCard key={card.href} delay={i * 0.12}>
-                <Link href={card.href} className="group block overflow-hidden rounded-[2rem]">
-                  <div className="relative aspect-[4/5] overflow-hidden">
-                    <Image
-                      src={card.img}
-                      alt={card.title}
-                      fill
-                      sizes="(min-width: 640px) 33vw, 100vw"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
-                    <span className="absolute left-5 top-5 flex h-9 w-9 items-center justify-center rounded-full border border-cream/40 bg-ink/30 font-display text-sm text-cream backdrop-blur-sm">
-                      0{i + 1}
-                    </span>
-                    <div className="absolute bottom-0 left-0 p-6">
-                      <p className="font-display text-2xl text-cream">{card.title}</p>
-                      <p className="mt-1 text-sm text-cream/80">{card.desc}</p>
-                    </div>
-                  </div>
-                </Link>
-              </RevealCard>
-            ))}
+      <section aria-labelledby="experience-heading" className="bg-night px-5 py-16 text-star sm:px-8 sm:py-24">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+            <Image src={IMAGES.observatory} alt={tn("secondaryImageAlt")} fill sizes="(min-width: 768px) 55vw, 100vw" className="object-cover" />
           </div>
+          <Reveal>
+            <p className="eyebrow text-celestial">{t("experienceEyebrow")}</p>
+            <h2 id="experience-heading" className="section-title mt-4 text-4xl sm:text-5xl">{tn("title")}</h2>
+            <p className="mt-6 leading-relaxed text-star/80">{t("experienceIntro")}</p>
+            <p className="mt-4 text-sm text-star/65">{tn("experienceText2")}</p>
+            <Link href="/novedad" className="mt-8 inline-flex min-h-11 items-center gap-3 border-b border-celestial/60 pb-1 text-sm font-medium text-celestial transition-colors hover:text-star">
+              {t("experienceCta")} <span aria-hidden="true">↗</span>
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="bg-cream-soft px-5 py-16 sm:px-8 sm:py-20">
+        <div className="mx-auto flex max-w-6xl flex-col gap-7 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="section-title text-3xl text-ink sm:text-4xl">{t("closingTitle")}</h2>
+            <p className="mt-3 text-ink-soft">{t("closingText")}</p>
+          </div>
+          <Link href="/reservas" className="btn-primary self-start sm:shrink-0">{t("heroCta")} <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
     </>

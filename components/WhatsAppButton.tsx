@@ -1,59 +1,55 @@
-import { getTranslations } from "next-intl/server";
-import { whatsappHref } from "@/lib/whatsapp";
+"use client";
 
-// Botón flotante fijo en todas las páginas — anillo de pulso continuo estilo
-// "disponible ahora" para que destaque sobre el fondo arena sin depender de
-// hover (la mayoría del tráfico es móvil).
-//
-// El anillo usa `animate-ping` nativo de Tailwind (CSS puro) en vez de
-// keyframes de Framer Motion con valores duplicados ([1.8, 1.8]) — ese
-// patrón deja el anillo "congelado" invisible en la segunda mitad del ciclo
-// y luego salta de golpe (opacity 0 → 0.55 en un frame) al reiniciar,
-// leyéndose como un corte abrupto. `animate-ping` evita esto: el anillo
-// reaparece a escala 1 (exactamente detrás del botón sólido), así que el
-// reinicio del loop queda oculto sin ningún salto visible. También hereda
-// gratis la regla global de prefers-reduced-motion de globals.css, así que
-// no necesita su propio guard de accesibilidad.
-export async function WhatsAppButton() {
-  const t = await getTranslations("whatsapp");
-  const href = whatsappHref(t("defaultMessage"));
+import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
+import { whatsappHref } from "@/lib/whatsapp";
+import { WhatsAppIcon } from "./SocialIcons";
+
+const GREETING_KEY = "apu-whatsapp-greeted";
+
+export function WhatsAppButton() {
+  const t = useTranslations("whatsapp");
+  const [showGreeting, setShowGreeting] = useState(false);
+
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem(GREETING_KEY)) return;
+    } catch {
+      // The contact link also works when browser storage is unavailable.
+    }
+    const reveal = window.setTimeout(() => {
+      try { sessionStorage.setItem(GREETING_KEY, "1"); } catch {}
+      const focused = document.activeElement;
+      if (focused instanceof HTMLElement && (focused.matches("input, textarea, select") || focused.closest("#reservar"))) return;
+      setShowGreeting(true);
+    }, 4000);
+    const hide = window.setTimeout(() => setShowGreeting(false), 11000);
+    const onFocus = (event: FocusEvent) => {
+      const target = event.target;
+      if (target instanceof HTMLElement && (target.matches("input, textarea, select") || target.closest("#reservar"))) setShowGreeting(false);
+    };
+    document.addEventListener("focusin", onFocus);
+    return () => {
+      window.clearTimeout(reveal);
+      window.clearTimeout(hide);
+      document.removeEventListener("focusin", onFocus);
+    };
+  }, []);
 
   return (
-    <div className="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 sm:bottom-7 sm:right-7">
-      {/* Burbuja de invitación — aparece con un pequeño retraso (no compite
-          con la animación de entrada del resto de la página) y se queda
-          fija ahí, como una invitación permanente a escribir, no un tooltip
-          que dependa de hover (la mayoría del tráfico es móvil, sin hover). */}
-      <span
-        className="animate-whatsapp-greet-in max-w-[11rem] rounded-2xl rounded-br-sm bg-cream-soft px-3.5 py-2.5 text-xs font-medium leading-snug text-ink shadow-lg shadow-ink/15 sm:max-w-[13rem] sm:text-sm"
-        style={{ animationDelay: "1.1s" }}
-      >
-        {t("greeting")}
-      </span>
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Escríbenos por WhatsApp"
-        className="group relative flex h-14 w-14 shrink-0 items-center justify-center"
-      >
-        <span
-          className="absolute inset-0 animate-ping rounded-full bg-[#25d366] opacity-60"
-          style={{ animationDuration: "2.2s" }}
-        />
-        <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366] text-cream shadow-lg shadow-ink/30 transition-transform group-hover:scale-105 group-active:scale-95">
-          <WhatsAppIcon className="h-7 w-7" />
-        </span>
+    <div className="fixed bottom-4 right-4 z-40 flex items-end gap-3 sm:bottom-6 sm:right-6">
+      {showGreeting && (
+        <div className="animate-whatsapp-greet-in relative max-w-[min(15rem,calc(100vw-6.5rem))] rounded-xl border border-sage-pale bg-cream-soft p-4 pr-9 text-sm leading-relaxed text-ink shadow-lg shadow-ink/10">
+          {t("greeting")}
+          <button type="button" onClick={() => setShowGreeting(false)} aria-label={t("dismiss")}
+            className="absolute right-0 top-0 flex h-9 w-9 items-center justify-center rounded-lg text-ink-soft hover:text-sage-deep">×</button>
+        </div>
+      )}
+      <a href={whatsappHref(t("defaultMessage"))} target="_blank" rel="noopener noreferrer" aria-label={t("label")}
+        onClick={() => setShowGreeting(false)}
+        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-sage-deep text-cream shadow-md shadow-ink/20 transition-colors hover:bg-sage sm:h-13 sm:w-13">
+        <WhatsAppIcon className="h-6 w-6" />
       </a>
     </div>
-  );
-}
-
-function WhatsAppIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.6.1-1.4-.7-2.4-1.4-3.3-2.9-.2-.3-.1-.5.1-.7.2-.2.5-.6.7-.8.2-.2.2-.4.1-.6-.1-.2-.7-1.7-1-2.3-.2-.5-.5-.4-.7-.4-.2 0-.5 0-.7.2-.7.7-1 1.5-1 2.5.1 1.7 1 3.4 2.4 4.8 1.7 1.7 3.2 2.4 5 2.5.9 0 1.6-.2 2.2-.8.4-.4.7-1 .8-1.6.1-.3 0-.5-.3-.7z" />
-      <path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3Z" strokeWidth="0" />
-    </svg>
   );
 }

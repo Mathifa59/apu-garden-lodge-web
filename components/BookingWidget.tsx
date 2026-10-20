@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { ApiError, checkAvailability, createBookingRequest, type AvailabilityResponse, type RoomType } from "@/lib/api";
 import { DateField } from "./DateField";
@@ -16,11 +16,11 @@ function toIso(date: string, time: string) {
   return `${date}T${time}`;
 }
 
-export function BookingWidget() {
+export function BookingWidget({ showHeading = true, anchorId = "reservar" }: { showHeading?: boolean; anchorId?: string | null }) {
+  const reduceMotion = useReducedMotion();
   const t = useTranslations("booking");
   const tr = useTranslations("rooms");
   const locale = useLocale();
-  const [name, setName] = useState("");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState(2);
@@ -63,27 +63,15 @@ export function BookingWidget() {
   }
 
   return (
-    <div id="reservar" className="rounded-[2rem] border border-sage-pale bg-cream-soft p-6 shadow-xl shadow-ink/5 sm:p-8">
-      <p className="font-display text-2xl text-sage-deep">{t("title")}</p>
-      <p className="mt-1 text-sm text-ink-soft">{t("subtitle")}</p>
+    <div id={anchorId ?? undefined} className="scroll-mt-28 rounded-2xl border border-sage-pale bg-cream-soft p-5 shadow-lg shadow-ink/5 sm:p-7">
+      {showHeading && (
+        <div className="mb-6">
+          <p className="font-display text-2xl text-sage-deep">{t("title")}</p>
+          <p className="mt-1 text-sm text-ink-soft">{t("subtitle")}</p>
+        </div>
+      )}
 
-      {/* Nombre arriba de todo, separado de fechas/huéspedes: se puede
-          escribir de entrada, pero NO condiciona que aparezcan resultados —
-          eso sigue dependiendo solo de fechas + huéspedes + "Consultar" (ver
-          search()). Se precarga en el formulario de solicitud de abajo para
-          no pedirlo dos veces. */}
-      <div className="mt-6">
-        <Field label={t("fullName")}>
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder={t("fullName")}
-            className="w-full rounded-xl border border-sage-pale bg-cream px-3.5 py-2.5 text-sm text-ink outline-none transition focus:border-sage focus:ring-2 focus:ring-sage/25"
-          />
-        </Field>
-      </div>
-
-      <div className="mt-4 grid gap-4 sm:grid-cols-[1fr_1fr_auto_auto]">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_auto_auto]">
         <Field label={t("arrival")}>
           <DateField value={checkIn} onChange={setCheckIn} min={today} />
         </Field>
@@ -116,21 +104,22 @@ export function BookingWidget() {
           <button
             onClick={search}
             disabled={loading}
-            className="w-full rounded-xl bg-terracotta px-6 py-2.5 font-ui text-sm font-semibold text-cream transition-all hover:bg-terracotta-bright active:scale-95 disabled:opacity-60 sm:w-auto"
+            className="min-h-11 w-full rounded-xl bg-sage-deep px-6 py-2.5 font-ui text-sm font-semibold text-cream transition-colors hover:bg-sage disabled:opacity-60"
           >
             {loading ? t("searching") : t("search")}
           </button>
         </div>
       </div>
 
-      {error && <p className="mt-4 text-sm text-terracotta">{error}</p>}
+      {error && <p role="alert" className="mt-4 text-sm text-terracotta">{error}</p>}
 
       <AnimatePresence mode="wait">
         {result && (
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: reduceMotion ? 0 : 0.2 }}
             className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
           >
             {result.room_types.map((rt) => (
@@ -195,7 +184,6 @@ export function BookingWidget() {
             checkIn={toIso(checkIn, CHECK_IN_TIME)}
             checkOut={toIso(checkOut, CHECK_OUT_TIME)}
             guests={guests}
-            initialName={name}
             onClose={() => setSelectedType(null)}
           />
         )}
@@ -231,22 +219,19 @@ function RequestForm({
   checkIn,
   checkOut,
   guests,
-  initialName,
   onClose,
 }: {
   roomType: RoomType;
   checkIn: string;
   checkOut: string;
   guests: number;
-  // Precargado desde el nombre que ya se escribió arriba en el buscador —
-  // para no pedírselo dos veces al huésped.
-  initialName: string;
   onClose: () => void;
 }) {
   const t = useTranslations("booking");
   const tr = useTranslations("rooms");
   const locale = useLocale();
-  const [name, setName] = useState(initialName);
+  const [name, setName] = useState("");
+  const reduceMotion = useReducedMotion();
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
@@ -285,7 +270,7 @@ function RequestForm({
       initial={{ opacity: 0, height: 0 }}
       animate={{ opacity: 1, height: "auto" }}
       exit={{ opacity: 0, height: 0 }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: reduceMotion ? 0 : 0.2, ease: "easeOut" }}
       className="overflow-hidden"
     >
       <div className="mt-6 rounded-2xl border border-sage-pale bg-cream p-5 sm:p-6">

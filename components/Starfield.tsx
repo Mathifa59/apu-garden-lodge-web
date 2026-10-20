@@ -1,6 +1,6 @@
 // Posiciones fijas (no Math.random en cada render) para que el HTML del
 // servidor y el del cliente coincidan exactamente — son solo decorativas.
-const STARS = Array.from({ length: 70 }, (_, i) => {
+const STARS = Array.from({ length: 36 }, (_, i) => {
   const seed = i * 137.508;
   return {
     top: (seed * 1.9) % 100,

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { Reveal } from "@/components/Reveal";
 import { RevealCard } from "@/components/RevealCard";
 import { RevealMask } from "@/components/RevealMask";
 import { RoomShowcaseCard } from "@/components/RoomShowcaseCard";

@@ -45,15 +45,17 @@
   },
   "nav": {
     "home": "Inicio",
-    "services": "Servicios",
-    "whatsNew": "Novedad",
+    "services": "Habitaciones y servicios",
+    "whatsNew": "Experiencias",
     "about": "Nosotros",
     "booking": "Reservas",
     "contact": "Contacto",
     "reserve": "Reservar",
     "language": "Idioma",
     "openMenu": "Abrir menú",
-    "closeMenu": "Cerrar menú"
+    "closeMenu": "Cerrar menú",
+    "mainNavigation": "Navegación principal",
+    "switchLanguage": "Cambiar a inglés"
   },
   "footer": {
     "tagline": "Descanso, naturaleza y experiencia entre montañas — tu refugio para desconectar y mirar el cielo como nunca antes.",
@@ -68,10 +70,18 @@
   },
   "whatsapp": {
     "defaultMessage": "Hola, me gustaría hacer una reserva o consultar disponibilidad en Apu Garden Lodge.",
-    "greeting": "¿Quieres pasarla increíble con nosotros? Escríbenos"
+    "greeting": "¿Te ayudamos a planear tu estadía? Escríbenos.",
+    "label": "Escríbenos por WhatsApp",
+    "dismiss": "Ocultar saludo"
   },
   "rooms": {
     "sizeLabel": "{size} m²",
+    "viewRoom": "Ver habitación",
+    "openGallery": "Ver fotos de {room}",
+    "previousPhoto": "Foto anterior",
+    "nextPhoto": "Foto siguiente",
+    "photoNumber": "Foto {number}",
+    "closeGallery": "Cerrar galería",
     "viewHeading": "Vista a",
     "bathroomHeading": "En el baño privado",
     "equipmentHeading": "Equipamiento de la habitación",
@@ -138,6 +148,9 @@
     "searching": "Buscando…",
     "search": "Consultar",
     "pickDates": "Elige las fechas de llegada y salida.",
+    "datePlaceholder": "dd/mm/aaaa",
+    "previousMonth": "Mes anterior",
+    "nextMonth": "Mes siguiente",
     "checkoutAfterCheckin": "La fecha de salida debe ser posterior a la de llegada.",
     "genericError": "No pudimos procesar tu solicitud, intenta de nuevo en un momento.",
     "available": "Disponible",
@@ -182,7 +195,17 @@
     "cardNovedadTitle": "Novedad",
     "cardNovedadDesc": "Un telescopio para ver el cielo distinto.",
     "cardNosotrosTitle": "Nosotros",
-    "cardNosotrosDesc": "La historia detrás del lodge."
+    "cardNosotrosDesc": "La historia detrás del lodge.",
+    "bookIntro": "Elige tus fechas. Nuestro equipo te confirma la reserva personalmente.",
+    "roomsEyebrow": "Tu espacio en el valle",
+    "roomsTitle": "El descanso empieza aquí",
+    "roomsIntro": "Habitaciones con baño privado, luz natural y detalles para sentirte a gusto. Encuentra la que acompaña tu forma de viajar.",
+    "allRooms": "Ver los 5 tipos de habitación",
+    "experienceEyebrow": "Más allá de tu habitación",
+    "experienceIntro": "Cuando cae la noche, el Valle Sagrado invita a mirar hacia arriba. Descubre el cielo con nuestro telescopio: una experiencia incluida para huéspedes del lodge.",
+    "experienceCta": "Descubre la experiencia astronómica",
+    "closingTitle": "Tu próxima pausa, entre montañas",
+    "closingText": "Consulta disponibilidad o escríbenos. Te ayudamos a preparar tu visita."
   },
   "servicios": {
     "eyebrow": "Servicios",

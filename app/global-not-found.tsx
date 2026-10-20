@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Bricolage_Grotesque, Outfit } from "next/font/google";
 import "./globals.css";
 import { SITE_URL } from "@/lib/seo";
@@ -51,18 +52,18 @@ export default function GlobalNotFound() {
               cambiado de dirección.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-              <a
+              <Link
                 href="/"
                 className="rounded-full bg-terracotta px-5 py-2.5 font-ui text-sm font-semibold text-cream transition-all hover:bg-terracotta-bright hover:shadow-lg active:scale-95"
               >
                 Volver al inicio
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/servicios"
                 className="rounded-full border border-ink/15 px-5 py-2.5 font-ui text-sm font-semibold text-ink-soft transition-colors hover:border-terracotta/40 hover:text-terracotta"
               >
                 Ver habitaciones
-              </a>
+              </Link>
             </div>
           </div>
         </div>

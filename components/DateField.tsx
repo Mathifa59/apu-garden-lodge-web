@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 // Reemplaza <input type="date"> — su selector nativo (el panel azul de dos
 // columnas del sistema operativo) no se puede re-pintar con los colores de
@@ -51,7 +51,7 @@ export function DateField({
   value,
   onChange,
   min,
-  placeholder = "dd/mm/aaaa",
+  placeholder,
 }: {
   value: string;
   onChange: (value: string) => void;
@@ -61,6 +61,7 @@ export function DateField({
   placeholder?: string;
 }) {
   const locale = useLocale();
+  const t = useTranslations("booking");
   const [open, setOpen] = useState(false);
   const [coords, setCoords] = useState<{ top: number; left: number } | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -70,6 +71,7 @@ export function DateField({
   const [viewMonth, setViewMonth] = useState(() => selected ?? minDate ?? new Date());
 
   function openPopover() {
+    setViewMonth(selected ?? minDate ?? new Date());
     const rect = buttonRef.current!.getBoundingClientRect();
     // Documento (no viewport): +scrollY/scrollX, para que la posición
     // calculada una sola vez al abrir siga alineada con el botón aunque la
@@ -125,13 +127,14 @@ export function DateField({
 
   const display = selected
     ? new Intl.DateTimeFormat(locale, { day: "2-digit", month: "2-digit", year: "numeric" }).format(selected)
-    : placeholder;
+    : (placeholder ?? t("datePlaceholder"));
 
   return (
     <>
       <button
         ref={buttonRef}
         type="button"
+        aria-expanded={open}
         onClick={() => (open ? setOpen(false) : openPopover())}
         className={`flex w-full items-center justify-between rounded-xl border border-sage-pale bg-cream px-3.5 py-2.5 text-left text-sm outline-none transition focus:border-sage focus:ring-2 focus:ring-sage/25 ${
           selected ? "text-ink" : "text-ink-soft/60"
@@ -163,7 +166,7 @@ export function DateField({
                 type="button"
                 onClick={() => setViewMonth(new Date(viewMonth.getFullYear(), viewMonth.getMonth() - 1, 1))}
                 className="rounded-md p-1 text-ink-soft transition hover:bg-sage-pale/50 hover:text-sage-deep"
-                aria-label="Mes anterior"
+                aria-label={t("previousMonth")}
               >
                 ‹
               </button>
@@ -177,7 +180,7 @@ export function DateField({
                 type="button"
                 onClick={() => setViewMonth(new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 1))}
                 className="rounded-md p-1 text-ink-soft transition hover:bg-sage-pale/50 hover:text-sage-deep"
-                aria-label="Mes siguiente"
+                aria-label={t("nextMonth")}
               >
                 ›
               </button>

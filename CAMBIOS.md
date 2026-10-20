@@ -396,3 +396,63 @@ marca en `/x` y `/en/x`; el idioma sigue en español aun con cookie
 `NEXT_LOCALE=en` y `Accept-Language: en`; validación de ambas APIs
 (`/api/libro-de-reclamaciones`, `/api/contacto`) con 400 en casos inválidos;
 formulario revisado en móvil (375px) sin desbordes.
+
+
+---
+
+# Tanda 2026-10-20 — jerarquía visual y experiencia más tranquila
+
+## Cambios
+
+- Inicio: hero más ligero, consulta de fechas inmediatamente después del hero,
+  tres habitaciones destacadas, datos estáticos en una sola franja, bienvenida
+  editorial, bloque astronómico y llamada final a reservar.
+- Se reutilizan las fotografías reales disponibles; no se agregaron imágenes
+  que pretendan representar instalaciones que no están fotografiadas.
+- Navegación ES/EN: “Habitaciones y servicios” / “Rooms & services” y
+  “Experiencias” / “Experiences”. Las rutas existentes se conservan.
+- Menú activo claro con subrayado sobre fotos; navegación oscura sobre las
+  páginas legales. Menú móvil cierra al navegar y al cambiar de idioma.
+- Bricolage Grotesque y Outfit conservadas, con títulos más ligeros y mejor
+  jerarquía. Arena más clara, degradados suaves y acciones principales en oliva.
+- Consulta inicial sin nombre: fechas y huéspedes primero; los datos personales
+  siguen en el formulario de solicitud. Contrato con la API de gestión intacto.
+- Galerías con botones visibles en táctil, textos traducidos, diálogo en portal,
+  foco contenido/restaurado, Escape y cierre accesible.
+- Entradas breves sin rebotes, cortinas ni tarjetas flotantes. Valoración Google
+  y estadísticas estáticas. Estrellas más discretas y respeto a movimiento reducido.
+- WhatsApp sin pulso: saludo a los 4 s, se recoge a los 11 s, se puede cerrar y
+  se muestra una sola vez por sesión. Se oculta al enfocar los formularios.
+- Calendario con placeholder y controles ES/EN; al abrir muestra el mes de la
+  selección o la fecha mínima.
+- Retirado Counter sin consumidores; eliminados imports sin usar y sustituidos
+  los enlaces internos del 404 por Link para dejar el lint limpio.
+
+## Verificación
+
+- npm run lint correcto.
+- npm run build correcto, incluida la comprobación TypeScript. El build muestra
+  dos avisos de metadataBase al prerenderizar imágenes sociales.
+- 23 rutas públicas/recursos responden 200; rutas inexistentes, incluidas las
+  que tienen extensión, responden 404.
+- 462 claves de traducción por idioma, sin diferencias de estructura.
+- Revisión visual en escritorio y móvil (320, 375, 1024, 1280 y 1440 px),
+  sin desborde horizontal en las vistas comprobadas.
+- Verificados ancla de reservas, validación de fechas vacías, selección de días,
+  cambio de idioma, menú móvil, carrusel, Escape y restauración de foco.
+- Sin errores de consola en la vista previa comprobada.
+- No se enviaron reservas ni correos reales durante las comprobaciones.
+
+## Estado
+
+Versión verificada y preparada para producción. Apu Gestion System y la
+infraestructura no se modificaron. La vista previa usa el build standalone en
+http://localhost:3002 con HOSTNAME=localhost (en Windows, next start con este
+output provocaba un bucle de redirección para el idioma por defecto).
+
+Despliegue solicitado el 2026-10-20: las dos llaves locales disponibles fueron
+rechazadas por el usuario deploy del VPS (Permission denied, publickey). Los
+últimos workflows de GitHub también figuran fallidos. Producción sigue pendiente
+de restablecer acceso. El push de esta tanda omite Actions para evitar que el
+script compartido reconstruya gestión o aplique migraciones; el despliegue debe
+limitarse al servicio web, conservando los demás contenedores.

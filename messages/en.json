@@ -45,15 +45,17 @@
   },
   "nav": {
     "home": "Home",
-    "services": "Services",
-    "whatsNew": "What's New",
+    "services": "Rooms & services",
+    "whatsNew": "Experiences",
     "about": "About",
     "booking": "Booking",
     "contact": "Contact",
     "reserve": "Book now",
     "language": "Language",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "mainNavigation": "Main navigation",
+    "switchLanguage": "Switch to Spanish"
   },
   "footer": {
     "tagline": "Rest, nature and experience among the mountains — your refuge to disconnect and look at the sky like never before.",
@@ -68,10 +70,18 @@
   },
   "whatsapp": {
     "defaultMessage": "Hi, I'd like to make a reservation or check availability at Apu Garden Lodge.",
-    "greeting": "Want to have an amazing time with us? Message us"
+    "greeting": "Need help planning your stay? Message us.",
+    "label": "Message us on WhatsApp",
+    "dismiss": "Dismiss greeting"
   },
   "rooms": {
     "sizeLabel": "{size} m²",
+    "viewRoom": "View room",
+    "openGallery": "View photos of {room}",
+    "previousPhoto": "Previous photo",
+    "nextPhoto": "Next photo",
+    "photoNumber": "Photo {number}",
+    "closeGallery": "Close gallery",
     "viewHeading": "View of",
     "bathroomHeading": "In the private bathroom",
     "equipmentHeading": "Room amenities",
@@ -138,6 +148,9 @@
     "searching": "Searching…",
     "search": "Check",
     "pickDates": "Pick your arrival and departure dates.",
+    "datePlaceholder": "mm/dd/yyyy",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
     "checkoutAfterCheckin": "Departure date must be after the arrival date.",
     "genericError": "We couldn't process your request, please try again in a moment.",
     "available": "Available",
@@ -182,7 +195,17 @@
     "cardNovedadTitle": "What's New",
     "cardNovedadDesc": "A telescope to see the sky differently.",
     "cardNosotrosTitle": "About Us",
-    "cardNosotrosDesc": "The story behind the lodge."
+    "cardNosotrosDesc": "The story behind the lodge.",
+    "bookIntro": "Choose your dates. Our team will personally confirm your reservation.",
+    "roomsEyebrow": "Your space in the valley",
+    "roomsTitle": "Rest begins here",
+    "roomsIntro": "Rooms with private bathrooms, natural light, and thoughtful details. Find the one that fits the way you travel.",
+    "allRooms": "Explore all 5 room types",
+    "experienceEyebrow": "Beyond your room",
+    "experienceIntro": "When night falls, the Sacred Valley invites you to look up. Discover the sky through our telescope: an experience included for lodge guests.",
+    "experienceCta": "Discover the stargazing experience",
+    "closingTitle": "Your next pause, among the mountains",
+    "closingText": "Check availability or send us a message. We'll help you plan your visit."
   },
   "servicios": {
     "eyebrow": "Services",

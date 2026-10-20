@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 interface FaqItem {
   q: string;
@@ -9,6 +9,7 @@ interface FaqItem {
 }
 
 export function FaqAccordion({ items }: { items: FaqItem[] }) {
+  const reduceMotion = useReducedMotion();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -36,7 +37,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: reduceMotion ? 0 : 0.2, ease: "easeOut" }}
                   className="overflow-hidden"
                 >
                   <p className="pb-5 text-sm text-ink-soft">{item.a}</p>

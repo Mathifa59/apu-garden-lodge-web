@@ -125,7 +125,7 @@ export function ContactMessageForm() {
       <button
         onClick={submit}
         disabled={submitting || !requiredFilled}
-        className="mt-5 w-full rounded-xl bg-terracotta px-6 py-2.5 font-ui text-sm font-semibold text-cream transition-all hover:bg-terracotta-bright active:scale-95 disabled:opacity-60 sm:w-auto"
+        className="mt-5 min-h-11 w-full rounded-xl bg-sage-deep px-6 py-2.5 font-ui text-sm font-medium text-cream transition-colors hover:bg-sage disabled:opacity-60 sm:w-auto"
       >
         {submitting ? t("sending") : t("submit")}
       </button>

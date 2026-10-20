@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 import type { RoomType } from "@/lib/api";
 
@@ -19,6 +20,33 @@ export function RoomDetailModal({
 }) {
   const t = useTranslations("rooms");
   const [index, setIndex] = useState(0);
+  const titleId = useId();
+  const panelRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const previousFocus = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus({ preventScroll: true });
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") { event.preventDefault(); onClose(); }
+      if (event.key !== "Tab") return;
+      const buttons = panelRef.current?.querySelectorAll<HTMLButtonElement>("button:not([disabled])");
+      if (!buttons?.length) return;
+      const first = buttons[0];
+      const last = buttons[buttons.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    }
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", onKey);
+      if (previousFocus instanceof HTMLElement) previousFocus.focus({ preventScroll: true });
+    };
+  }, [onClose]);
 
   const label = t(`${type}.label`);
   const description = t(`${type}.description`);
@@ -33,24 +61,33 @@ export function RoomDetailModal({
     setIndex((i) => (i + delta + photos.length) % photos.length);
   }
 
-  return (
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
+        transition={{ duration: reduceMotion ? 0 : 0.18 }}
         onClick={onClose}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-ink/85 p-4 sm:p-8"
+        className="fixed inset-0 z-[70] flex items-center justify-center bg-ink/80 p-4 sm:p-8"
       >
         <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 12 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.96, y: 12 }}
-          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          ref={panelRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={titleId}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: reduceMotion ? 0 : 0.18 }}
           onClick={(e) => e.stopPropagation()}
-          className="grid max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-[1.75rem] bg-cream sm:grid-cols-[1.3fr_1fr]"
+          className="relative grid max-h-[calc(100svh-2rem)] w-full max-w-4xl overflow-y-auto rounded-2xl bg-cream-soft md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:overflow-hidden"
         >
-          <div className="relative flex flex-col bg-ink">
+          <button ref={closeRef} type="button" onClick={onClose} aria-label={t("closeGallery")}
+            className="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-cream-soft text-xl text-ink shadow-sm hover:bg-cream-deep">×</button>
+          <div className="relative flex min-w-0 flex-col bg-ink">
             <div className="relative aspect-[4/3]">
               <Image
                 key={index}
@@ -64,14 +101,14 @@ export function RoomDetailModal({
                 <>
                   <button
                     onClick={() => step(-1)}
-                    aria-label="Previous photo"
+                    aria-label={t("previousPhoto")}
                     className="absolute left-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-ink/50 text-lg text-cream transition hover:bg-ink/70"
                   >
                     ‹
                   </button>
                   <button
                     onClick={() => step(1)}
-                    aria-label="Next photo"
+                    aria-label={t("nextPhoto")}
                     className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-ink/50 text-lg text-cream transition hover:bg-ink/70"
                   >
                     ›
@@ -85,6 +122,8 @@ export function RoomDetailModal({
                   <button
                     key={p}
                     onClick={() => setIndex(i)}
+                    aria-label={t("photoNumber", { number: i + 1 })}
+                    aria-pressed={i === index}
                     className={`relative h-12 w-16 shrink-0 overflow-hidden rounded-lg transition ${
                       i === index ? "ring-2 ring-honey" : "opacity-60 hover:opacity-100"
                     }`}
@@ -96,15 +135,8 @@ export function RoomDetailModal({
             )}
           </div>
 
-          <div className="flex flex-col overflow-y-auto p-6 sm:p-8">
-            <button
-              onClick={onClose}
-              aria-label="Close"
-              className="ml-auto text-ink-soft transition hover:text-terracotta"
-            >
-              ✕
-            </button>
-            <p className="font-display text-2xl text-ink">{label}</p>
+          <div className="flex flex-col p-6 md:max-h-[80svh] md:overflow-y-auto md:p-8 md:pt-16">
+            <h2 id={titleId} className="font-display text-2xl text-ink">{label}</h2>
 
             <div className="mt-3 flex flex-wrap gap-1.5">
               <Tag>{t("sizeLabel", { size })}</Tag>
@@ -124,7 +156,8 @@ export function RoomDetailModal({
           </div>
         </motion.div>
       </motion.div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
 
