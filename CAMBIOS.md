@@ -319,9 +319,16 @@ caso. Bypasea el árbol de layouts normal, así que trae su propio
 `<html>`/`<body>`/fuentes, y el copy va fijo en español (no pasa por
 next-intl, sin locale de request).
 
-**Archivos:** `app/global-not-found.tsx`, `next.config.ts`,
-`app/[locale]/not-found.tsx` (red de seguridad para `notFound()` disparado
-dentro de una ruta ya resuelta).
+**Archivos:** `app/global-not-found.tsx`, `next.config.ts`.
+
+**Corrección 2026-10-20:** esta tanda había dejado también un
+`app/[locale]/not-found.tsx` "de red de seguridad". Era un error: para
+rutas con punto (`/nada.jpg`, `/wp-login.php`) el middleware no interviene
+(el matcher excluye `.*\..*`), `[locale]` toma "nada.jpg" como idioma, el
+layout llama `notFound()` y ese archivo usaba `getTranslations()` →
+`headers()` dentro de una página estática → "Page changed from static to
+dynamic" → **500** en vez de 404. Se eliminó; `global-not-found.tsx` cubre
+todos los casos (esas rutas ahora dan 404).
 
 **Nota de proceso:** durante el diagnóstico hubo dos falsos positivos de
 "páginas rotas" (`/terminos`, `/contacto`) que resultaron ser reinicios
