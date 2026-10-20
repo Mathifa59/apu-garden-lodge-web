@@ -344,3 +344,48 @@ Reclamaciones ya envía correos reales por Resend (con la clave del
 sandbox — falta verificar un dominio propio para que la copia de
 cortesía le llegue a cualquier consumidor, no solo a la cuenta de
 Resend).
+
+---
+
+# Tanda 2026-10-20 — imagen de compartir y títulos
+
+## 1. Imagen de compartir (Open Graph) era una tarjeta crema con un logo
+
+**Problema:** al compartir el link por WhatsApp/Facebook salía un fondo
+casi blanco con un logo, sin ninguna foto del hotel.
+
+**Solución:** `app/opengraph-image.jpg` (1200×630, 118 KB) — la foto del
+hero (cama con las montañas del Valle por la ventana) oscurecida, con el
+logo blanco y "Hotel boutique · Urubamba, Valle Sagrado" centrados
+(WhatsApp recorta la miniatura al centro). Reemplaza al
+`opengraph-image.tsx` que generaba un PNG.
+
+**Por qué JPEG estático y no generado:** el PNG que producía `ImageResponse`
+con la foto pesaba **1.6 MB**, y WhatsApp suele descartar previews de más
+de ~300 KB. Se generó una vez (render del `.tsx` + conversión con `sharp`,
+calidad 82) y se commiteó el resultado.
+
+**Cambio de URL:** un archivo estático se sirve en `/opengraph-image.jpg`
+(no en `/opengraph-image`, que ahora da 404). Se actualizaron las 3
+referencias de `app/[locale]/layout.tsx` (Open Graph, Twitter, JSON-LD).
+Para cambiar la foto, reemplazar el `.jpg` por otro de 1200×630 y < 300 KB.
+
+**Caché:** WhatsApp/Facebook cachean el preview por días. Para forzarlo:
+Facebook Sharing Debugger → "Scrape Again", o compartir `...com/?v=2`.
+
+## 2. Marca duplicada en el título de cada página interna
+
+**Causa:** el `template` del título en `layout.tsx` era
+`%s — Apu Garden Lodge`, pero todos los títulos de `messages/*.json` ya
+terminan en "| Apu Garden Lodge" → "Servicios ... | Apu Garden Lodge —
+Urubamba, Valle Sagrado — Apu Garden Lodge" en la pestaña y en Google.
+
+**Solución:** `template: "%s"`.
+
+## Verificación
+
+`tsc` y `npm run build` limpios; 25 rutas (es/en) responden 200; 404 con
+marca en `/x` y `/en/x`; el idioma sigue en español aun con cookie
+`NEXT_LOCALE=en` y `Accept-Language: en`; validación de ambas APIs
+(`/api/libro-de-reclamaciones`, `/api/contacto`) con 400 en casos inválidos;
+formulario revisado en móvil (375px) sin desbordes.
