@@ -47,20 +47,23 @@ export async function generateMetadata({
 
   return {
     metadataBase: new URL(SITE_URL),
-    title: { default: t("title"), template: `%s — Apu Garden Lodge` },
+    // template "%s" a propósito: todos los títulos de messages/*.json ya
+    // traen la marca ("... | Apu Garden Lodge"); con un sufijo acá salía
+    // duplicada en cada pestaña y en Google.
+    title: { default: t("title"), template: "%s" },
     description: t("description"),
     alternates: { canonical: buildCanonical(locale, "/"), languages: buildLanguageAlternates("/") },
     openGraph: {
       siteName: "Apu Garden Lodge",
       locale: locale === "es" ? "es_PE" : "en_US",
       type: "website",
-      images: [{ url: `${SITE_URL}/opengraph-image`, width: 1200, height: 630 }],
+      images: [{ url: `${SITE_URL}/opengraph-image.jpg`, width: 1200, height: 630, type: "image/jpeg" }],
     },
     twitter: {
       card: "summary_large_image",
       title: t("title"),
       description: t("description"),
-      images: [`${SITE_URL}/opengraph-image`],
+      images: [`${SITE_URL}/opengraph-image.jpg`],
     },
   };
 }
@@ -84,7 +87,7 @@ export default async function LocaleLayout({
     description:
       "Hotel boutique en Urubamba, Valle Sagrado, Cusco. Cuartos con baño privado desde S/77 por noche, jardines exuberantes, telescopio astronómico, piscina, spa natural y desayuno botánico.",
     url: SITE_URL,
-    image: `${SITE_URL}/opengraph-image`,
+    image: `${SITE_URL}/opengraph-image.jpg`,
     telephone: "+51937454282",
     priceRange: "$$",
     currenciesAccepted: "PEN, USD",
